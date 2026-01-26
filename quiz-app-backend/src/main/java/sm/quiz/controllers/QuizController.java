@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import sm.quiz.entities.dto.ExplanationDto;
 import sm.quiz.entities.dto.QuestionDto;
 import sm.quiz.entities.dto.QuizResultResponse;
 import sm.quiz.entities.dto.QuizSubmissionRequest;
@@ -34,6 +35,13 @@ public class QuizController {
 	public QuizResultResponse submitQuiz(@RequestBody QuizSubmissionRequest request) {
 		QuizResultResponse quizResponse= quizService.submitQuiz(request);
 		return quizResponse;
+	}
+	
+	@GetMapping("/explanation")
+    public ExplanationDto getExplanation(
+            @RequestParam Long questionId) {
+		ExplanationDto explanation= quizService.getExplanation(questionId);
+		return explanation;
 	}
 
 }
