@@ -73,6 +73,6 @@ export class Auth {
   }
 
   getUserName(): string | null {
-    return this.getUser()?.username ?? null;
+    return this.getUser()?.username ?? '';
   }
 }

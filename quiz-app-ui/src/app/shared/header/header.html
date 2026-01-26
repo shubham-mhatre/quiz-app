@@ -1,0 +1,11 @@
+<mat-toolbar color="primary" class="toolbar">
+  <span class="title" routerLink="/">Quiz App</span>
+
+  <span class="spacer"></span>
+
+  <span class="user">
+    Welcome, {{ username }}
+  </span>
+
+  <button mat-button (click)="logout()">Logout</button>
+</mat-toolbar>

@@ -12,7 +12,6 @@ import { Topicservice } from '../../services/topicservice';
 })
 export class Dashboardcomponent implements OnInit{
 
-  username = '';
 
   topics: Topic[] = [];
   loading = false;
@@ -21,8 +20,7 @@ export class Dashboardcomponent implements OnInit{
     private router: Router,
     private auth: Auth,private topicService: Topicservice,
   ) {
-    const user = this.auth.getUser();
-    this.username = user?.username || '';
+
   }
 
   ngOnInit(): void {
@@ -45,11 +43,6 @@ export class Dashboardcomponent implements OnInit{
 
   startQuiz(topicId: number): void {
     this.router.navigate(['/quiz', topicId]);
-  }
-
-  logout(): void {
-    this.auth.logout();
-    this.router.navigate(['/login']);
   }
 
 }

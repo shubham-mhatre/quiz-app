@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Dashboardcomponent } from './components/dashboardcomponent/dashboardcomponent';
 import { Unauthorized } from './components/unauthorized/unauthorized';
+import { SharedModule } from './shared/shared-module';
 
 
 @NgModule({
@@ -16,7 +17,7 @@ import { Unauthorized } from './components/unauthorized/unauthorized';
     App,
     Login,
     Dashboardcomponent,
-    Unauthorized
+    Unauthorized,
   ],
   imports: [
     FormsModule,
@@ -24,7 +25,8 @@ import { Unauthorized } from './components/unauthorized/unauthorized';
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

@@ -1,13 +1,91 @@
+/* ===== Toolbar ===== */
+mat-toolbar {
+  display: flex;
+  padding: 0 24px;
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  span {
+    font-weight: 500;
+  }
+
+  button {
+    margin-left: 12px;
+  }
+}
+
+/* ===== Page Container ===== */
 .container {
   padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  h2 {
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
 }
 
+/* ===== Topic Cards Grid ===== */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 16px;
 }
 
-.spacer {
-  flex: 1 1 auto;
+/* ===== Topic Card ===== */
+mat-card {
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  mat-card-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  mat-card-content {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.7);
+    flex-grow: 1;
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+
+    button {
+      border-radius: 20px;
+      padding: 4px 20px;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* ===== Empty State ===== */
+p {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.6);
+  margin-top: 40px;
+}
+
+/* ===== Progress Bar ===== */
+mat-progress-bar {
+  margin: 16px 0;
+  border-radius: 4px;
 }
