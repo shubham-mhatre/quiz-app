@@ -11,12 +11,15 @@ export interface LoginResponse {
   username?:string;
 }
 
+export type UserRole = 'ADMIN' | 'USER';
+
 @Injectable({
   providedIn: 'root',
 })
 export class Auth {
   
   private readonly BASE_URL = 'http://localhost:8080/api/auth';
+  
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object
     ,private http: HttpClient) {}
@@ -59,6 +62,10 @@ export class Auth {
 
   getRole(): string | null {
     return this.getUser()?.role ?? null;
+  }
+
+  hasRole(role: UserRole): boolean {
+    return this.getRole() === role;
   }
 
   getUserId(): number | null {

@@ -47,6 +47,11 @@ export class Login {
 
         this.authService.saveUser(res);
         this.router.navigate(['/dashboard']);
+        // if (res.role === 'ADMIN') {
+        //   this.router.navigate(['/admin']);
+        // } else {
+        //   this.router.navigate(['/dashboard']);
+        // }
       });
   }
 }

@@ -8,13 +8,15 @@ import { Login } from './components/login/login';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Dashboardcomponent } from './components/dashboardcomponent/dashboardcomponent';
+import { Unauthorized } from './components/unauthorized/unauthorized';
 
 
 @NgModule({
   declarations: [
     App,
     Login,
-    Dashboardcomponent
+    Dashboardcomponent,
+    Unauthorized
   ],
   imports: [
     FormsModule,
