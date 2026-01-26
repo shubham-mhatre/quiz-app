@@ -6,14 +6,20 @@
 </mat-toolbar>
 
 <div class="container">
+
   <h2>Select a Topic</h2>
 
-  <div class="card-grid">
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+  <div class="card-grid" *ngIf="!loading">
+
     <mat-card *ngFor="let topic of topics">
       <mat-card-title>{{ topic.name }}</mat-card-title>
+
       <mat-card-content>
         {{ topic.description }}
       </mat-card-content>
+
       <mat-card-actions>
         <button mat-raised-button color="primary"
                 (click)="startQuiz(topic.id)">
@@ -21,5 +27,10 @@
         </button>
       </mat-card-actions>
     </mat-card>
+
+    <p *ngIf="topics.length === 0">
+      No topics available
+    </p>
+
   </div>
 </div>
