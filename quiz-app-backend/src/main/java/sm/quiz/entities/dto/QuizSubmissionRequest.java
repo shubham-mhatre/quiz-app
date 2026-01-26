@@ -8,4 +8,5 @@ import lombok.Data;
 public class QuizSubmissionRequest {
 
 	private List<AnswerSubmission> answers;
+	private long userId;
 }

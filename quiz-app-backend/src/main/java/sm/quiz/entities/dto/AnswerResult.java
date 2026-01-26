@@ -10,5 +10,5 @@ public class AnswerResult {
 	private Long questionId;
     private boolean correct;
     private Integer score;
-    private Set<Long> correctOptionIds;
+    private Set<Integer> correctOptionIds;
 }

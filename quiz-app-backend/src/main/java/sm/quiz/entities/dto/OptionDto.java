@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class OptionDto {
 
-	private Long id;
+	private Integer id;
     private String text;
     private Integer order;
 }

@@ -31,10 +31,10 @@ public class AnswerEvaluationService {
         Question question = questionRepository.findById(submission.getQuestionId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid question id"));
 
-        Set<Long> correctOptionIds =
+        Set<Integer> correctOptionIds =
                 answerRepository.findCorrectOptionIds(question.getId());
 
-        Set<Long> selectedOptionIds =
+        Set<Integer> selectedOptionIds =
                 submission.getSelectedOptionIds() == null
                         ? Set.of()
                         : submission.getSelectedOptionIds();
@@ -58,8 +58,8 @@ public class AnswerEvaluationService {
 
     
     private boolean evaluateSingle(
-            Set<Long> correctOptionIds,
-            Set<Long> selectedOptionIds) {
+            Set<Integer> correctOptionIds,
+            Set<Integer> selectedOptionIds) {
 
         if (selectedOptionIds.size() != 1) {
             return false;
@@ -69,8 +69,8 @@ public class AnswerEvaluationService {
     }
     
     private boolean evaluateMultiple(
-            Set<Long> correctOptionIds,
-            Set<Long> selectedOptionIds) {
+            Set<Integer> correctOptionIds,
+            Set<Integer> selectedOptionIds) {
 
         if (selectedOptionIds == null || selectedOptionIds.isEmpty()) {
             return false;

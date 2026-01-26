@@ -17,7 +17,7 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
 	        SELECT a.option.id FROM Answer a
 	        WHERE a.question.id = :questionId
 	    """)
-	    Set<Long> findCorrectOptionIds(@Param("questionId") Long questionId);
+	    Set<Integer> findCorrectOptionIds(@Param("questionId") Long questionId);
 
 	    @Query("""
 	        SELECT a FROM Answer a

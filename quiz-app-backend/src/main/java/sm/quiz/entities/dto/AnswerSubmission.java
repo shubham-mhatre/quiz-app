@@ -8,6 +8,6 @@ import lombok.Data;
 public class AnswerSubmission {
 
 	private Long questionId;
-    private Set<Long> selectedOptionIds;
+    private Set<Integer> selectedOptionIds;
 
 }

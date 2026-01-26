@@ -57,7 +57,7 @@ public class QuizService {
 
 	public QuizResultResponse submitQuiz(QuizSubmissionRequest request) {
 		List<AnswerResult> results = request.getAnswers().stream().map(answerEvaluationService::evaluate).toList();
-
+		
 		long correctCount = results.stream().filter(AnswerResult::isCorrect).count();
 
 		QuizResultResponse response = new QuizResultResponse();
