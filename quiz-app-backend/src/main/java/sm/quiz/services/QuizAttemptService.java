@@ -13,6 +13,7 @@ import sm.quiz.entities.QuizAttempt;
 import sm.quiz.entities.Topic;
 import sm.quiz.entities.dto.AnswerResult;
 import sm.quiz.entities.dto.AnswerSubmission;
+import sm.quiz.entities.dto.UserQuizHistoryDto;
 import sm.quiz.repositories.QuestionRepository;
 import sm.quiz.repositories.QuizAttemptRepository;
 
@@ -72,5 +73,10 @@ public class QuizAttemptService {
         }
 
         return quizAttemptRepository.save(attempt);
+    }
+    
+    @Transactional(readOnly = true)
+    public List<UserQuizHistoryDto> getUserHistory(Long userId) {
+        return quizAttemptRepository.findUserHistory(userId);
     }
 }

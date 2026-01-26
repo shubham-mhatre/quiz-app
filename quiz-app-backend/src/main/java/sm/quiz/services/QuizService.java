@@ -16,6 +16,7 @@ import sm.quiz.entities.dto.OptionDto;
 import sm.quiz.entities.dto.QuestionDto;
 import sm.quiz.entities.dto.QuizResultResponse;
 import sm.quiz.entities.dto.QuizSubmissionRequest;
+import sm.quiz.entities.dto.UserQuizHistoryDto;
 import sm.quiz.repositories.ExplanationRepository;
 import sm.quiz.repositories.OptionMasterRepository;
 import sm.quiz.repositories.QuestionRepository;
@@ -86,6 +87,10 @@ public class QuizService {
         dto.setExplanationText(explanation.getExplanationText());
 
         return dto;
+	}
+	
+	public List<UserQuizHistoryDto> getUserQuizHistory(Long userId) {
+		return attemptService.getUserHistory(userId);
 	}
 
 }

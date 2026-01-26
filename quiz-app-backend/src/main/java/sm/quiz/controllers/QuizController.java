@@ -3,6 +3,7 @@ package sm.quiz.controllers;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import sm.quiz.entities.dto.ExplanationDto;
 import sm.quiz.entities.dto.QuestionDto;
 import sm.quiz.entities.dto.QuizResultResponse;
 import sm.quiz.entities.dto.QuizSubmissionRequest;
+import sm.quiz.entities.dto.UserQuizHistoryDto;
 import sm.quiz.services.QuizService;
 
 @RequiredArgsConstructor
@@ -43,5 +45,11 @@ public class QuizController {
 		ExplanationDto explanation= quizService.getExplanation(questionId);
 		return explanation;
 	}
+	
+	@GetMapping("/{userId}/quiz-history")
+    public List<UserQuizHistoryDto> getQuizHistory(
+            @PathVariable Long userId) {
+        return quizService.getUserQuizHistory(userId);
+    }
 
 }
