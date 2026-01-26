@@ -9,4 +9,5 @@ public class QuizSubmissionRequest {
 
 	private List<AnswerSubmission> answers;
 	private long userId;
+	private Long topicId;
 }

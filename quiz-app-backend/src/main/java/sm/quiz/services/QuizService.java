@@ -27,6 +27,7 @@ public class QuizService {
 	private final QuestionRepository questionRepository;
 	private final OptionMasterRepository optionRepository;
 	private final ExplanationRepository explanationRepository;
+	private final QuizAttemptService attemptService;
 
 	private final AnswerEvaluationService answerEvaluationService;
 
@@ -57,6 +58,13 @@ public class QuizService {
 
 	public QuizResultResponse submitQuiz(QuizSubmissionRequest request) {
 		List<AnswerResult> results = request.getAnswers().stream().map(answerEvaluationService::evaluate).toList();
+		
+		attemptService.saveAttempt(
+	            request.getUserId(),
+	            request.getTopicId(),
+	            request.getAnswers(),
+	            results
+	        );
 		
 		long correctCount = results.stream().filter(AnswerResult::isCorrect).count();
 

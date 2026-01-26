@@ -440,6 +440,63 @@ INSERT INTO `question` (`question_id`, `topic_id`, `question_text`, `question_ty
 	(59, 1, 'Would the removal of the public IP addresses from the account help reduce the cost?', 'SINGLE', 'MEDIUM', '2026-01-25 19:14:55', 1),
 	(60, 1, 'A team member currently has a laptop that is based on the Android OS. The team member wants to create a virtual machine in Azure. The team member decides to use the Azure portal to create the virtual machine. Would this suit the purpose?', 'SINGLE', 'MEDIUM', '2026-01-25 19:15:35', 1);
 
+-- Dumping structure for table quiz_db.question_attempt
+DROP TABLE IF EXISTS `question_attempt`;
+CREATE TABLE IF NOT EXISTS `question_attempt` (
+  `question_attempt_id` bigint NOT NULL AUTO_INCREMENT,
+  `attempt_id` bigint NOT NULL,
+  `question_id` int NOT NULL,
+  `is_correct` tinyint(1) NOT NULL,
+  PRIMARY KEY (`question_attempt_id`),
+  KEY `attempt_id` (`attempt_id`),
+  KEY `question_id` (`question_id`),
+  CONSTRAINT `question_attempt_ibfk_1` FOREIGN KEY (`attempt_id`) REFERENCES `quiz_attempt` (`attempt_id`),
+  CONSTRAINT `question_attempt_ibfk_2` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table quiz_db.question_attempt: ~2 rows (approximately)
+INSERT INTO `question_attempt` (`question_attempt_id`, `attempt_id`, `question_id`, `is_correct`) VALUES
+	(1, 1, 50, 0),
+	(2, 1, 47, 1);
+
+-- Dumping structure for table quiz_db.question_attempt_option
+DROP TABLE IF EXISTS `question_attempt_option`;
+CREATE TABLE IF NOT EXISTS `question_attempt_option` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `question_attempt_id` bigint NOT NULL,
+  `option_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `question_attempt_id` (`question_attempt_id`),
+  KEY `option_id` (`option_id`),
+  CONSTRAINT `question_attempt_option_ibfk_1` FOREIGN KEY (`question_attempt_id`) REFERENCES `question_attempt` (`question_attempt_id`),
+  CONSTRAINT `question_attempt_option_ibfk_2` FOREIGN KEY (`option_id`) REFERENCES `option_master` (`option_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table quiz_db.question_attempt_option: ~2 rows (approximately)
+INSERT INTO `question_attempt_option` (`id`, `question_attempt_id`, `option_id`) VALUES
+	(1, 1, 148),
+	(2, 2, 142);
+
+-- Dumping structure for table quiz_db.quiz_attempt
+DROP TABLE IF EXISTS `quiz_attempt`;
+CREATE TABLE IF NOT EXISTS `quiz_attempt` (
+  `attempt_id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` bigint NOT NULL,
+  `topic_id` int NOT NULL,
+  `total_questions` int NOT NULL,
+  `correct_count` int NOT NULL,
+  `score` int NOT NULL,
+  `started_at` datetime NOT NULL,
+  `submitted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`attempt_id`),
+  KEY `topic_id` (`topic_id`),
+  CONSTRAINT `quiz_attempt_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`topic_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table quiz_db.quiz_attempt: ~1 rows (approximately)
+INSERT INTO `quiz_attempt` (`attempt_id`, `user_id`, `topic_id`, `total_questions`, `correct_count`, `score`, `started_at`, `submitted_at`) VALUES
+	(1, 2, 1, 2, 1, 1, '2026-01-26 14:23:16', '2026-01-26 14:23:16');
+
 -- Dumping structure for table quiz_db.topic
 DROP TABLE IF EXISTS `topic`;
 CREATE TABLE IF NOT EXISTS `topic` (
