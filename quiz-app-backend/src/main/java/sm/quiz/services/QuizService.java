@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import sm.quiz.entities.Question;
+import sm.quiz.entities.dto.AnswerResult;
 import sm.quiz.entities.dto.OptionDto;
 import sm.quiz.entities.dto.QuestionDto;
+import sm.quiz.entities.dto.QuizResultResponse;
+import sm.quiz.entities.dto.QuizSubmissionRequest;
 import sm.quiz.repositories.OptionMasterRepository;
 import sm.quiz.repositories.QuestionRepository;
 
@@ -20,6 +23,8 @@ public class QuizService {
 	
 	private final QuestionRepository questionRepository;
 	private final OptionMasterRepository optionRepository; 
+	
+	private final AnswerEvaluationService answerEvaluationService;
 
 	public List<QuestionDto> getQuizQuestions(Long topicId, int limit) {
 		List<Question> questions =
@@ -55,6 +60,27 @@ public class QuizService {
             dto.setOptions(optionsMap.getOrDefault(q.getId(), List.of()));
             return dto;
         }).toList();
+	}
+
+	public QuizResultResponse submitQuiz(QuizSubmissionRequest request) {
+		List<AnswerResult> results =
+                request.getAnswers()
+                        .stream()
+                        .map(answerEvaluationService::evaluate)
+                        .toList();
+		
+		long correctCount =
+                results.stream()
+                        .filter(AnswerResult::isCorrect)
+                        .count();
+		
+		QuizResultResponse response = new QuizResultResponse();
+        response.setTotalQuestions(results.size());
+        response.setCorrectAnswers((int) correctCount);
+        response.setResults(results);
+
+        return response;
+
 	}
 
 }
