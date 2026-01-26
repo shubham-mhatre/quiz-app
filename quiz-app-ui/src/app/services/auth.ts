@@ -7,6 +7,7 @@ export interface LoginResponse {
   success: boolean;
   userId?: number;
   role?: string;
+  username?:string;
 }
 
 @Injectable({
@@ -51,5 +52,9 @@ export class Auth {
 
   getUserId(): number | null {
     return this.getUser()?.userId ?? null;
+  }
+
+  getUserName(): string | null {
+    return this.getUser()?.username ?? null;
   }
 }

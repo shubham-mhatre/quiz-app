@@ -46,7 +46,7 @@ export class Login {
         }
 
         this.authService.saveUser(res);
-        this.router.navigate(['/']);
+        this.router.navigate(['/dashboard']);
       });
   }
 }

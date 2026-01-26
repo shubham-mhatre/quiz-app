@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">
+  <span>Quiz App</span>
+  <span class="spacer"></span>
+  <span>Welcome, {{ username }}</span>
+  <button mat-button (click)="logout()">Logout</button>
+</mat-toolbar>
+
+<div class="container">
+  <h2>Select a Topic</h2>
+
+  <div class="card-grid">
+    <mat-card *ngFor="let topic of topics">
+      <mat-card-title>{{ topic.name }}</mat-card-title>
+      <mat-card-content>
+        {{ topic.description }}
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary"
+                (click)="startQuiz(topic.id)">
+          Start Quiz
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

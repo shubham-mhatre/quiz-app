@@ -7,12 +7,14 @@ import { MaterialModule } from './material/material-module';
 import { Login } from './components/login/login';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { Dashboardcomponent } from './components/dashboardcomponent/dashboardcomponent';
 
 
 @NgModule({
   declarations: [
     App,
-    Login
+    Login,
+    Dashboardcomponent
   ],
   imports: [
     FormsModule,
