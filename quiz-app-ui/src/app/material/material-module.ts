@@ -16,6 +16,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTableModule } from '@angular/material/table'; 
+
+
 
 @NgModule({
   exports: [
@@ -31,7 +34,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatSnackBarModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTableModule
   ]
 })
 export class MaterialModule {}

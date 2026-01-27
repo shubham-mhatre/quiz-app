@@ -1,0 +1,30 @@
+.container {
+  padding: 24px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.form-card,
+.list-card {
+  margin-bottom: 24px;
+}
+
+form {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+mat-form-field {
+  flex: 1;
+}
+
+table {
+  width: 100%;
+}
+
+.empty {
+  margin-top: 16px;
+  text-align: center;
+  color: #777;
+}

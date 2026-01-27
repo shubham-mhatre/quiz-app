@@ -1,5 +1,9 @@
 package sm.quiz.services;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,4 +41,19 @@ public class AdminUserService {
         
         return savedResponse;
     }
+
+	public List<UserResponse> getAllUsers() {
+		List<AppUser> users = userRepository.findAll(Sort.by(Sort.Direction.ASC, "userId"));
+
+		List<UserResponse> userResponseList = users.stream().map(data -> {
+			UserResponse userData = new UserResponse();
+			userData.setUserId(data.getUserId());
+			userData.setRole(data.getRole());
+			userData.setUsername(data.getUsername());
+			userData.setCreatedAt(data.getCreatedAt());
+			return userData;
+		}).collect(Collectors.toList());
+
+		return userResponseList;
+	}
 }

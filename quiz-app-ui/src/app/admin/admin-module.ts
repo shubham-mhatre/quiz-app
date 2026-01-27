@@ -8,6 +8,8 @@ import { QuestionManagement } from './components/question-management/question-ma
 import { BulkUpload } from './components/bulk-upload/bulk-upload';
 import { MaterialModule } from '../material/material-module';
 import { SharedModule } from '../shared/shared-module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -21,7 +23,10 @@ import { SharedModule } from '../shared/shared-module';
     CommonModule,
     AdminRoutingModule,
     MaterialModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    
   ]
 })
 export class AdminModule { }
