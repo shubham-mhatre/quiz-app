@@ -15,7 +15,7 @@ public class CorsConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")          // allow all endpoints
                         .allowedOrigins("http://localhost:4200") // Angular dev server
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedMethods("GET", "POST", "PUT", "PATCH","DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);  // if you need cookies/auth
             }

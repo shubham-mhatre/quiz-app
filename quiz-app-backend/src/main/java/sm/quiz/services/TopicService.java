@@ -17,4 +17,17 @@ public class TopicService {
 	public List<Topic> getAllTopicList() {
 		return repository.findAllByIsActiveTrue();
 	}
+	
+	public Topic disableTopic(Long topicId) {
+
+        Topic topic = repository.findById(topicId.intValue())
+            .orElseThrow(() -> new RuntimeException("Topic not found"));
+
+        if (!topic.getIsActive()) {
+            return topic; 
+        }
+
+        topic.setIsActive(false);
+        return repository.save(topic);
+    }
 }
