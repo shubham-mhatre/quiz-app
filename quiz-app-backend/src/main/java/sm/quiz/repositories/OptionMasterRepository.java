@@ -23,4 +23,6 @@ public interface OptionMasterRepository extends JpaRepository<OptionMaster, Long
     List<OptionMaster> findOptionsForQuestions(
             @Param("questionIds") List<Long> questionIds
     );
+    
+    void deleteByQuestionId(Long questionId);
 }

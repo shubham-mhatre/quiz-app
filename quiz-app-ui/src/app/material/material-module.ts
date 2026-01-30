@@ -19,6 +19,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTableModule } from '@angular/material/table'; 
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatTableModule,
     MatChipsModule,
     MatDialogModule,
+    MatSelectModule
   ]
 })
 export class MaterialModule {}

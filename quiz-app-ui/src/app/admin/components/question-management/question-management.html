@@ -1,1 +1,55 @@
-<p>question-management works!</p>
+<app-header></app-header>
+
+<div class="container">
+
+  <div class="page-header">
+    <h2>Question Management</h2>
+
+    <button mat-raised-button color="primary"
+            (click)="createQuestion()"
+            [disabled]="!selectedTopicId">
+      + Create Question
+    </button>
+  </div>
+
+  <mat-form-field appearance="outline" class="topic-select">
+    <mat-label>Select Topic</mat-label>
+    <mat-select [(value)]="selectedTopicId"
+                (selectionChange)="loadQuestions()">
+      <mat-option *ngFor="let t of topics" [value]="t.id">
+        {{ t.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+  <table mat-table [dataSource]="questions">
+
+    <ng-container matColumnDef="text">
+      <th mat-header-cell *matHeaderCellDef> Question </th>
+      <td mat-cell *matCellDef="let q"> {{ q.text }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef> Type </th>
+      <td mat-cell *matCellDef="let q"> {{ q.type }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let q">
+        <button mat-icon-button (click)="viewQuestion(q)">
+          <mat-icon>info</mat-icon>
+        </button>
+        <button mat-icon-button (click)="editQuestion(q)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+</div>

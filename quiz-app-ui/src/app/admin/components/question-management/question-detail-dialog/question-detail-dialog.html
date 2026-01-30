@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>Question Details</h2>
+
+<mat-dialog-content>
+
+  <p><strong>Question:</strong> {{ data.text }}</p>
+
+  <p><strong>Type:</strong> {{ data.type }}</p>
+
+  <h4>Options</h4>
+  <mat-list>
+    <mat-list-item *ngFor="let o of data.options">
+      <mat-icon matListIcon
+        [color]="o.correct ? 'primary' : ''">
+        {{ o.correct ? 'check_circle' : 'radio_button_unchecked' }}
+      </mat-icon>
+      {{ o.text }}
+    </mat-list-item>
+  </mat-list>
+
+  <p><strong>Explanation:</strong></p>
+  <p *ngIf="data.explanation; else noExp">
+  {{ data.explanation }}
+</p>
+
+<ng-template #noExp>
+  <i>No explanation provided</i>
+</ng-template>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

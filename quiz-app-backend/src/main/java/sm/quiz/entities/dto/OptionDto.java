@@ -8,4 +8,6 @@ public class OptionDto {
 	private Integer id;
     private String text;
     private Integer order;
+    
+    private boolean correct;
 }

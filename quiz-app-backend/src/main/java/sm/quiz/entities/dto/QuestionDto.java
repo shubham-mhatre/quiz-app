@@ -12,4 +12,7 @@ public class QuestionDto {
     private String questionText;
     private QuestionType questionType;
     private List<OptionDto> options;
+
+    private String explanation;
+    private Long topicId;
 }

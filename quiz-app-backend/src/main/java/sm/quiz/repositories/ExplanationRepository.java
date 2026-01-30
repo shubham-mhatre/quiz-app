@@ -9,4 +9,6 @@ import sm.quiz.entities.Explanation;
 public interface ExplanationRepository extends JpaRepository<Explanation, Long> {
 
 	Explanation findByQuestionIdAndIsActiveTrue(Long questionId);
+	
+	void deleteByQuestionId(Long questionId);
 }

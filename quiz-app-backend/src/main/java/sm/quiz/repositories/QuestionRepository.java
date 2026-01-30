@@ -30,4 +30,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 	            @Param("topicId") Long topicId,
 	            Pageable pageable
 	    );
+	    
+	    //required for admin login
+	    List<Question> findByTopicIdOrderByIdDesc(Long topicId);
 }
