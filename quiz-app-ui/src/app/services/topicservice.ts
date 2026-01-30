@@ -15,4 +15,12 @@ export class Topicservice {
     debugger;
     return this.http.get<Topic[]>(this.baseUrl);
   }
+
+  createTopic(payload: any) {
+    return this.http.post<Topic>(this.baseUrl, payload);
+  }
+
+  disableTopic(id: number) {
+    return this.http.patch(`${this.baseUrl}/${id}/disable`, {});
+  }
 }

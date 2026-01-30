@@ -9,6 +9,8 @@ import { BulkUpload } from './components/bulk-upload/bulk-upload';
 import { MaterialModule } from '../material/material-module';
 import { SharedModule } from '../shared/shared-module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TopicManagement } from './components/topic-management/topic-management';
+import { CreateTopicDialog } from './components/create-topic-dialog/create-topic-dialog';
 
 
 
@@ -18,6 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     UserManagement,
     QuestionManagement,
     BulkUpload,
+    TopicManagement,
+    CreateTopicDialog,
   ],
   imports: [
     CommonModule,
