@@ -24,6 +24,11 @@ public class AdminQuestionController {
 	                                     @RequestParam int size) {
 	    return questionService.getByTopicPaginated(topicId, page, size);
 	}
+	
+	@GetMapping("/{questionId}")
+	public QuestionDto getQuestionDetailsById(@PathVariable Integer questionId) throws Exception {
+	    return questionService.getQuestionDetailsById(questionId);
+	}
 
 //	@PostMapping
 //	public QuestionDto create(@RequestBody QuestionRequest request) {

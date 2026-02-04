@@ -19,8 +19,8 @@ export class CreateEditQuestionDialog {
     @Inject(MAT_DIALOG_DATA) public data: { question?: Question }
   ) {
     this.form = this.fb.group({
-      text: ['', Validators.required],
-      type: ['SINGLE', Validators.required],
+      questionText: ['', Validators.required],
+      questionType: ['SINGLE', Validators.required],
       explanation: [''],
       options: this.fb.array([])
     });
@@ -42,14 +42,14 @@ export class CreateEditQuestionDialog {
   addOption(): void {
     this.options.push(
       this.fb.group({
-        text: ['', Validators.required],
+        questionText: ['', Validators.required],
         correct: [false]
       })
     );
   }
 
   onCorrectChange(index: number): void {
-    if (this.form.value.type === 'SINGLE') {
+    if (this.form.value.questionType === 'SINGLE') {
       this.options.controls.forEach((ctrl, i) => {
         if (i !== index) {
           ctrl.get('correct')?.setValue(false, { emitEvent: false });
@@ -74,15 +74,15 @@ export class CreateEditQuestionDialog {
       return;
     }
 
-    if (this.form.value.type === 'SINGLE' && correctCount > 1) {
+    if (this.form.value.questionType === 'SINGLE' && correctCount > 1) {
       alert('Single choice question can have only one correct answer');
       return;
     }
 
     const payload: Question = {
       ...this.data?.question,
-      text: this.form.value.text,
-      type: this.form.value.type,
+      questionText: this.form.value.text,
+      questionType: this.form.value.questionType,
       explanation: this.form.value.explanation,
       options: options
     };
@@ -94,15 +94,15 @@ export class CreateEditQuestionDialog {
   // ---------- patch for edit ----------
   private patchForm(question: Question): void {
     this.form.patchValue({
-      text: question.text,
-      type: question.type,
+      questionText: question.questionText,
+      questionType: question.questionType,
       explanation: question.explanation
     });
 
     question.options.forEach(o => {
       this.options.push(
         this.fb.group({
-          text: [o.text, Validators.required],
+          questionText: [o.text, Validators.required],
           correct: [o.correct]
         })
       );

@@ -33,4 +33,9 @@ export class Questionservice {
       `${this.baseUrl}/api/admin/questions/${topicId}/bytopic?page=${page}&size=${size}`
     );
   }
+
+  getQuestionById(questionId: number): Observable<Question> {
+    debugger;
+    return this.http.get<Question>(`${this.baseUrl}/api/admin/questions/${questionId}`);
+  }
 }

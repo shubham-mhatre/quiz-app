@@ -56,10 +56,16 @@ export class QuestionManagement {
   }
 
   viewQuestion(q: Question) {
-    this.dialog.open(QuestionDetailDialog, {
-      width: '600px',
-      data: q
-    });
+    // Fetch question details by ID before opening the modal
+    debugger;
+    if(q.id){
+      this.questionService.getQuestionById(q.id).subscribe(questionDetails => {
+        this.dialog.open(QuestionDetailDialog, {
+          width: '600px',
+          data: questionDetails // Pass full question details to the dialog
+        });
+      });
+    }
   }
 
   editQuestion(q: Question) {

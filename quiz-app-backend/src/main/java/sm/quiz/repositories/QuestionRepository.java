@@ -36,4 +36,6 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 	    List<Question> findByTopicIdOrderByIdDesc(Long topicId);
 	    
 	    Page<Question> findByTopicIdOrderByIdDesc(Long topicId, Pageable pageable);
+	    
+	    //Question findById();
 }
