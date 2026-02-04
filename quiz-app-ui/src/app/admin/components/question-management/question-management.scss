@@ -1,0 +1,45 @@
+.container {
+  padding: 20px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Space between the dropdown and button */
+}
+
+.topic-select {
+  min-width: 200px;  /* Adjust to control the width of the topic dropdown */
+}
+
+button {
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+/* Ensure the table has a fixed height and allows scrolling */
+.table-container {
+  height: 300px;  /* Adjust this height as per your requirement */
+  overflow-y: auto;
+}
+
+table {
+  width: 100%;  /* Ensures the table takes up full width */
+  border-collapse: collapse;
+}
+
+mat-header-cell, mat-cell {
+  text-align: left;
+  padding: 8px;
+  font-size: 14px;
+}
+
+mat-paginator {
+  margin-top: 10px;
+}

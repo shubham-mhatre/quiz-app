@@ -21,7 +21,11 @@ export class QuestionManagement {
   questions: Question[] = [];
   loading = false;
 
-  displayedColumns = ['text', 'type', 'actions'];
+  displayedColumns = ['Sr No.','Question', 'Question type', 'Actions'];
+
+  totalItems = 0;   // Total number of questions (for pagination)
+  pageSize = 10;    // Number of items per page
+  currentPage = 0;  // Current page index
 
   constructor(
     private topicService: Topicservice,
@@ -33,15 +37,22 @@ export class QuestionManagement {
     this.topicService.getTopics().subscribe(t => this.topics = t);
   }
 
-  loadQuestions() {
+  loadQuestions(page: number = 0) {
     if (!this.selectedTopicId) return;
 
     this.loading = true;
-    this.questionService.getByTopic(this.selectedTopicId)
-      .subscribe(q => {
-        this.questions = q;
+    this.questionService.getByTopicWithPagination(this.selectedTopicId, page, this.pageSize)
+      .subscribe(response => {
+        this.questions = response.content;  // `content` will contain the questions for the current page
+        this.totalItems = response.totalElements;  // Total questions available
         this.loading = false;
       });
+  }
+
+  onPageChange(event: any) {
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.loadQuestions(this.currentPage);
   }
 
   viewQuestion(q: Question) {

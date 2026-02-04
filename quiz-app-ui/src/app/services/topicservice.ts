@@ -12,7 +12,6 @@ export class Topicservice {
   constructor(private http: HttpClient) {}
 
   getTopics(): Observable<Topic[]> {
-    debugger;
     return this.http.get<Topic[]>(this.baseUrl);
   }
 

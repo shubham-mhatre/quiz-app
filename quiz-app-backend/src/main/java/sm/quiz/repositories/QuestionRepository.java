@@ -2,6 +2,7 @@ package sm.quiz.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -33,4 +34,6 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 	    
 	    //required for admin login
 	    List<Question> findByTopicIdOrderByIdDesc(Long topicId);
+	    
+	    Page<Question> findByTopicIdOrderByIdDesc(Long topicId, Pageable pageable);
 }
