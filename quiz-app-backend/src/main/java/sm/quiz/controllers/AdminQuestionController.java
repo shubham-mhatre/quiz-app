@@ -3,6 +3,8 @@ package sm.quiz.controllers;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,10 +32,10 @@ public class AdminQuestionController {
 	    return questionService.getQuestionDetailsById(questionId);
 	}
 
-//	@PostMapping
-//	public QuestionDto create(@RequestBody QuestionRequest request) {
-//		return questionService.create(request);
-//	}
+	@PostMapping
+	public QuestionDto create(@RequestBody QuestionDto request) {
+		return questionService.createQuestion(request);
+	}
 //
 //	@PutMapping("/{id}")
 //	public QuestionDto update(@PathVariable Integer id, @RequestBody QuestionRequest request) {

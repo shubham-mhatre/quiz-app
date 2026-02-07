@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Question } from '../../../../models/question';
+import { Questionservice } from '../../../../services/questionservice';
 
 @Component({
   selector: 'app-create-edit-question-dialog',
@@ -16,7 +17,8 @@ export class CreateEditQuestionDialog {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<CreateEditQuestionDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: { question?: Question }
+    private questionservice:Questionservice,
+    @Inject(MAT_DIALOG_DATA) public data: { question?: Question, topicId?:number }
   ) {
     this.form = this.fb.group({
       questionText: ['', Validators.required],
@@ -24,7 +26,7 @@ export class CreateEditQuestionDialog {
       explanation: [''],
       options: this.fb.array([])
     });
-
+    debugger;
     if (data?.question) {
       this.patchForm(data.question);
     } else {
@@ -42,7 +44,7 @@ export class CreateEditQuestionDialog {
   addOption(): void {
     this.options.push(
       this.fb.group({
-        questionText: ['', Validators.required],
+        text: ['', Validators.required],
         correct: [false]
       })
     );
@@ -60,6 +62,7 @@ export class CreateEditQuestionDialog {
 
   // ---------- save ----------
   save(): void {
+    debugger;
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -78,17 +81,24 @@ export class CreateEditQuestionDialog {
       alert('Single choice question can have only one correct answer');
       return;
     }
-
+    debugger;
     const payload: Question = {
       ...this.data?.question,
-      questionText: this.form.value.text,
+      topicId: this.data?.topicId,
+      questionText: this.form.value.questionText,
       questionType: this.form.value.questionType,
       explanation: this.form.value.explanation,
-      options: options
+      options: options,
+      // topicId: this.form.value.topicId
     };
 
-    // 🔔 send back to parent
-    this.dialogRef.close(payload);
+    if (this.data?.question?.id) {
+      // It's an existing question - Update
+      this.updateQuestion(this.data.question.id, payload);
+    } else {
+      // It's a new question - Create
+      this.createQuestion(payload);
+    }
   }
 
   // ---------- patch for edit ----------
@@ -108,11 +118,40 @@ export class CreateEditQuestionDialog {
         })
       );
     });
+
+    // if (this.data?.topicId) {
+    //   this.form.addControl('topicId', this.fb.control(this.data.topicId));
+    // }
   }
 
   removeOption(index: number): void {
     const options = this.form.get('options') as FormArray;
     options.removeAt(index);
+  }
+
+  // Call the create API for new questions
+  private createQuestion(payload: Question): void {
+    debugger;
+    this.questionservice.create(payload).subscribe(
+      (createdQuestion) => {
+        this.dialogRef.close(createdQuestion);
+      },
+      (error) => {
+        alert('Error creating question');
+      }
+    );
+  }
+
+// Call the update API for existing questions
+  private updateQuestion(id: number, payload: Question): void {
+    this.questionservice.update(id, payload).subscribe(
+      (updatedQuestion) => {
+        this.dialogRef.close(updatedQuestion);
+      },
+      (error) => {
+        alert('Error updating question');
+      }
+    );
   }
 
 }

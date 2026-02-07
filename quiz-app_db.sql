@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
   CONSTRAINT `answer_ibfk_2` FOREIGN KEY (`option_id`) REFERENCES `option_master` (`option_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.answer: ~0 rows (approximately)
+-- Dumping data for table quiz_db.answer: ~59 rows (approximately)
 INSERT INTO `answer` (`answer_id`, `question_id`, `option_id`, `created_at`) VALUES
 	(1, 1, 1, '2026-01-25 17:45:47'),
 	(2, 2, 4, '2026-01-25 17:54:44'),
@@ -101,6 +101,25 @@ INSERT INTO `answer` (`answer_id`, `question_id`, `option_id`, `created_at`) VAL
 	(64, 59, 165, '2026-01-25 19:14:55'),
 	(65, 60, 167, '2026-01-25 19:15:35');
 
+-- Dumping structure for table quiz_db.app_user
+DROP TABLE IF EXISTS `app_user`;
+CREATE TABLE IF NOT EXISTS `app_user` (
+  `user_id` bigint NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` varchar(20) NOT NULL,
+  `is_active` tinyint(1) DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table quiz_db.app_user: ~3 rows (approximately)
+INSERT INTO `app_user` (`user_id`, `username`, `password`, `role`, `is_active`, `created_at`) VALUES
+	(1, 'admin', 'admin@123', 'ADMIN', 1, '2026-01-26 09:24:19'),
+	(2, 'shubham', 'shubham@123', 'USER', 1, '2026-01-26 09:27:33'),
+	(3, 'shubha', 'shubbha@123', 'USER', 1, '2026-01-27 18:37:16');
+
 -- Dumping structure for table quiz_db.explanation
 DROP TABLE IF EXISTS `explanation`;
 CREATE TABLE IF NOT EXISTS `explanation` (
@@ -114,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `explanation` (
   CONSTRAINT `explanation_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.explanation: ~0 rows (approximately)
+-- Dumping data for table quiz_db.explanation: ~60 rows (approximately)
 INSERT INTO `explanation` (`explanation_id`, `question_id`, `explanation_text`, `created_at`, `is_active`) VALUES
 	(1, 1, 'Correct Answer is YES. \n\nExplanation:\nAzure Web Apps (Azure App Service) is a Platform as a Service (PaaS) offering.\nOne of the built-in features of App Service is automatic scaling:\n	Scale out/in (number of instances)\n	Scale up/down (pricing tier)\nScaling can be based on:\n	CPU usage\n	Memory\n	HTTP queue length\n	Schedules\nSo the platform does have the ability to scale automatically.', '2026-01-25 17:48:46', 1),
 	(2, 2, 'Correct answer: No\r\n \r\nExplanation\r\nEven if both virtual machines are the same size (D2s_v3), they will not always generate the same monthly cost because Azure \r\nVM costs depend on usage and configuration, such as:\r\n	Running time (24×7 vs stopped/deallocated)\r\n	OS type (Windows costs more than Linux due to licensing)\r\n	Region (prices vary by region)\r\n	Attached resources (disks, public IPs, backups)\r\n	Billing model (pay-as-you-go vs Reserved Instances)\r\nSo two identical VM sizes can still result in different monthly bills', '2026-01-25 17:55:06', 1),
@@ -191,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `option_master` (
   CONSTRAINT `option_master_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.option_master: ~0 rows (approximately)
+-- Dumping data for table quiz_db.option_master: ~164 rows (approximately)
 INSERT INTO `option_master` (`option_id`, `question_id`, `option_text`, `option_order`, `created_at`, `is_active`) VALUES
 	(1, 1, 'YES', 1, '2026-01-25 17:45:05', 1),
 	(2, 1, 'NO', 2, '2026-01-25 17:45:17', 1),
@@ -377,7 +396,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   CONSTRAINT `question_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`topic_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.question: ~0 rows (approximately)
+-- Dumping data for table quiz_db.question: ~60 rows (approximately)
 INSERT INTO `question` (`question_id`, `topic_id`, `question_text`, `question_type`, `difficulty`, `created_at`, `is_active`) VALUES
 	(1, 1, 'If you plan to host a web application in the Azure platform as a service solution of Azure Web Apps, then the platform will have the ability to scale automatically?', 'SINGLE', 'MEDIUM', '2026-01-25 17:44:39', 1),
 	(2, 1, 'You decide to create 2 Virtual machines. Each virtual machine is of the size D2s v3. Would these machines always generate the same monthly cost?', 'SINGLE', 'MEDIUM', '2026-01-25 17:53:06', 1),
@@ -493,7 +512,7 @@ CREATE TABLE IF NOT EXISTS `quiz_attempt` (
   CONSTRAINT `quiz_attempt_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`topic_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table quiz_db.quiz_attempt: ~1 rows (approximately)
+-- Dumping data for table quiz_db.quiz_attempt: ~0 rows (approximately)
 INSERT INTO `quiz_attempt` (`attempt_id`, `user_id`, `topic_id`, `total_questions`, `correct_count`, `score`, `started_at`, `submitted_at`) VALUES
 	(1, 2, 1, 2, 1, 1, '2026-01-26 14:23:16', '2026-01-26 14:23:16');
 
@@ -507,14 +526,13 @@ CREATE TABLE IF NOT EXISTS `topic` (
   `is_active` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`topic_id`),
   UNIQUE KEY `topic_name` (`topic_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.topic: ~0 rows (approximately)
+-- Dumping data for table quiz_db.topic: ~4 rows (approximately)
 INSERT INTO `topic` (`topic_id`, `topic_name`, `description`, `created_at`, `is_active`) VALUES
-	(1, 'azure-az900', 'azure az900', '2026-01-25 17:43:44', 1);
+	(1, 'azure az900', 'azure fundamentals', '2026-01-25 17:43:44', 1),
+	(2, 'spring framework', 'spring framework & spring boot', '2026-01-26 17:04:52', 1),
+	(3, 'Mysql', 'Relational database & Mysql', '2026-01-26 17:05:26', 1),
+	(4, 'Angular', 'Frontend framewor Angular', '2026-01-26 17:06:25', 1);
 
-/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+

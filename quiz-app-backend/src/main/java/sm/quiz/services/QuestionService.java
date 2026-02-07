@@ -1,16 +1,21 @@
 package sm.quiz.services;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import sm.quiz.entities.Answer;
 import sm.quiz.entities.Explanation;
 import sm.quiz.entities.OptionMaster;
 import sm.quiz.entities.Question;
+import sm.quiz.entities.Topic;
 import sm.quiz.entities.dto.OptionDto;
 import sm.quiz.entities.dto.QuestionDto;
 import sm.quiz.repositories.AnswerRepository;
@@ -78,37 +83,6 @@ public class QuestionService {
 		return questionDto;
 	}
 
-	/* MAP QUESTION ENTITY TO DTO */
-//    private QuestionDto toDto(Question question) {
-//        // Fetch all options for the question
-//        List<OptionMaster> options = optionRepository.findOptionsForQuestions(List.of(question.getId()));
-//        
-//        // Fetch the correct options from the answer table
-//        Set<Integer> correctOptionIds = answerRepository.findCorrectOptionIds(question.getId());
-//
-//        // Map options and mark the correct ones based on the answer table
-//        List<OptionDto> optionDtos = options.stream()
-//                .map(option -> {
-//                    boolean isCorrect = correctOptionIds.contains(option.getId());
-//                    return new OptionDto(option.getId(), option.getOptionText(), isCorrect);
-//                })
-//                .collect(Collectors.toList());
-//        
-//        Explanation explaination=explanationRepository.findByQuestionIdAndIsActiveTrue(question.getId());
-//        String explainationText=explaination!=null ? explaination.getExplanationText() : "";
-//
-//        // Return the DTO
-//        QuestionDto questionDto = new QuestionDto();
-//        questionDto.setId(question.getId());
-//        questionDto.setTopicId(question.getTopic().getId());
-//        questionDto.setQuestionText(question.getQuestionText());
-//        questionDto.setQuestionType(question.getQuestionType());
-//        questionDto.setOptions(optionDtos);
-//        questionDto.setExplanation(explainationText);
-//
-//        return questionDto;
-//    }
-
 	private QuestionDto toGriDto(Question question) {
 
 		// Return the DTO
@@ -118,5 +92,65 @@ public class QuestionService {
 		questionDto.setQuestionText(question.getQuestionText());
 		questionDto.setQuestionType(question.getQuestionType());
 		return questionDto;
+	}
+
+	@Transactional
+	public QuestionDto createQuestion(QuestionDto request) {
+		Question question=new Question();
+		question.setQuestionText(request.getQuestionText());
+		question.setQuestionType(request.getQuestionType());
+		question.setIsActive(true);
+		question.setCreatedAt(LocalDateTime.now());
+		
+		Topic topic = topicRepository.findById(request.getTopicId().intValue())
+                .orElseThrow(() -> new RuntimeException("Topic not found"));
+		
+		question.setTopic(topic);		
+		
+		List<OptionMaster> optionsList=new ArrayList<>();
+		List<OptionMaster> correctOptionsList=new ArrayList<>();
+		Integer optionOrder=1;
+		for(OptionDto optionDto : request.getOptions()) {
+			OptionMaster option=new OptionMaster();
+			
+			option.setOptionText(optionDto.getText());
+			option.setIsActive(true);
+			option.setOptionOrder(optionOrder);
+			option.setCreatedAt(LocalDateTime.now());
+			option.setQuestion(question);
+			
+			optionsList.add(option);
+			
+			if(optionDto.isCorrect()) {
+				correctOptionsList.add(option);
+			}
+			
+			optionOrder++;
+		}
+		question.setOptions(optionsList);
+		
+		
+		questionRepository.save(question);
+		
+		List<Answer> answersList=new ArrayList<>();		
+		for(OptionMaster correctAns:correctOptionsList) {
+			Answer answer=new Answer();
+			answer.setQuestion(question);		
+			answer.setCreatedAt(LocalDateTime.now());
+			answer.setOption(correctAns);
+			answersList.add(answer);
+		}		
+		
+		answerRepository.saveAll(answersList);
+		
+		Explanation explanation=new Explanation();
+		explanation.setCreatedAt(LocalDateTime.now());
+		explanation.setExplanationText(request.getExplanation());
+		explanation.setIsActive(true);
+		explanation.setQuestion(question);
+		explanationRepository.save(explanation);
+		
+		request.setId(question.getId());
+		return request;
 	}
 }
