@@ -99,13 +99,20 @@ export class CreateEditQuestionDialog {
       explanation: question.explanation
     });
 
+    // Patch options array
     question.options.forEach(o => {
       this.options.push(
         this.fb.group({
-          questionText: [o.text, Validators.required],
+          text: [o.text, Validators.required],
           correct: [o.correct]
         })
       );
     });
   }
+
+  removeOption(index: number): void {
+    const options = this.form.get('options') as FormArray;
+    options.removeAt(index);
+  }
+
 }

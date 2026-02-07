@@ -1,24 +1,27 @@
 <h2 mat-dialog-title>
-  {{ data?.question ? 'Edit Question' : 'Create Question' }}
+  {{ data.question ? 'Edit Question' : 'Create Question' }}
 </h2>
 
-<mat-dialog-content [formGroup]="form">
+<mat-dialog-content [formGroup]="form" class="full-width-dialog">
 
-  <mat-form-field appearance="outline">
+  <!-- Question Field with increased width -->
+  <mat-form-field appearance="outline" class="full-width">
     <mat-label>Question</mat-label>
-    <textarea matInput rows="3" formControlName="text"></textarea>
+    <textarea matInput rows="3" formControlName="questionText"></textarea>
   </mat-form-field>
 
-  <mat-radio-group formControlName="type">
+  <!-- Question Type -->
+  <mat-radio-group formControlName="questionType">
     <mat-radio-button value="SINGLE">Single Choice</mat-radio-button>
-    <mat-radio-button value="MULTI">Multiple Choice</mat-radio-button>
+    <mat-radio-button value="MULTIPLE">Multiple Choice</mat-radio-button>
   </mat-radio-group>
 
+  <!-- Options with "Remove" icon -->
   <div formArrayName="options">
     <div *ngFor="let o of options.controls; let i=index"
          [formGroupName]="i" class="option-row">
 
-      <mat-form-field>
+      <mat-form-field class="full-width">
         <input matInput placeholder="Option" formControlName="text">
       </mat-form-field>
 
@@ -28,21 +31,25 @@
         Correct
       </mat-checkbox>
 
+      <!-- Remove Option icon (Minus) -->
+      <mat-icon mat-button (click)="removeOption(i)" *ngIf="options.controls.length > 2" class="remove-icon">
+        remove_circle_outline
+      </mat-icon>
     </div>
   </div>
 
-  <button mat-button (click)="addOption()">+ Add Option</button>
+  <!-- Add Option button -->
+  <button mat-button (click)="addOption()" class="add-option-button">+ Add Option</button>
 
-  <mat-form-field appearance="outline">
+  <!-- Explanation Field with increased width -->
+  <mat-form-field appearance="outline" class="full-width">
     <mat-label>Explanation</mat-label>
-    <textarea matInput rows="3"
-              formControlName="explanation"></textarea>
+    <textarea matInput rows="3" formControlName="explanation"></textarea>
   </mat-form-field>
 
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="primary"
-          (click)="save()">Save</button>
+  <button mat-button color="primary" (click)="save()">Save</button>
 </mat-dialog-actions>

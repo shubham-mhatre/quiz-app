@@ -69,7 +69,12 @@ export class QuestionManagement {
   }
 
   editQuestion(q: Question) {
-    this.openCreateEditDialog(q);
+    //this.openCreateEditDialog(q);
+    if (q.id) {
+    this.questionService.getQuestionById(q.id).subscribe(questionDetails => {
+      this.openCreateEditDialog(questionDetails);  // Pass the fetched data to the dialog
+    });
+  }
   }
 
   createQuestion() {
