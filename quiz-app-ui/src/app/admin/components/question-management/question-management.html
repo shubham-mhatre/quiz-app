@@ -1,26 +1,27 @@
 <app-header></app-header>
 
 <div class="container">
-
   <div class="page-header">
     <h2>Question Management</h2>
 
-    <!-- New flex container for topic select and create question button -->
+    <!-- New flex container for topic select, create question button, and upload button -->
     <div class="header-actions">
       <mat-form-field appearance="outline" class="topic-select">
         <mat-label>Select Topic</mat-label>
-        <mat-select [(value)]="selectedTopicId"
-                    (selectionChange)="loadQuestions()">
+        <mat-select [(value)]="selectedTopicId" (selectionChange)="loadQuestions()">
           <mat-option *ngFor="let t of topics" [value]="t.id">
             {{ t.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
-      <button mat-raised-button color="primary"
-              (click)="createQuestion()"
-              [disabled]="!selectedTopicId">
+      <button mat-raised-button color="primary" (click)="createQuestion()" [disabled]="!selectedTopicId">
         + Create Question
+      </button>
+
+      <!-- Upload Button -->
+      <button mat-raised-button color="accent" (click)="openUploadDialog()" [disabled]="!selectedTopicId">
+        + Bulk Upload
       </button>
     </div>
   </div>
@@ -63,10 +64,6 @@
     </table>
   </div>
 
-  <mat-paginator [length]="totalItems"
-                 [pageSize]="pageSize"
-                 [pageSizeOptions]="[5, 10, 25]"
-                 (page)="onPageChange($event)">
+  <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25]" (page)="onPageChange($event)">
   </mat-paginator>
-
 </div>

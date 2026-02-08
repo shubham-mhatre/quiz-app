@@ -12,7 +12,6 @@ export class Questionservice {
   constructor(private http: HttpClient) {}
 
   getByTopic(topicId: number) {
-    debugger;
     return this.http.get<Question[]>(
       `${this.baseUrl}/api/admin/questions/${topicId}/bytopic`
     );
@@ -37,5 +36,9 @@ export class Questionservice {
   getQuestionById(questionId: number): Observable<Question> {
     debugger;
     return this.http.get<Question>(`${this.baseUrl}/api/admin/questions/${questionId}`);
+  }
+
+  uploadCSV(file: FormData): Observable<any> {
+    return this.http.post(`${this.baseUrl}/bulk-upload`, file);
   }
 }

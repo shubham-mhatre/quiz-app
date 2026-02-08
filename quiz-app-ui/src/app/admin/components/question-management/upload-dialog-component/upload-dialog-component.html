@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Upload Questions (CSV)</h2>
+
+<mat-dialog-content>
+  <!-- Directly use the input[type="file"] without mat-form-field -->
+  <input type="file" (change)="onFileSelected($event)" accept=".csv">
+
+  <!-- Error message display -->
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+  <!-- Loading spinner -->
+  <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" (click)="onUpload()" [disabled]="loading">Upload</button>
+</mat-dialog-actions>

@@ -6,7 +6,7 @@ import { Questionservice } from '../../../services/questionservice';
 import { MatDialog } from '@angular/material/dialog';
 import { QuestionDetailDialog } from './question-detail-dialog/question-detail-dialog';
 import { CreateEditQuestionDialog } from './create-edit-question-dialog/create-edit-question-dialog';
-
+import { UploadDialogComponent } from './upload-dialog-component/upload-dialog-component';
 
 @Component({
   selector: 'app-question-management',
@@ -89,6 +89,20 @@ export class QuestionManagement {
 
     ref.afterClosed().subscribe(saved => {
       if (saved) this.loadQuestions();
+    });
+  }
+
+  // Open Upload Dialog to handle bulk upload of questions
+  openUploadDialog() {
+    const dialogRef = this.dialog.open(UploadDialogComponent, {
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Optionally, refresh questions after upload (if needed)
+        this.loadQuestions();
+      }
     });
   }
 }
