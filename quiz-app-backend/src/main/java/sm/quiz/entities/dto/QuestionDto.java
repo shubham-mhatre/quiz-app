@@ -15,4 +15,8 @@ public class QuestionDto {
 
     private String explanation;
     private Long topicId;
+    
+    //used for sending response
+    private Integer status;
+    private String message;
 }

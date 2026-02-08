@@ -7,4 +7,5 @@ export interface Question {
   questionType: 'SINGLE' | 'MULTI';
   options: Option[];
   explanation: string;
+  message:string;
 }

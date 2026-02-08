@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Question } from '../../../../models/question';
 import { Questionservice } from '../../../../services/questionservice';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-edit-question-dialog',
@@ -18,6 +19,7 @@ export class CreateEditQuestionDialog {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<CreateEditQuestionDialog>,
     private questionservice:Questionservice,
+    private snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: { question?: Question, topicId?:number }
   ) {
     this.form = this.fb.group({
@@ -89,6 +91,7 @@ export class CreateEditQuestionDialog {
       questionType: this.form.value.questionType,
       explanation: this.form.value.explanation,
       options: options,
+      message:''
       // topicId: this.form.value.topicId
     };
 
@@ -134,6 +137,7 @@ export class CreateEditQuestionDialog {
     debugger;
     this.questionservice.create(payload).subscribe(
       (createdQuestion) => {
+        this.snackBar.open(createdQuestion.message, 'Close', { duration: 3000 });
         this.dialogRef.close(createdQuestion);
       },
       (error) => {
