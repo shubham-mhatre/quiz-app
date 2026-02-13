@@ -39,6 +39,6 @@ export class Questionservice {
   }
 
   uploadCSV(file: FormData): Observable<any> {
-    return this.http.post(`${this.baseUrl}/bulk-upload`, file);
+    return this.http.post(`${this.baseUrl}/api/admin//bulk-upload`, file);
   }
 }

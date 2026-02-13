@@ -14,12 +14,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-
--- Dumping database structure for quiz_db
-DROP DATABASE IF EXISTS `quiz_db`;
-CREATE DATABASE IF NOT EXISTS `quiz_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `quiz_db`;
-
 -- Dumping structure for table quiz_db.answer
 DROP TABLE IF EXISTS `answer`;
 CREATE TABLE IF NOT EXISTS `answer` (
@@ -33,9 +27,9 @@ CREATE TABLE IF NOT EXISTS `answer` (
   KEY `idx_answer_question` (`question_id`),
   CONSTRAINT `answer_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`),
   CONSTRAINT `answer_ibfk_2` FOREIGN KEY (`option_id`) REFERENCES `option_master` (`option_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.answer: ~59 rows (approximately)
+-- Dumping data for table quiz_db.answer: ~63 rows (approximately)
 INSERT INTO `answer` (`answer_id`, `question_id`, `option_id`, `created_at`) VALUES
 	(1, 1, 1, '2026-01-25 17:45:47'),
 	(2, 2, 4, '2026-01-25 17:54:44'),
@@ -99,7 +93,19 @@ INSERT INTO `answer` (`answer_id`, `question_id`, `option_id`, `created_at`) VAL
 	(62, 57, 162, '2026-01-25 19:14:23'),
 	(63, 58, 164, '2026-01-25 19:14:40'),
 	(64, 59, 165, '2026-01-25 19:14:55'),
-	(65, 60, 167, '2026-01-25 19:15:35');
+	(65, 60, 167, '2026-01-25 19:15:35'),
+	(66, 61, 170, '2026-02-13 02:56:03'),
+	(67, 62, 175, '2026-02-13 02:58:13'),
+	(68, 63, 176, '2026-02-13 02:59:59'),
+	(69, 64, 181, '2026-02-13 03:01:32'),
+	(70, 64, 182, '2026-02-13 03:01:32'),
+	(71, 65, 185, '2026-02-13 03:03:48'),
+	(72, 66, 190, '2026-02-13 03:05:19'),
+	(73, 67, 193, '2026-02-13 03:07:29'),
+	(74, 67, 194, '2026-02-13 03:07:29'),
+	(75, 68, 197, '2026-02-13 03:08:18'),
+	(76, 69, 200, '2026-02-13 03:09:24'),
+	(77, 70, 206, '2026-02-13 03:12:14');
 
 -- Dumping structure for table quiz_db.app_user
 DROP TABLE IF EXISTS `app_user`;
@@ -125,15 +131,15 @@ DROP TABLE IF EXISTS `explanation`;
 CREATE TABLE IF NOT EXISTS `explanation` (
   `explanation_id` int NOT NULL AUTO_INCREMENT,
   `question_id` int NOT NULL,
-  `explanation_text` text COLLATE utf8mb4_general_ci NOT NULL,
+  `explanation_text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `is_active` int DEFAULT '1',
   PRIMARY KEY (`explanation_id`),
   UNIQUE KEY `question_id` (`question_id`),
   CONSTRAINT `explanation_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.explanation: ~60 rows (approximately)
+-- Dumping data for table quiz_db.explanation: ~70 rows (approximately)
 INSERT INTO `explanation` (`explanation_id`, `question_id`, `explanation_text`, `created_at`, `is_active`) VALUES
 	(1, 1, 'Correct Answer is YES. \n\nExplanation:\nAzure Web Apps (Azure App Service) is a Platform as a Service (PaaS) offering.\nOne of the built-in features of App Service is automatic scaling:\n	Scale out/in (number of instances)\n	Scale up/down (pricing tier)\nScaling can be based on:\n	CPU usage\n	Memory\n	HTTP queue length\n	Schedules\nSo the platform does have the ability to scale automatically.', '2026-01-25 17:48:46', 1),
 	(2, 2, 'Correct answer: No\r\n \r\nExplanation\r\nEven if both virtual machines are the same size (D2s_v3), they will not always generate the same monthly cost because Azure \r\nVM costs depend on usage and configuration, such as:\r\n	Running time (24×7 vs stopped/deallocated)\r\n	OS type (Windows costs more than Linux due to licensing)\r\n	Region (prices vary by region)\r\n	Attached resources (disks, public IPs, backups)\r\n	Billing model (pay-as-you-go vs Reserved Instances)\r\nSo two identical VM sizes can still result in different monthly bills', '2026-01-25 17:55:06', 1),
@@ -194,23 +200,33 @@ INSERT INTO `explanation` (`explanation_id`, `question_id`, `explanation_text`, 
 	(59, 57, 'Microsoft Entra ID users and groups do not incur costs. Only billable resources, like Public IPs, generate charges.', '2026-01-25 19:14:23', 1),
 	(60, 58, 'Microsoft Entra ID user groups do not generate cost; removing them does not reduce Azure bills.', '2026-01-25 19:14:40', 1),
 	(61, 59, 'Public IP addresses are billable resources. Removing unused public IPs will reduce Azure costs.', '2026-01-25 19:14:55', 1),
-	(62, 60, 'Azure Portal is web-based and accessible from any device with a modern browser, including Android devices.', '2026-01-25 19:15:35', 1);
+	(62, 60, 'Azure Portal is web-based and accessible from any device with a modern browser, including Android devices.', '2026-01-25 19:15:35', 1),
+	(63, 61, 'The PowerApps (Power Apps) portal is used to build and manage low-code business applications, \nnot to create or manage Azure infrastructure like virtual machines.\n\nEven though the team member is on an Android-based laptop, that’s not the real blocker here—the issue is the tool:\n	Azure VMs can be created via \n	the Azure Portal, \n	Azure CLI, \n	PowerShell, \n	or ARM/Bicep templates (all accessible via a browser).\n\nPowerApps portal does not support creating Azure virtual machines.', '2026-02-13 02:56:03', 1),
+	(64, 62, 'The correct answer is:\n\nhttps://portal.azure.com\n\nThis is the Azure Portal, which is used to create, manage, and monitor Azure resources such as virtual machines, \nstorage accounts, networks, databases, and more.\n\nQuick rundown of the others:\n❌ admin.azure.com – Not used for Azure resource management\n❌ admin.azurewebsites.com – Not a valid Azure management portal\n❌ portal.microsoft.com – General Microsoft portal, not for Azure resources\n❌ portal.azurewebsites.com – Related to App Service, not full Azure management', '2026-02-13 02:58:13', 1),
+	(65, 63, 'Azure virtual machine data disks (and OS disks) are stored as page blobs within an Azure Blob Storage account.\n\nWhy not the others?\n❌ Files – Used for file shares (Azure Files), not VM disks\n❌ Tables – Used for NoSQL key-value storage\n❌ Queues – Used for messaging between components', '2026-02-13 02:59:59', 1),
+	(66, 64, 'The best choices are:\n	Azure Synapse Analytics\n	Azure Data Lake\n\nWhy these two fit the requirements:\nAzure Data Lake\n	Designed for very large data volumes (10TB+ is normal)\n	Cost-effective for infrequently accessed data\n	Commonly used as a data store for analytics\n	Can be directly queried or connected to analytics engines\n\nAzure Synapse Analytics\n	Built for analytics and reporting at scale\n	Native integration with Power BI (this is a big clue in the question)\n	Can query data stored in Azure Data Lake using serverless or dedicated SQL pools\n\nTogether, this is a very common Azure pattern:\n	Azure Data Lake (storage) + Azure Synapse Analytics (analytics) + Power BI (visualization)', '2026-02-13 03:01:32', 1),
+	(67, 65, 'The correct answer is:\n✅ Deploy all the virtual machines to the same resource group.\n\nWhy this works:\n	Azure RBAC (Role-Based Access Control) can be applied at the resource group level\n	Any permissions assigned to the resource group are automatically inherited by all virtual machines inside it\n	This lets you manage permissions for multiple VMs simultaneously and consistently\n\nWhy the others don’t meet the requirement:\n	❌ Same region – Regions affect location, not permissions\n	❌ Same availability zone – Used for high availability, not access control\n	❌ Same scale – (Likely referring to scale sets) Used for auto-scaling, not general permission assignment\n', '2026-02-13 03:03:48', 1),
+	(68, 66, 'The correct answer is:\n\n✅ The Azure platform is a shared platform wherein multiple companies can use a portion of the resources on the platform.\n\nWhy this is a benefit:\nAzure is a public cloud that uses a shared (multi-tenant) infrastructure\n\nThis allows organizations to:\nAvoid buying and maintaining their own hardware\nPay only for what they use\nScale resources up or down easily\nCosts are lower because the underlying infrastructure is shared across many customers\n\nWhy the other options are incorrect:\n❌ All resources can be accessed by the public — Azure resources are isolated and secured\n❌ Private cloud platform — Azure is not a private cloud by default\n❌ E-commerce platform — Azure is a cloud services platform, not a marketplace for users to sell resources\n', '2026-02-13 03:05:19', 1),
+	(69, 67, 'Shared infrastructure – Public cloud providers (like Azure) use a multi-tenant model where physical resources are shared securely among multiple customers.\nPay-as-you-go model – You pay only for the resources you consume, with no upfront hardware costs.\n\nWhy the others are not public cloud characteristics:\n❌ Dedicated hardware resources – This is typical of private cloud\n❌ On-premises deployment – That’s not cloud\n❌ Limited geographic availability – Public clouds have global availability', '2026-02-13 03:07:29', 1),
+	(70, 68, 'Correct Answer is:\n	Yes.\n	This does meet the goal.\n\nWhy:\n	Azure App Service is a Platform as a Service (PaaS) offering for hosting applications.\n	Azure SQL Database is also a PaaS database service (Microsoft manages the OS, patching, backups, and high availability).\n	Since both services are PaaS, the solution fully aligns with the migration plan that requires only PaaS solutions.', '2026-02-13 03:08:18', 1),
+	(71, 69, 'The correct answer is:\n✅ Platform as a Service (PaaS)\n\nWhy PaaS is the best choice:\nMinimizes administrative and management effort\nAzure manages the OS, patching, scaling, and infrastructure\nIdeal for web applications accessed by external users\nYou focus on application code, not servers\n\nWhy not the others?\n❌ SaaS – You consume a finished application; you can’t deploy your own web app\n❌ IaaS – Requires managing VMs, OS updates, and security (more admin effort)\n❌ DaaS – Refers only to databases, not full web apps', '2026-02-13 03:09:24', 1),
+	(72, 70, 'The correct answer is:\n	✅ A hybrid cloud\n\nWhy a hybrid cloud fits the requirements:\n	Provides additional resources: You can burst to the public cloud when on-premises resources are insufficient.\n	Minimizes capital expenditure (CapEx): You don’t need to buy new servers or build a full data center.\n	Minimizes operational expenditure (OpEx): You only pay for cloud resources when you need them.\n	Maintains some on-premises control: Critical workloads can remain on-premises while others run in the cloud.', '2026-02-13 03:12:14', 1);
 
 -- Dumping structure for table quiz_db.option_master
 DROP TABLE IF EXISTS `option_master`;
 CREATE TABLE IF NOT EXISTS `option_master` (
   `option_id` int NOT NULL AUTO_INCREMENT,
   `question_id` int NOT NULL,
-  `option_text` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `option_text` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `option_order` int NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `is_active` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`option_id`),
   KEY `idx_option_question` (`question_id`,`is_active`),
   CONSTRAINT `option_master_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.option_master: ~164 rows (approximately)
+-- Dumping data for table quiz_db.option_master: ~168 rows (approximately)
 INSERT INTO `option_master` (`option_id`, `question_id`, `option_text`, `option_order`, `created_at`, `is_active`) VALUES
 	(1, 1, 'YES', 1, '2026-01-25 17:45:05', 1),
 	(2, 1, 'NO', 2, '2026-01-25 17:45:17', 1),
@@ -379,22 +395,60 @@ INSERT INTO `option_master` (`option_id`, `question_id`, `option_text`, `option_
 	(165, 59, 'Yes', 1, '2026-01-25 19:14:55', 1),
 	(166, 59, 'No', 2, '2026-01-25 19:14:55', 1),
 	(167, 60, 'Yes', 1, '2026-01-25 19:15:35', 1),
-	(168, 60, 'No', 2, '2026-01-25 19:15:35', 1);
+	(168, 60, 'No', 2, '2026-01-25 19:15:35', 1),
+	(169, 61, 'Yes', 1, '2026-02-13 02:56:03', 1),
+	(170, 61, 'No', 2, '2026-02-13 02:56:03', 1),
+	(171, 62, 'https://admin.azure.com.', 1, '2026-02-13 02:58:13', 1),
+	(172, 62, 'https://admin.azurewebsites.com.', 2, '2026-02-13 02:58:13', 1),
+	(173, 62, 'https://portal.microsoft.com.', 3, '2026-02-13 02:58:13', 1),
+	(174, 62, 'https://portal.azurewebsites.com.', 4, '2026-02-13 02:58:13', 1),
+	(175, 62, 'https://portal.azure.com', 5, '2026-02-13 02:58:13', 1),
+	(176, 63, 'Blobs', 1, '2026-02-13 02:59:59', 1),
+	(177, 63, 'Files', 2, '2026-02-13 02:59:59', 1),
+	(178, 63, 'Tables', 3, '2026-02-13 02:59:59', 1),
+	(179, 63, 'Queues', 4, '2026-02-13 02:59:59', 1),
+	(180, 64, 'Azure SQL database.', 1, '2026-02-13 03:01:32', 1),
+	(181, 64, 'Azure Synapse Analytics.', 2, '2026-02-13 03:01:32', 1),
+	(182, 64, 'Azure Data Lake.', 3, '2026-02-13 03:01:32', 1),
+	(183, 64, 'Azure Cosmos DB.', 4, '2026-02-13 03:01:32', 1),
+	(184, 65, 'Deploy all the virtual machines to the same region.', 1, '2026-02-13 03:03:48', 1),
+	(185, 65, 'Deploy all the virtual machines to the same resource group.', 2, '2026-02-13 03:03:48', 1),
+	(186, 65, 'Deploy all the virtual machines to the same availability zone.', 3, '2026-02-13 03:03:48', 1),
+	(187, 65, 'Deploy all the virtual machines to the same scale.', 4, '2026-02-13 03:03:48', 1),
+	(188, 66, 'The Azure platform is a public cloud platform wherein all the resources can be accessed by the public.', 1, '2026-02-13 03:05:19', 1),
+	(189, 66, 'The Azure platform is a private cloud platform wherein all the resources can be accessed only by a private handful of people.', 2, '2026-02-13 03:05:19', 1),
+	(190, 66, 'The Azure platform is a shared platform wherein multiple companies can use a portion of the resources on the platform.', 3, '2026-02-13 03:05:19', 1),
+	(191, 66, 'The Azure platform is an ecommerce platform wherein users can buy and sell resources as required.', 4, '2026-02-13 03:05:19', 1),
+	(192, 67, 'Dedicated hardware resources.', 1, '2026-02-13 03:07:29', 1),
+	(193, 67, 'Shared infrastructure.', 2, '2026-02-13 03:07:29', 1),
+	(194, 67, 'Pay-as-you-go model. ', 3, '2026-02-13 03:07:29', 1),
+	(195, 67, 'On-premises deployment.', 4, '2026-02-13 03:07:29', 1),
+	(196, 67, 'Limited geographic availability', 5, '2026-02-13 03:07:29', 1),
+	(197, 68, 'Yes', 1, '2026-02-13 03:08:18', 1),
+	(198, 68, 'No', 2, '2026-02-13 03:08:18', 1),
+	(199, 69, 'Software as a Service (SaaS).', 1, '2026-02-13 03:09:24', 1),
+	(200, 69, 'Platform as a Service (PaaS).', 2, '2026-02-13 03:09:24', 1),
+	(201, 69, 'Infrastructure as a Service (laaS).', 3, '2026-02-13 03:09:24', 1),
+	(202, 69, 'Database as a Service (DaaS).', 4, '2026-02-13 03:09:24', 1),
+	(203, 70, 'A complete migration to the public cloud.', 1, '2026-02-13 03:12:14', 1),
+	(204, 70, 'An additional data center.', 2, '2026-02-13 03:12:14', 1),
+	(205, 70, 'A private cloud.', 3, '2026-02-13 03:12:14', 1),
+	(206, 70, 'A hybrid cloud.', 4, '2026-02-13 03:12:14', 1);
 
 -- Dumping structure for table quiz_db.question
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE IF NOT EXISTS `question` (
   `question_id` int NOT NULL AUTO_INCREMENT,
   `topic_id` int NOT NULL,
-  `question_text` text COLLATE utf8mb4_general_ci NOT NULL,
-  `question_type` enum('SINGLE','MULTIPLE') COLLATE utf8mb4_general_ci NOT NULL,
-  `difficulty` enum('EASY','MEDIUM','HARD') COLLATE utf8mb4_general_ci DEFAULT 'MEDIUM',
+  `question_text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `question_type` enum('SINGLE','MULTIPLE') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `difficulty` enum('EASY','MEDIUM','HARD') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'MEDIUM',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `is_active` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`question_id`),
   KEY `idx_question_topic` (`topic_id`,`is_active`),
   CONSTRAINT `question_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`topic_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table quiz_db.question: ~60 rows (approximately)
 INSERT INTO `question` (`question_id`, `topic_id`, `question_text`, `question_type`, `difficulty`, `created_at`, `is_active`) VALUES
@@ -450,14 +504,24 @@ INSERT INTO `question` (`question_id`, `topic_id`, `question_text`, `question_ty
 	(50, 1, 'Is it true that an Azure service that is released as generally available is made available to all Azure customers?', 'SINGLE', 'MEDIUM', '2026-01-25 19:09:55', 1),
 	(51, 1, 'Can a single Microsoft Account be used to manage multiple Azure subscriptions?', 'SINGLE', 'MEDIUM', '2026-01-25 19:12:09', 1),
 	(52, 1, 'Is it possible to merge subscriptions into a single subscription?', 'SINGLE', 'MEDIUM', '2026-01-25 19:13:16', 1),
-	(53, 1, 'Would a company be guaranteed a service level agreement of at least 99.9% for paid Azure services?', 'SINGLE', 'MEDIUM', '2026-01-25 19:13:29', 1),
-	(54, 1, 'Could the company increase the SLA for their resources by deploying resources across multiple regions?', 'SINGLE', 'MEDIUM', '2026-01-25 19:13:40', 1),
-	(55, 1, 'Could the company increase the SLA for their resources by purchasing multiple subscriptions?', 'SINGLE', 'MEDIUM', '2026-01-25 19:13:55', 1),
-	(56, 1, 'Is it possible to move virtual machines to a new subscription?', 'SINGLE', 'MEDIUM', '2026-01-25 19:14:09', 1),
-	(57, 1, 'Would the removal of the users from the account help reduce the cost?', 'SINGLE', 'MEDIUM', '2026-01-25 19:14:23', 1),
-	(58, 1, 'Would the removal of the user groups from the account help reduce the cost?', 'SINGLE', 'MEDIUM', '2026-01-25 19:14:40', 1),
-	(59, 1, 'Would the removal of the public IP addresses from the account help reduce the cost?', 'SINGLE', 'MEDIUM', '2026-01-25 19:14:55', 1),
-	(60, 1, 'A team member currently has a laptop that is based on the Android OS. The team member wants to create a virtual machine in Azure. The team member decides to use the Azure portal to create the virtual machine. Would this suit the purpose?', 'SINGLE', 'MEDIUM', '2026-01-25 19:15:35', 1);
+	(53, 1, 'A company has just started using Azure. They have setup a subscription and started deploying resources to Azure. Would they be guaranteed a service level agreement of at least 99.9% for paid Azure services?', 'SINGLE', 'MEDIUM', '2026-01-25 19:13:29', 1),
+	(54, 1, 'A company has just started using Azure. They have setup a subscription and started deploying resources to Azure. Could the company increase the SLA for their resources by deploying resources across multiple regions?', 'SINGLE', 'MEDIUM', '2026-01-25 19:13:40', 1),
+	(55, 1, 'A company has just started using Azure. They have setup a subscription and started deploying resources to Azure. Could the company increase the SLA for their resources by purchasing multiple subscriptions?', 'SINGLE', 'MEDIUM', '2026-01-25 19:13:55', 1),
+	(56, 1, 'A set of virtual machines have been created in a subscription. You have now paid for a new subscription. Is it possible to move the virtual machines to the new subscription?', 'SINGLE', 'MEDIUM', '2026-01-25 19:14:09', 1),
+	(57, 1, 'A company has defined the following resources in Azure: 10 Public IP addresses. 20 users in Microsoft Entra ID. 5 user groups in Microsoft Entra ID. They now want to reduce the costs associated with the Azure account. Would the removal of the users from the account help reduce the cost?', 'SINGLE', 'MEDIUM', '2026-01-25 19:14:23', 1),
+	(58, 1, 'A company has defined the following resources in Azure: 10 Public IP addresses. 20 users in Microsoft Entra ID. 5 user groups in Microsoft Entra ID. They now want to reduce the costs associated with the Azure account. Would the removal of the user groups from the account help reduce the cost?', 'SINGLE', 'MEDIUM', '2026-01-25 19:14:40', 1),
+	(59, 1, 'A company has defined the following resources in Azure: 10 Public IP addresses. 20 users in Microsoft Entra ID. 5 user groups in Microsoft Entra ID. They now want to reduce the costs associated with the Azure account. Would the removal of the public IP addresses from the account help reduce the cost?', 'SINGLE', 'MEDIUM', '2026-01-25 19:14:55', 1),
+	(60, 1, 'A team member currently has a laptop that is based on the Android OS. The team member wants to create a virtual machine in Azure. The team member decides to use the Azure portal to create the virtual machine. Would this suit the purpose?', 'SINGLE', 'MEDIUM', '2026-01-25 19:15:35', 1),
+	(61, 1, 'A team member currently has a laptop that is based on the Android OS. The team member wants to create a virtual machine in Azure. The team member decides to use the PowerApps portal to create the virtual machine. Would this suit the purpose?', 'SINGLE', 'MEDIUM', '2026-02-13 02:56:03', 1),
+	(62, 1, 'Which of the following URL is used to manage the creation of Azure resources?', 'SINGLE', 'MEDIUM', '2026-02-13 02:58:13', 1),
+	(63, 1, 'You need to create a virtual machine in Azure. Which of the following storage account service is used to store the data disks for the virtual machine?', 'SINGLE', 'MEDIUM', '2026-02-13 02:59:59', 1),
+	(64, 1, 'Your company needs to have a data store in Azure. Below are the key requirements for the data store: The data store should be capable of storing 10TB of data. The data would be accessed infrequently. The data would need to be visualised using PowerBI. Which of the following services could you use for this requirement? Choose 2 answers from the options given below.', 'MULTIPLE', 'MEDIUM', '2026-02-13 03:01:32', 1),
+	(65, 1, 'You need to deploy several virtual machines to Azure. You need to ensure that you can assign permissions to the virtual machines simultaneously. Which of the following can be implemented to fulfil this requirement?', 'SINGLE', 'MEDIUM', '2026-02-13 03:03:48', 1),
+	(66, 1, 'Which of the following is a benefit of moving on-premises servers to the Azure cloud environment?', 'SINGLE', 'MEDIUM', '2026-02-13 03:05:19', 1),
+	(67, 1, 'What are two key characteristics of the public cloud?', 'MULTIPLE', 'MEDIUM', '2026-02-13 03:07:29', 1),
+	(68, 1, 'Your company plans to migrate all its data and resources to Azure. The company migration plan states that only Platform as a Service (PaaS) solutions must be used in Azure. You need to deploy an Azure environment that meets the company migration plan. Solution: You create an Azure App Service and Azure SQL databases. Does this meet the goal?', 'SINGLE', 'MEDIUM', '2026-02-13 03:08:18', 1),
+	(69, 1, 'You plan to migrate a web application to Azure. The web application is accessed by external users. You need to recommend a cloud deployment solution to minimize the amount of administrative effort used to manage the web application. What should you include in the recommendation?', 'SINGLE', 'MEDIUM', '2026-02-13 03:09:24', 1),
+	(70, 1, 'You have an on-premises network that contains 100 servers. You need to recommend a solution that provides additional resources to your users. The solution must minimize capital and operational expenditure costs. What should you include in the recommendation?', 'SINGLE', 'MEDIUM', '2026-02-13 03:12:14', 1);
 
 -- Dumping structure for table quiz_db.question_attempt
 DROP TABLE IF EXISTS `question_attempt`;
@@ -520,8 +584,8 @@ INSERT INTO `quiz_attempt` (`attempt_id`, `user_id`, `topic_id`, `total_question
 DROP TABLE IF EXISTS `topic`;
 CREATE TABLE IF NOT EXISTS `topic` (
   `topic_id` int NOT NULL AUTO_INCREMENT,
-  `topic_name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `topic_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `is_active` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`topic_id`),
@@ -535,4 +599,8 @@ INSERT INTO `topic` (`topic_id`, `topic_name`, `description`, `created_at`, `is_
 	(3, 'Mysql', 'Relational database & Mysql', '2026-01-26 17:05:26', 1),
 	(4, 'Angular', 'Frontend framewor Angular', '2026-01-26 17:06:25', 1);
 
-
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
