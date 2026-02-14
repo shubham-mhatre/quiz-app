@@ -28,7 +28,6 @@ export class CreateEditQuestionDialog {
       explanation: [''],
       options: this.fb.array([])
     });
-    debugger;
     if (data?.question) {
       this.patchForm(data.question);
     } else {
@@ -64,7 +63,6 @@ export class CreateEditQuestionDialog {
 
   // ---------- save ----------
   save(): void {
-    debugger;
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -83,7 +81,6 @@ export class CreateEditQuestionDialog {
       alert('Single choice question can have only one correct answer');
       return;
     }
-    debugger;
     const payload: Question = {
       ...this.data?.question,
       topicId: this.data?.topicId,
@@ -134,7 +131,6 @@ export class CreateEditQuestionDialog {
 
   // Call the create API for new questions
   private createQuestion(payload: Question): void {
-    debugger;
     this.questionservice.create(payload).subscribe(
       (createdQuestion) => {
         this.snackBar.open(createdQuestion.message, 'Close', { duration: 3000 });

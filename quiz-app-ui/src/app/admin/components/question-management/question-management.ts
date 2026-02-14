@@ -57,7 +57,6 @@ export class QuestionManagement {
 
   viewQuestion(q: Question) {
     // Fetch question details by ID before opening the modal
-    debugger;
     if(q.id){
       this.questionService.getQuestionById(q.id).subscribe(questionDetails => {
         this.dialog.open(QuestionDetailDialog, {
@@ -99,6 +98,7 @@ export class QuestionManagement {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      debugger;
       if (result) {
         // Optionally, refresh questions after upload (if needed)
         this.loadQuestions();

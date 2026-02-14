@@ -34,11 +34,10 @@ export class Questionservice {
   }
 
   getQuestionById(questionId: number): Observable<Question> {
-    debugger;
     return this.http.get<Question>(`${this.baseUrl}/api/admin/questions/${questionId}`);
   }
 
   uploadCSV(file: FormData): Observable<any> {
-    return this.http.post(`${this.baseUrl}/api/admin//bulk-upload`, file);
+    return this.http.post(`${this.baseUrl}/api/admin/questions/bulk-upload`, file);
   }
 }

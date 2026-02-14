@@ -157,68 +157,133 @@ public class QuestionService {
 		return request;
 	}
 
+//	public void bulkUploadQuestions(MultipartFile file) throws Exception {
+//		// Parse the CSV
+//		try (CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream()))) {
+//			List<String[]> rows = reader.readAll();
+//			for (String[] row : rows) {
+//				// Assume each row has: questionText, questionType, explanation, options,
+//				// topicId, correctOptionIndexes
+//				String questionText = row[0];
+//				String questionType = row[1];
+//				String explanation = row[2];
+//				String[] options = row[3].split(";"); // Assuming options are semicolon-separated
+//				Long topicId = Long.parseLong(row[4]);
+//				String[] correctOptionIndexes = row[5].split(";"); // Assuming correct options indexes are
+//				// semicolon-separated
+//
+//				// Create Question entity
+//				Topic topic = topicRepository.findById(topicId.intValue()).orElseThrow(() -> new Exception("Topic not found"));
+//				Question question = new Question();
+//				question.setQuestionText(questionText);
+//				question.setQuestionType(QuestionType.valueOf(questionType)); // Assuming enum QuestionType is present
+////				question.setExplanation(explanation);
+//				question.setTopic(topic);
+//				question.setIsActive(true);
+//				question.setCreatedAt(LocalDateTime.now());
+//
+//				// Save question
+//				question = questionRepository.save(question);
+//
+//				// Create and save options for the question
+//				List<OptionMaster> optionsList = new ArrayList<>();
+//				for (String optionText : options) {
+//					OptionMaster option = new OptionMaster();
+//					option.setOptionText(optionText);
+//					option.setOptionOrder(optionsList.size() + 1); // Option order starts from 1
+//					option.setIsActive(true);
+//					option.setCreatedAt(LocalDateTime.now());
+//					option.setQuestion(question);
+//					optionsList.add(option);
+//				}
+//				optionRepository.saveAll(optionsList);
+//
+//				// Create and save answers (correct options)
+//				List<Answer> answersList = new ArrayList<>();
+//				for (String correctOptionIndex : correctOptionIndexes) {
+//					int index = Integer.parseInt(correctOptionIndex);
+//					OptionMaster correctOption = optionsList.get(index); // Get correct option by index
+//					Answer answer = new Answer();
+//					answer.setQuestion(question);
+//					answer.setCreatedAt(LocalDateTime.now());
+//					answer.setOption(correctOption);
+//					answersList.add(answer);
+//				}
+//				answerRepository.saveAll(answersList);
+//
+//				// Create explanation for the question
+//				Explanation explanationEntity = new Explanation();
+//				explanationEntity.setCreatedAt(LocalDateTime.now());
+//				explanationEntity.setExplanationText(explanation);
+//				explanationEntity.setIsActive(true);
+//				explanationEntity.setQuestion(question);
+//				explanationRepository.save(explanationEntity);
+//			}
+//		}
+//	}
+	
+	@Transactional
 	public void bulkUploadQuestions(MultipartFile file) throws Exception {
-		// Parse the CSV
-		try (CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream()))) {
-			List<String[]> rows = reader.readAll();
-			for (String[] row : rows) {
-				// Assume each row has: questionText, questionType, explanation, options,
-				// topicId, correctOptionIndexes
-				String questionText = row[0];
-				String questionType = row[1];
-				String explanation = row[2];
-				String[] options = row[3].split(";"); // Assuming options are semicolon-separated
-				Long topicId = Long.parseLong(row[4]);
-				String[] correctOptionIndexes = row[5].split(";"); // Assuming correct options indexes are
-				// semicolon-separated
+	    try (CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream()))) {
+	    	reader.readNext();
+	    	List<String[]> rows = reader.readAll();
+	        
+	        for (String[] row : rows) {
+	            String questionText = row[0];
+	            String questionType = row[1];
+	            String explanation = row[2];
+	            String[] correctOptionIndexes = row[3].split(","); // Correct answers are in column 4
+	            Long topicId = Long.parseLong(row[4]);
+	            
+	            // Create Question entity
+	            Topic topic = topicRepository.findById(topicId.intValue()).orElseThrow(() -> new Exception("Topic not found"));
+	            Question question = new Question();
+	            question.setQuestionText(questionText);
+	            question.setQuestionType(QuestionType.valueOf(questionType)); // Assuming enum QuestionType
+//	            question.setExplanation(explanation);
+	            question.setTopic(topic);
+	            question.setIsActive(true);
+	            question.setCreatedAt(LocalDateTime.now());
+	            
+	            questionRepository.save(question);
 
-				// Create Question entity
-				Topic topic = topicRepository.findById(topicId.intValue()).orElseThrow(() -> new Exception("Topic not found"));
-				Question question = new Question();
-				question.setQuestionText(questionText);
-				question.setQuestionType(QuestionType.valueOf(questionType)); // Assuming enum QuestionType is present
-//				question.setExplanation(explanation);
-				question.setTopic(topic);
-				question.setIsActive(true);
-				question.setCreatedAt(LocalDateTime.now());
+	            // Collect options from columns 6 onwards
+	            List<OptionMaster> optionsList = new ArrayList<>();
+	            int optionOrder = 1;
+	            for (int i = 5; i < row.length; i++) {
+	                if (row[i].isEmpty()) break; // Skip empty options
+	                OptionMaster option = new OptionMaster();
+	                option.setOptionText(row[i]);
+	                option.setOptionOrder(optionOrder++);
+	                option.setIsActive(true);
+	                option.setCreatedAt(LocalDateTime.now());
+	                option.setQuestion(question);
+	                optionsList.add(option);
+	            }
+	            optionRepository.saveAll(optionsList);
 
-				// Save question
-				question = questionRepository.save(question);
+	            // Create answers for the correct options
+	            List<Answer> answersList = new ArrayList<>();
+	            for (String correctIndex : correctOptionIndexes) {
+	                int index = Integer.parseInt(correctIndex) - 1; // Convert to 0-based index
+	                OptionMaster correctOption = optionsList.get(index); // Fetch the correct option
+	                Answer answer = new Answer();
+	                answer.setQuestion(question);
+	                answer.setCreatedAt(LocalDateTime.now());
+	                answer.setOption(correctOption);
+	                answersList.add(answer);
+	            }
+	            answerRepository.saveAll(answersList);
 
-				// Create and save options for the question
-				List<OptionMaster> optionsList = new ArrayList<>();
-				for (String optionText : options) {
-					OptionMaster option = new OptionMaster();
-					option.setOptionText(optionText);
-					option.setOptionOrder(optionsList.size() + 1); // Option order starts from 1
-					option.setIsActive(true);
-					option.setCreatedAt(LocalDateTime.now());
-					option.setQuestion(question);
-					optionsList.add(option);
-				}
-				optionRepository.saveAll(optionsList);
-
-				// Create and save answers (correct options)
-				List<Answer> answersList = new ArrayList<>();
-				for (String correctOptionIndex : correctOptionIndexes) {
-					int index = Integer.parseInt(correctOptionIndex);
-					OptionMaster correctOption = optionsList.get(index); // Get correct option by index
-					Answer answer = new Answer();
-					answer.setQuestion(question);
-					answer.setCreatedAt(LocalDateTime.now());
-					answer.setOption(correctOption);
-					answersList.add(answer);
-				}
-				answerRepository.saveAll(answersList);
-
-				// Create explanation for the question
-				Explanation explanationEntity = new Explanation();
-				explanationEntity.setCreatedAt(LocalDateTime.now());
-				explanationEntity.setExplanationText(explanation);
-				explanationEntity.setIsActive(true);
-				explanationEntity.setQuestion(question);
-				explanationRepository.save(explanationEntity);
-			}
-		}
+	            // Create and save the explanation
+	            Explanation explanationEntity = new Explanation();
+	            explanationEntity.setCreatedAt(LocalDateTime.now());
+	            explanationEntity.setExplanationText(explanation);
+	            explanationEntity.setIsActive(true);
+	            explanationEntity.setQuestion(question);
+	            explanationRepository.save(explanationEntity);
+	        }
+	    }
 	}
+
 }

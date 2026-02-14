@@ -1,0 +1,13 @@
+﻿question_text,question_type,explanation,correct_answers,topic_id,option_1,option_2,option_3,option_4,option_5,option_6
+"You have 1,000 virtual machines hosted on the Hyper-V hosts in a data center. You plan to migrate all the virtual machines to an Azure pay-as-you-go subscription. You need to identify which expenditure model to use for the planned Azure solution. Which expenditure model should you identify?",SINGLE,"The correct answer is:
+✅ Operational
+
+Why:
+An Azure pay-as-you-go subscription uses an operational expenditure (OpEx) model. You pay for compute, storage, and networking as you consume them, rather than buying hardware upfront.
+
+Quick check on the other options:
+❌ Capital – This applies to on-premises infrastructure where you purchase hardware in advance (CapEx).
+❌ Elastic – This is a cloud characteristic, not an expenditure model.
+❌ Scalable – Also a feature, not a cost model.
+
+So for migrating on-prem Hyper-V VMs to Azure pay-as-you-go → Operational expenditure is the right choice. ✔️",1,1,Operational.,Elastic,Capital,Scalable,,

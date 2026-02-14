@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Questionservice } from '../../../../services/questionservice';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-upload-dialog-component',
@@ -16,6 +17,7 @@ selectedFile: File | null = null;
   constructor(
     public dialogRef: MatDialogRef<UploadDialogComponent>,
     private questionService: Questionservice,
+    private snackBar: MatSnackBar,
   ) {}
 
   onFileSelected(event: any) {
@@ -36,7 +38,9 @@ selectedFile: File | null = null;
     // Call the upload method from the questionService
     this.questionService.uploadCSV(formData).subscribe(
       (response) => {
+        debugger;
         this.loading = false;
+        this.snackBar.open(response, 'Close', { duration: 3000 });
         this.dialogRef.close(response);  // Return response or success message
       },
       (error) => {
