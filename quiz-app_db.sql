@@ -14,6 +14,12 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+
+-- Dumping database structure for quiz_db
+DROP DATABASE IF EXISTS `quiz_db`;
+CREATE DATABASE IF NOT EXISTS `quiz_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `quiz_db`;
+
 -- Dumping structure for table quiz_db.answer
 DROP TABLE IF EXISTS `answer`;
 CREATE TABLE IF NOT EXISTS `answer` (
@@ -27,9 +33,9 @@ CREATE TABLE IF NOT EXISTS `answer` (
   KEY `idx_answer_question` (`question_id`),
   CONSTRAINT `answer_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`),
   CONSTRAINT `answer_ibfk_2` FOREIGN KEY (`option_id`) REFERENCES `option_master` (`option_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.answer: ~63 rows (approximately)
+-- Dumping data for table quiz_db.answer: ~12 rows (approximately)
 INSERT INTO `answer` (`answer_id`, `question_id`, `option_id`, `created_at`) VALUES
 	(1, 1, 1, '2026-01-25 17:45:47'),
 	(2, 2, 4, '2026-01-25 17:54:44'),
@@ -105,7 +111,30 @@ INSERT INTO `answer` (`answer_id`, `question_id`, `option_id`, `created_at`) VAL
 	(74, 67, 194, '2026-02-13 03:07:29'),
 	(75, 68, 197, '2026-02-13 03:08:18'),
 	(76, 69, 200, '2026-02-13 03:09:24'),
-	(77, 70, 206, '2026-02-13 03:12:14');
+	(77, 70, 206, '2026-02-13 03:12:14'),
+	(78, 71, 210, '2026-02-28 11:02:30'),
+	(79, 72, 211, '2026-02-28 11:02:30'),
+	(80, 73, 216, '2026-02-28 11:02:30'),
+	(81, 74, 220, '2026-02-28 11:02:30'),
+	(82, 75, 224, '2026-02-28 11:02:30'),
+	(83, 76, 227, '2026-02-28 11:02:30'),
+	(84, 77, 231, '2026-02-28 11:02:30'),
+	(85, 78, 232, '2026-02-28 11:02:30'),
+	(86, 78, 234, '2026-02-28 11:02:30'),
+	(87, 79, 237, '2026-02-28 11:02:31'),
+	(88, 79, 239, '2026-02-28 11:02:31'),
+	(89, 80, 245, '2026-02-28 11:02:31'),
+	(90, 81, 247, '2026-02-28 12:12:25'),
+	(91, 82, 251, '2026-02-28 12:12:25'),
+	(92, 83, 252, '2026-02-28 12:12:25'),
+	(93, 84, 257, '2026-02-28 12:12:25'),
+	(94, 85, 258, '2026-02-28 12:12:25'),
+	(95, 85, 262, '2026-02-28 12:12:25'),
+	(96, 86, 263, '2026-02-28 12:12:25'),
+	(97, 87, 266, '2026-02-28 12:12:25'),
+	(98, 88, 271, '2026-02-28 12:12:25'),
+	(99, 89, 273, '2026-02-28 12:12:25'),
+	(100, 90, 279, '2026-02-28 12:12:25');
 
 -- Dumping structure for table quiz_db.app_user
 DROP TABLE IF EXISTS `app_user`;
@@ -137,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `explanation` (
   PRIMARY KEY (`explanation_id`),
   UNIQUE KEY `question_id` (`question_id`),
   CONSTRAINT `explanation_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table quiz_db.explanation: ~70 rows (approximately)
 INSERT INTO `explanation` (`explanation_id`, `question_id`, `explanation_text`, `created_at`, `is_active`) VALUES
@@ -210,7 +239,27 @@ INSERT INTO `explanation` (`explanation_id`, `question_id`, `explanation_text`, 
 	(69, 67, 'Shared infrastructure – Public cloud providers (like Azure) use a multi-tenant model where physical resources are shared securely among multiple customers.\nPay-as-you-go model – You pay only for the resources you consume, with no upfront hardware costs.\n\nWhy the others are not public cloud characteristics:\n❌ Dedicated hardware resources – This is typical of private cloud\n❌ On-premises deployment – That’s not cloud\n❌ Limited geographic availability – Public clouds have global availability', '2026-02-13 03:07:29', 1),
 	(70, 68, 'Correct Answer is:\n	Yes.\n	This does meet the goal.\n\nWhy:\n	Azure App Service is a Platform as a Service (PaaS) offering for hosting applications.\n	Azure SQL Database is also a PaaS database service (Microsoft manages the OS, patching, backups, and high availability).\n	Since both services are PaaS, the solution fully aligns with the migration plan that requires only PaaS solutions.', '2026-02-13 03:08:18', 1),
 	(71, 69, 'The correct answer is:\n✅ Platform as a Service (PaaS)\n\nWhy PaaS is the best choice:\nMinimizes administrative and management effort\nAzure manages the OS, patching, scaling, and infrastructure\nIdeal for web applications accessed by external users\nYou focus on application code, not servers\n\nWhy not the others?\n❌ SaaS – You consume a finished application; you can’t deploy your own web app\n❌ IaaS – Requires managing VMs, OS updates, and security (more admin effort)\n❌ DaaS – Refers only to databases, not full web apps', '2026-02-13 03:09:24', 1),
-	(72, 70, 'The correct answer is:\n	✅ A hybrid cloud\n\nWhy a hybrid cloud fits the requirements:\n	Provides additional resources: You can burst to the public cloud when on-premises resources are insufficient.\n	Minimizes capital expenditure (CapEx): You don’t need to buy new servers or build a full data center.\n	Minimizes operational expenditure (OpEx): You only pay for cloud resources when you need them.\n	Maintains some on-premises control: Critical workloads can remain on-premises while others run in the cloud.', '2026-02-13 03:12:14', 1);
+	(72, 70, 'The correct answer is:\n	✅ A hybrid cloud\n\nWhy a hybrid cloud fits the requirements:\n	Provides additional resources: You can burst to the public cloud when on-premises resources are insufficient.\n	Minimizes capital expenditure (CapEx): You don’t need to buy new servers or build a full data center.\n	Minimizes operational expenditure (OpEx): You only pay for cloud resources when you need them.\n	Maintains some on-premises control: Critical workloads can remain on-premises while others run in the cloud.', '2026-02-13 03:12:14', 1),
+	(73, 71, 'The correct answer is:\n\nThe public cloud is a shared entity whereby multiple corporations each use a portion of the resources in the cloud.\n\nThis is the key advantage: multi-tenancy. Public cloud providers like Azure share infrastructure across many customers, which lowers costs, improves scalability, and reduces the need for organizations to manage their own hardware.\n\nWhy the others are incorrect, quickly:\n❌ Owned by the public — Public clouds are owned by private companies (e.g., Microsoft, Amazon, Google).\n❌ Crowd-sourcing solution — Not how public clouds work.\n❌ Freely accessed by everyone — Access is controlled and secured; it’s not open to the public.', '2026-02-28 11:02:30', 1),
+	(74, 72, 'The correct answer is:\n✅ Operational\n\nWhy:\nAn Azure pay-as-you-go subscription uses an operational expenditure (OpEx) model. You pay for compute, storage, and networking as you consume them, rather than buying hardware upfront.\n\nQuick check on the other options:\n❌ Capital – This applies to on-premises infrastructure where you purchase hardware in advance (CapEx).\n❌ Elastic – This is a cloud characteristic, not an expenditure model.\n❌ Scalable – Also a feature, not a cost model.\n\nSo for migrating on-prem Hyper-V VMs to Azure pay-as-you-go → Operational expenditure is the right choice. ✔️', '2026-02-28 11:02:30', 1),
+	(75, 73, 'The correct answer is:\n✅ An Azure virtual machine\n\nWhy:\nInfrastructure as a Service (IaaS) provides basic computing resources like virtual machines, storage, and networking, where you manage the OS and software yourself.\n\nWhy the others are not IaaS:\n❌ Azure web app – Platform as a Service (PaaS)\n❌ Azure logic app – PaaS (serverless workflow service)\n❌ Azure SQL database – PaaS (managed database service)', '2026-02-28 11:02:30', 1),
+	(76, 74, '✅ Azure DevTest Labs\n\nWhy:\nAzure DevTest Labs is designed specifically to quickly provision and delete virtual machines with minimal administrative overhead. It works very well with Azure Resource Manager (ARM) templates, and it includes built-in features like:\nEasy bulk VM creation and deletion\nAutomated shutdown and cleanup\nPolicies to control costs and usage\n\nThis makes it ideal for scenarios where VMs are frequently created and removed, like weekly dev/test cycles.\n\nWhy the others don’t fit:\n❌ Azure Reserved VM Instances – Cost-optimization for long-running VMs, not rapid deployment/removal.\n❌ Azure VM scale sets – Best for scaling identical VMs for apps, not frequent lifecycle management by developers.\n❌ Microsoft Managed Desktop – End-user desktop service, not VM deployment automation.', '2026-02-28 11:02:30', 1),
+	(77, 75, '👉 Correct answer: No ✔️\n\nExplanation:\nThe migration plan requires only Platform as a Service (PaaS) solutions.\n\nAzure virtual machines are Infrastructure as a Service (IaaS) ❌\nAzure SQL databases are PaaS ✅\nAzure Storage accounts are considered PaaS ✅\nBecause the solution includes Azure virtual machines (IaaS), it does not meet the requirement to use only PaaS services.', '2026-02-28 11:02:30', 1),
+	(78, 76, 'The correct answer is:\n✅ Infrastructure as a Service (IaaS)\n\nWhy:\nThe applications require custom software and multiple prerequisite applications and services to be installed. That means you need full control over:\n	The operating system\n	Installed software and dependencies\n	Application configuration\n	This level of control is provided by IaaS (for example, Azure virtual machines).\n\nWhy not the others:\n	❌ SaaS – Ready-to-use applications; you don’t deploy or customize the underlying app stack.\n	❌ PaaS – You manage the app, but the platform controls the OS and limits installing custom prerequisite software.', '2026-02-28 11:02:30', 1),
+	(79, 77, 'The correct statement is:\n✅ Contains one or more data centers that are connected by using a low-latency network.\n\nAnswer: No change is needed.\n\nWhy the other options are incorrect:\n	❌ Is found in each country where Microsoft has a subsidiary office — Azure regions are not tied to office locations.\n	❌ Can be found in every country in Europe and the Americas only — Azure regions exist worldwide, but not in every country.\n	❌ Connected by a high-latency network — Azure regions are specifically designed for low latency.', '2026-02-28 11:02:30', 1),
+	(80, 78, 'The correct answers are:\n	✅ Command Prompt\n	✅ Windows PowerShell\n\nWhy:\nThe Azure CLI can be run from:\n	Command Prompt\n	Windows PowerShell\n	(also Bash / Cloud Shell, but those aren’t options here)\n\nWhy the others are incorrect:\n	❌ Azure Resource Explorer – Used to view and manage Azure resources, not to run the CLI.\n	❌ Windows Defender Firewall – Security tool, unrelated to CLI execution.\n	❌ Network and Sharing Center – Network configuration tool, not for command execution.', '2026-02-28 11:02:30', 1),
+	(81, 79, 'The correct answers are:\n✅ Azure Data Lake\n✅ Azure Synapse Analytics\n\nWhy these two fit best:\nAzure Data Lake is ideal for storing large volumes of data (20 TB) that are accessed infrequently. It’s cost-effective and designed for analytics scenarios.\nAzure Synapse Analytics integrates seamlessly with Power BI and is built for analyzing and visualizing large datasets stored in places like Azure Data Lake.\n\nWhy the others are not ideal:\n❌ Azure Cosmos DB – Optimized for low-latency, high-transaction workloads, not infrequent access analytics.\n❌ Azure SQL Database – Better for structured, transactional workloads; expensive and inefficient at 20 TB for analytics.\n❌ Azure Database for PostgreSQL – Relational database, not designed for large-scale analytics and BI scenarios.', '2026-02-28 11:02:31', 1),
+	(82, 80, 'The correct answer is:\n✅ An Azure data center failure\n\nWhy:\nAzure Availability Zones are designed to protect applications and services from data center–level failures. Each Availability Zone is a physically separate data center within the same Azure region, with independent power, cooling, and networking.\n\nWhy the others are incorrect:\n❌ A physical server failure – This is handled by Azure’s built-in redundancy and high availability within a data center.\n❌ An Azure region failure – Availability Zones do not protect against entire region outages (that’s what region pairs are for).\n❌ A storage failure – Storage redundancy options (like LRS, ZRS, GRS) handle this, not Availability Zones directly.', '2026-02-28 11:02:31', 1),
+	(83, 81, 'The correct answer is Azure Monitor ✅\n\nWhy:\nService failure notifications (like regional outages, planned maintenance, or health advisories that could affect VM1 in East US) are provided through Azure Service Health, which you access from the Azure Monitor blade in the Azure portal.\n\nWhy the others are wrong:\nAzure Service Fabric – a microservices platform, not for viewing outages.\nAzure virtual machines – shows VM-specific settings and metrics, not Azure-wide service failures.\nAzure Advisor – gives optimization and best-practice recommendations, not real-time failure notifications.', '2026-02-28 12:12:25', 1),
+	(84, 82, 'No. ❌\n\nWhy:\nA PowerShell script that creates Azure resources typically uses Azure PowerShell (Az module) cmdlets, not the Azure CLI. Installing only the Azure CLI on a Linux computer doesn’t satisfy that requirement.\n\nWhat would work instead:\n\nA computer (Windows, Linux, or macOS) with PowerShell installed and\n\nThe Azure PowerShell (Az) module installed\n\n💡 Linux can work, but only if it’s running PowerShell Core + Azure PowerShell, not just the Azure CLI.', '2026-02-28 12:12:25', 1),
+	(85, 83, 'Running the script from a computer that uses Chrome OS with Azure Cloud Shell does meet the goal. Azure Cloud Shell is browser-based and supports PowerShell, so the local operating system doesn’t matter—as long as it can access a modern web browser like Chrome.', '2026-02-28 12:12:25', 1),
+	(86, 84, 'You should create one Azure Firewall.\n\nWhy:\nAzure Firewall is a centralized, stateful firewall that can control and limit inbound (and outbound) traffic across multiple virtual networks. It’s designed exactly for this kind of scenario—many VNets and VMs with a single point of traffic control.\n\nWhy the others don’t fit:\nApplication Security Group (ASG): Used to group VMs for NSG rules, not to centrally limit inbound traffic for all VNets.\nVirtual network gateways: Used for VPNs, not traffic filtering.\nAzure ExpressRoute circuits: Used for private connectivity, not security filtering.', '2026-02-28 12:12:25', 1),
+	(87, 85, 'Correct answers:\n	A virtual network gateway\n	A gateway subnet\n\nYou’re basically describing hybrid connectivity (on-premises → Azure VMs). For that, Azure uses a VPN gateway setup.\nTo make this work, you must create:\nA virtual network gateway\n	This is the VPN endpoint in Azure that allows your on-premises network to connect to Azure.\nA gateway subnet\n	A virtual network gateway must be deployed into a dedicated subnet named GatewaySubnet inside the virtual network.\n\nWhy not the others?\n	❌ Load balancer – used for distributing traffic, not for hybrid connectivity\n	❌ Application gateway – Layer 7 HTTP/HTTPS routing, not VPN connectivity\n	❌ Virtual network – required overall, but the key resources specifically enabling on-premises communication are the gateway and its subnet', '2026-02-28 12:12:25', 1),
+	(88, 86, 'Yes.\n\nUsing Bash in Azure Cloud Shell absolutely meets the goal. 👍\nCloud Shell runs in the browser, so it doesn’t matter that the tablet is running Android. \nAs long as you can access the Azure portal and open Cloud Shell, you can create and manage Azure virtual machines using Azure CLI commands.', '2026-02-28 12:12:25', 1),
+	(89, 87, 'To meet the requirement that FinServer must be on a separate network segment, you need network-level isolation, not just management or access controls.\n\nBest recommendation:\n	✅ A virtual network for FinServer and another virtual network for all the other servers.\n\nWhy this is correct\n	An Azure virtual network (VNet) is a network segment.\n	Placing FinServer in its own VNet guarantees isolation from the other servers at the network level.\n	This cleanly satisfies compliance policies that require separation.\n\nWhy the other options don’t work\n	❌ Separate resource groups – resource groups are for management and billing, not network isolation\n	❌ VPN and virtual network gateway – these are for connectivity, not segmentation\n	❌ Resource lock – prevents changes, but does nothing for network separation', '2026-02-28 12:12:25', 1),
+	(90, 88, 'To map a network drive from Windows 10 computers, Azure needs to provide an SMB file share, just like a traditional file server.\n\n✅ Correct choice\n	A Files service in a storage account.\n\nWhy this works\n	Azure Files supports the SMB protocol, which Windows uses for mapped network drives.\n	You can map it directly using a drive letter (e.g., Z:) from Windows 10.\n	It’s designed exactly for shared file access scenarios.\n\nWhy the others don’t fit\n	❌ Azure SQL database – structured data, not files\n	❌ Virtual machine data disk – attached to a single VM, not a shared network drive\n	❌ Blobs service – object storage; cannot be mapped as a Windows network drive', '2026-02-28 12:12:25', 1),
+	(91, 89, 'To start using and exploring Azure at all, you need a billing and access boundary first.\n\n✅ Correct answer\n	A subscription.\n\nWhy this comes first\nAn Azure subscription is required before you can create any Azure resources.\nIt defines billing, quotas, and access control.\nResource groups, virtual networks, and management groups all exist within or above subscriptions, so they can’t be used until a subscription exists.\n\nWhy the others come later\n	❌ Resource group – requires a subscription\n	❌ Virtual network – requires a resource group and subscription\n	❌ Management group – used to organize multiple subscriptions, not required to start exploring Azure', '2026-02-28 12:12:25', 1),
+	(92, 90, 'You’re looking for a serverless way to trigger and send email notifications based on rules — no VM management, no infrastructure babysitting.\n\nCorrect recommendation\n	A Logic App\n\nWhy this is the right fit\n	Azure Logic Apps are fully serverless\n	They’re designed for workflow automation and rule-based actions\n	Built-in connectors make sending emails trivial (Office 365, SMTP, SendGrid, etc.)\n	Perfect for “when X happens, send an email” scenarios\n\nWhy the others don’t qualify\n	❌ Web app – requires app hosting and management\n	❌ Server image in Azure Marketplace – VM-based, not serverless\n	❌ API app – platform service, but not intended for rule-driven workflows like this', '2026-02-28 12:12:25', 1);
 
 -- Dumping structure for table quiz_db.option_master
 DROP TABLE IF EXISTS `option_master`;
@@ -224,9 +273,9 @@ CREATE TABLE IF NOT EXISTS `option_master` (
   PRIMARY KEY (`option_id`),
   KEY `idx_option_question` (`question_id`,`is_active`),
   CONSTRAINT `option_master_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=281 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.option_master: ~168 rows (approximately)
+-- Dumping data for table quiz_db.option_master: ~206 rows (approximately)
 INSERT INTO `option_master` (`option_id`, `question_id`, `option_text`, `option_order`, `created_at`, `is_active`) VALUES
 	(1, 1, 'YES', 1, '2026-01-25 17:45:05', 1),
 	(2, 1, 'NO', 2, '2026-01-25 17:45:17', 1),
@@ -433,7 +482,81 @@ INSERT INTO `option_master` (`option_id`, `question_id`, `option_text`, `option_
 	(203, 70, 'A complete migration to the public cloud.', 1, '2026-02-13 03:12:14', 1),
 	(204, 70, 'An additional data center.', 2, '2026-02-13 03:12:14', 1),
 	(205, 70, 'A private cloud.', 3, '2026-02-13 03:12:14', 1),
-	(206, 70, 'A hybrid cloud.', 4, '2026-02-13 03:12:14', 1);
+	(206, 70, 'A hybrid cloud.', 4, '2026-02-13 03:12:14', 1),
+	(207, 71, 'The public cloud is owned by the public, NOT a private corporation.', 1, '2026-02-28 11:02:30', 1),
+	(208, 71, 'The public cloud is a crowd-sourcing solution that provides corporations with the ability to enhance the cloud.', 2, '2026-02-28 11:02:30', 1),
+	(209, 71, 'All public cloud resources can be freely accessed by every member of the public.', 3, '2026-02-28 11:02:30', 1),
+	(210, 71, 'The public cloud is a shared entity whereby multiple corporations each use a portion of the resources in the cloud.', 4, '2026-02-28 11:02:30', 1),
+	(211, 72, 'Operational.', 1, '2026-02-28 11:02:30', 1),
+	(212, 72, 'Elastic.', 2, '2026-02-28 11:02:30', 1),
+	(213, 72, 'Capital.', 3, '2026-02-28 11:02:30', 1),
+	(214, 72, 'Scalable.', 4, '2026-02-28 11:02:30', 1),
+	(215, 73, 'An Azure web app.', 1, '2026-02-28 11:02:30', 1),
+	(216, 73, 'An Azure virtual machine.', 2, '2026-02-28 11:02:30', 1),
+	(217, 73, 'An Azure logic app.', 3, '2026-02-28 11:02:30', 1),
+	(218, 73, 'An Azure SQL database', 4, '2026-02-28 11:02:30', 1),
+	(219, 74, 'Azure Reserved Virtual Machine (VM) Instances.', 1, '2026-02-28 11:02:30', 1),
+	(220, 74, 'Azure DevTest Labs.', 2, '2026-02-28 11:02:30', 1),
+	(221, 74, 'Azure virtual machine scale sets.', 3, '2026-02-28 11:02:30', 1),
+	(222, 74, 'Microsoft Managed Desktop.', 4, '2026-02-28 11:02:30', 1),
+	(223, 75, 'Yes', 1, '2026-02-28 11:02:30', 1),
+	(224, 75, 'No', 2, '2026-02-28 11:02:30', 1),
+	(225, 76, 'Software as a Service (SaaS).', 1, '2026-02-28 11:02:30', 1),
+	(226, 76, 'Platform as a Service (PaaS).', 2, '2026-02-28 11:02:30', 1),
+	(227, 76, 'Infrastructure as a Service (laas).', 3, '2026-02-28 11:02:30', 1),
+	(228, 77, 'No change is needed.', 1, '2026-02-28 11:02:30', 1),
+	(229, 77, 'Is found in each country where Microsoft has a subsidiary office.', 2, '2026-02-28 11:02:30', 1),
+	(230, 77, 'Can be found in every country in Europe and the Americas only.', 3, '2026-02-28 11:02:30', 1),
+	(231, 77, 'Contains one or more data centers that are connected by using a high-latency network', 4, '2026-02-28 11:02:30', 1),
+	(232, 78, 'Command Prompt.', 1, '2026-02-28 11:02:30', 1),
+	(233, 78, 'Azure Resource Explorer.', 2, '2026-02-28 11:02:30', 1),
+	(234, 78, 'Windows PowerShell.', 3, '2026-02-28 11:02:30', 1),
+	(235, 78, 'Windows Defender Firewall.', 4, '2026-02-28 11:02:30', 1),
+	(236, 78, 'Network and Sharing Center', 5, '2026-02-28 11:02:30', 1),
+	(237, 79, 'Azure Data Lake.', 1, '2026-02-28 11:02:30', 1),
+	(238, 79, 'Azure Cosmos DB.', 2, '2026-02-28 11:02:30', 1),
+	(239, 79, 'Azure Synapse Analytics.', 3, '2026-02-28 11:02:30', 1),
+	(240, 79, 'Azure SQL Database.', 4, '2026-02-28 11:02:31', 1),
+	(241, 79, 'Azure Database for PostgreSQL', 5, '2026-02-28 11:02:31', 1),
+	(242, 80, 'A physical server failure.', 1, '2026-02-28 11:02:31', 1),
+	(243, 80, 'An Azure region failure.', 2, '2026-02-28 11:02:31', 1),
+	(244, 80, 'A storage failure.', 3, '2026-02-28 11:02:31', 1),
+	(245, 80, 'An Azure data center failure.', 4, '2026-02-28 11:02:31', 1),
+	(246, 81, 'Azure Service Fabric.', 1, '2026-02-28 12:12:25', 1),
+	(247, 81, 'Azure Monitor.', 2, '2026-02-28 12:12:25', 1),
+	(248, 81, 'Azure virtual machines.', 3, '2026-02-28 12:12:25', 1),
+	(249, 81, 'Azure Advisor.', 4, '2026-02-28 12:12:25', 1),
+	(250, 82, 'Yes', 1, '2026-02-28 12:12:25', 1),
+	(251, 82, 'No', 2, '2026-02-28 12:12:25', 1),
+	(252, 83, 'Yes', 1, '2026-02-28 12:12:25', 1),
+	(253, 83, 'No', 2, '2026-02-28 12:12:25', 1),
+	(254, 84, 'One application security group (ASG).', 1, '2026-02-28 12:12:25', 1),
+	(255, 84, '10 virtual network gateways.', 2, '2026-02-28 12:12:25', 1),
+	(256, 84, '10 Azure ExpressRoute circuits.', 3, '2026-02-28 12:12:25', 1),
+	(257, 84, 'One Azure firewall.', 4, '2026-02-28 12:12:25', 1),
+	(258, 85, 'A virtual network gateway.', 1, '2026-02-28 12:12:25', 1),
+	(259, 85, 'A load balancer.', 2, '2026-02-28 12:12:25', 1),
+	(260, 85, 'An application gateway.', 3, '2026-02-28 12:12:25', 1),
+	(261, 85, 'A virtual network.', 4, '2026-02-28 12:12:25', 1),
+	(262, 85, 'A gateway subnet.', 5, '2026-02-28 12:12:25', 1),
+	(263, 86, 'Yes', 1, '2026-02-28 12:12:25', 1),
+	(264, 86, 'No', 2, '2026-02-28 12:12:25', 1),
+	(265, 87, 'A resource group for FinServer and another resource group for all the other servers.', 1, '2026-02-28 12:12:25', 1),
+	(266, 87, 'A virtual network for FinServer and another virtual network for all the other servers.', 2, '2026-02-28 12:12:25', 1),
+	(267, 87, 'A VPN for FinServer and a virtual network gateway for another server.', 3, '2026-02-28 12:12:25', 1),
+	(268, 87, 'One resource group for all the servers and a resource lock for FinServer.', 4, '2026-02-28 12:12:25', 1),
+	(269, 88, 'An Azure SQL database.', 1, '2026-02-28 12:12:25', 1),
+	(270, 88, 'A virtual machine data disk.', 2, '2026-02-28 12:12:25', 1),
+	(271, 88, 'A Files service in a storage account.', 3, '2026-02-28 12:12:25', 1),
+	(272, 88, 'A Blobs service in a storage account.', 4, '2026-02-28 12:12:25', 1),
+	(273, 89, 'A subscription.', 1, '2026-02-28 12:12:25', 1),
+	(274, 89, 'A resource group.', 2, '2026-02-28 12:12:25', 1),
+	(275, 89, 'A virtual network.', 3, '2026-02-28 12:12:25', 1),
+	(276, 89, 'A management group.', 4, '2026-02-28 12:12:25', 1),
+	(277, 90, 'A web app.', 1, '2026-02-28 12:12:25', 1),
+	(278, 90, 'A server image in Azure Marketplace.', 2, '2026-02-28 12:12:25', 1),
+	(279, 90, 'A logic app.', 3, '2026-02-28 12:12:25', 1),
+	(280, 90, 'An API app.', 4, '2026-02-28 12:12:25', 1);
 
 -- Dumping structure for table quiz_db.question
 DROP TABLE IF EXISTS `question`;
@@ -448,9 +571,9 @@ CREATE TABLE IF NOT EXISTS `question` (
   PRIMARY KEY (`question_id`),
   KEY `idx_question_topic` (`topic_id`,`is_active`),
   CONSTRAINT `question_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`topic_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.question: ~60 rows (approximately)
+-- Dumping data for table quiz_db.question: ~90 rows (approximately)
 INSERT INTO `question` (`question_id`, `topic_id`, `question_text`, `question_type`, `difficulty`, `created_at`, `is_active`) VALUES
 	(1, 1, 'If you plan to host a web application in the Azure platform as a service solution of Azure Web Apps, then the platform will have the ability to scale automatically?', 'SINGLE', 'MEDIUM', '2026-01-25 17:44:39', 1),
 	(2, 1, 'You decide to create 2 Virtual machines. Each virtual machine is of the size D2s v3. Would these machines always generate the same monthly cost?', 'SINGLE', 'MEDIUM', '2026-01-25 17:53:06', 1),
@@ -521,7 +644,27 @@ INSERT INTO `question` (`question_id`, `topic_id`, `question_text`, `question_ty
 	(67, 1, 'What are two key characteristics of the public cloud?', 'MULTIPLE', 'MEDIUM', '2026-02-13 03:07:29', 1),
 	(68, 1, 'Your company plans to migrate all its data and resources to Azure. The company migration plan states that only Platform as a Service (PaaS) solutions must be used in Azure. You need to deploy an Azure environment that meets the company migration plan. Solution: You create an Azure App Service and Azure SQL databases. Does this meet the goal?', 'SINGLE', 'MEDIUM', '2026-02-13 03:08:18', 1),
 	(69, 1, 'You plan to migrate a web application to Azure. The web application is accessed by external users. You need to recommend a cloud deployment solution to minimize the amount of administrative effort used to manage the web application. What should you include in the recommendation?', 'SINGLE', 'MEDIUM', '2026-02-13 03:09:24', 1),
-	(70, 1, 'You have an on-premises network that contains 100 servers. You need to recommend a solution that provides additional resources to your users. The solution must minimize capital and operational expenditure costs. What should you include in the recommendation?', 'SINGLE', 'MEDIUM', '2026-02-13 03:12:14', 1);
+	(70, 1, 'You have an on-premises network that contains 100 servers. You need to recommend a solution that provides additional resources to your users. The solution must minimize capital and operational expenditure costs. What should you include in the recommendation?', 'SINGLE', 'MEDIUM', '2026-02-13 03:12:14', 1),
+	(71, 1, 'You plan to migrate several servers from an on-premises network to Azure. What is an advantage of using a public cloud service for the servers over an on-premises network?', 'SINGLE', 'MEDIUM', '2026-02-28 11:02:30', 1),
+	(72, 1, 'You have 1,000 virtual machines hosted on the Hyper-V hosts in a data center. You plan to migrate all the virtual machines to an Azure pay-as-you-go subscription. You need to identify which expenditure model to use for the planned Azure solution. Which expenditure model should you identify?', 'SINGLE', 'MEDIUM', '2026-02-28 11:02:30', 1),
+	(73, 1, 'You plan to provision Infrastructure as a Service (laaS) resources in Azure. Which resource is an example of laaS?', 'SINGLE', 'MEDIUM', '2026-02-28 11:02:30', 1),
+	(74, 1, 'A team of developers at your company plans to deploy, and then remove, 50 virtual machines each week. All the virtual machines are configured by using Azure Resource Manager templates. You need to recommend which Azure service will minimize the administrative effort required to deploy and remove the virtual machines. What should you recommend?', 'SINGLE', 'MEDIUM', '2026-02-28 11:02:30', 1),
+	(75, 1, 'Your company plans to migrate all its data and resources to Azure. The company migration plan states that only Platform as a Service (PaaS) solutions must be used in Azure. You need to deploy an Azure environment that meets the company migration plan. Solution: You create an Azure virtual machines, Azure SQL databases, and Azure Storage accounts. Does this meet the goal?', 'SINGLE', 'MEDIUM', '2026-02-28 11:02:30', 1),
+	(76, 1, 'Your company plans to deploy several custom applications to Azure. The applications will provide invoicing services to the customers of the company. Each application will have several prerequisite applications and services installed. You need to recommend a cloud deployment solution for all the applications. What should you recommend?', 'SINGLE', 'MEDIUM', '2026-02-28 11:02:30', 1),
+	(77, 1, '[An Azure region] contains one or more data centers that are connected by using a low-latency network.', 'SINGLE', 'MEDIUM', '2026-02-28 11:02:30', 1),
+	(78, 1, 'A support engineer plans to perform several Azure management tasks by using the Azure CLI. You install the CLI on a computer. You need to tell the support engineer which tools to use to run the CLI. Which two tools should you instruct the support engineer to use?', 'MULTIPLE', 'MEDIUM', '2026-02-28 11:02:30', 1),
+	(79, 1, 'You plan to store 20 TB of data in Azure. The data will be accessed infrequently and visualized by using Microsoft Power BI. You need to recommend a storage solution for the data Which two solutions should you recommend?', 'MULTIPLE', 'MEDIUM', '2026-02-28 11:02:30', 1),
+	(80, 1, 'You need to identify the type of failure for which an Azure Availability Zone can be used to protect access to Azure services. What should you identify?', 'SINGLE', 'MEDIUM', '2026-02-28 11:02:31', 1),
+	(81, 1, 'You have a virtual machine named VM1 that runs Windows Server 2016. VM1 is in the East US Azure region. Which Azure service should you use from the Azure portal to view service failure notifications that can affect the availability of VM1?', 'SINGLE', 'MEDIUM', '2026-02-28 12:12:25', 1),
+	(82, 1, 'An Azure administrator plans to run a PowerShell script that creates Azure resources. You need to recommend which computer configuration to use to run the script. Solution: Run the script from a computer that runs Linux and has the Azure CLI tools installed. Does this meet the goal?', 'SINGLE', 'MEDIUM', '2026-02-28 12:12:25', 1),
+	(83, 1, 'An Azure administrator plans to run a PowerShell script that creates Azure resources. You need to recommend which computer configuration to use to run the script. Solution: Run the script from a computer that runs Chrome OS and uses Azure Cloud Shell Does this meet the goal?', 'SINGLE', 'MEDIUM', '2026-02-28 12:12:25', 1),
+	(84, 1, 'You have an Azure environment that contains 10 virtual networks and 100 virtual machines You need to limit the amount of inbound traffic to all the Azure virtual network. What should you create?', 'SINGLE', 'MEDIUM', '2026-02-28 12:12:25', 1),
+	(85, 1, 'You have an Azure environment that contains multiple Azure virtual machines. You plan to implement a solution that enables the client computers on your on-premises network to communicate to the Azure virtual machines. You need to recommend which Azure resources must be created for the planned solution. Which two Azure resources should you include in the recommendation?', 'MULTIPLE', 'MEDIUM', '2026-02-28 12:12:25', 1),
+	(86, 1, 'You have an Azure environment. You need to create a new Azure virtual machine from a tablet that runs the Android operating system. Solution: You use Bash in Azure Cloud Shell. Does this meet the goal?', 'SINGLE', 'MEDIUM', '2026-02-28 12:12:25', 1),
+	(87, 1, 'Your company plans to move several servers to Azure. The company compliance policy states that a server named FinServer must be on a separate network segment. You are evaluating which Azure services can be used to meet the compliance policy requirements. Which Azure solution should you recommend?', 'SINGLE', 'MEDIUM', '2026-02-28 12:12:25', 1),
+	(88, 1, 'You plan to map a network drive from several computers that run Windows 10 to Azure Storage. You need to create a storage solution in Azure for the planned mapped drive. What should you create?', 'SINGLE', 'MEDIUM', '2026-02-28 12:12:25', 1),
+	(89, 1, 'Your company plans to migrate all its network resources to Azure. You need to start the planning process by exploring Azure. What should you create first?', 'SINGLE', 'MEDIUM', '2026-02-28 12:12:25', 1),
+	(90, 1, 'You have an on-premises application that sends email notifications automatically based on a rule, You plan to migrate the application to Azure. You need to recommend a serverless computing solution for the application. What should you include in the recommendation?', 'SINGLE', 'MEDIUM', '2026-02-28 12:12:25', 1);
 
 -- Dumping structure for table quiz_db.question_attempt
 DROP TABLE IF EXISTS `question_attempt`;

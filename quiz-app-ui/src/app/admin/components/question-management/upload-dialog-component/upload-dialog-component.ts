@@ -40,10 +40,11 @@ selectedFile: File | null = null;
       (response) => {
         debugger;
         this.loading = false;
-        this.snackBar.open(response, 'Close', { duration: 3000 });
-        this.dialogRef.close(response);  // Return response or success message
+        this.snackBar.open(response.message, 'Close', { duration: 3000 });
+        this.dialogRef.close(response.message);  // Return response or success message
       },
       (error) => {
+        debugger;
         this.loading = false;
         this.errorMessage = "Error uploading the file. Please try again.";
       }

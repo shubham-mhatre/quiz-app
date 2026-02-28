@@ -232,7 +232,7 @@ public class QuestionService {
 	            String questionText = row[0];
 	            String questionType = row[1];
 	            String explanation = row[2];
-	            String[] correctOptionIndexes = row[3].split(","); // Correct answers are in column 4
+	            String[] correctOptionIndexes = row[3].split("\\|"); // Correct answers are in column 4
 	            Long topicId = Long.parseLong(row[4]);
 	            
 	            // Create Question entity

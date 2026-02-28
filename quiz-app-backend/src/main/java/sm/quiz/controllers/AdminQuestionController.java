@@ -56,12 +56,18 @@ public class AdminQuestionController {
 //	}
 	
 	@PostMapping("/bulk-upload")
-    public ResponseEntity<String> bulkUploadQuestions(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<QuestionDto> bulkUploadQuestions(@RequestParam("file") MultipartFile file) {
         try {
             questionService.bulkUploadQuestions(file);
-            return ResponseEntity.ok("Questions uploaded successfully!");
+            QuestionDto response=new QuestionDto();
+			response.setMessage("Questions uploaded successfully!");
+			response.setStatus(1);
+			return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading questions");
+        	QuestionDto response=new QuestionDto();
+			response.setMessage("Issue occure while saving question details. "+e.getMessage().substring(0, 255));
+			response.setStatus(0);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 }

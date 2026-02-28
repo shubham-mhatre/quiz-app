@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Dashboardcomponent } from './components/dashboardcomponent/dashboardcomponent';
 import { Unauthorized } from './components/unauthorized/unauthorized';
 import { SharedModule } from './shared/shared-module';
+import { NewlineToBrPipe } from './pipes/newline-to-br-pipe';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { SharedModule } from './shared/shared-module';
     Login,
     Dashboardcomponent,
     Unauthorized,
+    NewlineToBrPipe,
   ],
   imports: [
     FormsModule,

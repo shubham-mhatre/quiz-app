@@ -98,7 +98,6 @@ export class QuestionManagement {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      debugger;
       if (result) {
         // Optionally, refresh questions after upload (if needed)
         this.loadQuestions();

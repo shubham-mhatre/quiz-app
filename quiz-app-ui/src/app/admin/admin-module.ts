@@ -13,7 +13,7 @@ import { CreateTopicDialog } from './components/create-topic-dialog/create-topic
 import { CreateEditQuestionDialog } from './components/question-management/create-edit-question-dialog/create-edit-question-dialog';
 import { QuestionDetailDialog } from './components/question-management/question-detail-dialog/question-detail-dialog';
 import { UploadDialogComponent } from './components/question-management/upload-dialog-component/upload-dialog-component';
-
+import { NewlineToBrPipe } from '../pipes/newline-to-br-pipe';
 
 
 @NgModule({
@@ -26,6 +26,7 @@ import { UploadDialogComponent } from './components/question-management/upload-d
     CreateEditQuestionDialog,
     QuestionDetailDialog,
     UploadDialogComponent,
+    NewlineToBrPipe
   ],
   imports: [
     CommonModule,

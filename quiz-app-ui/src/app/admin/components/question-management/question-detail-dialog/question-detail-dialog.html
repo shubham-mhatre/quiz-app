@@ -18,13 +18,11 @@
   </mat-list>
 
   <p><strong>Explanation:</strong></p>
-  <p *ngIf="data.explanation; else noExp">
-  {{ data.explanation }}
-</p>
+  <p *ngIf="data.explanation; else noExp" [innerHTML]="data.explanation | newlineToBr"></p>
 
-<ng-template #noExp>
-  <i>No explanation provided</i>
-</ng-template>
+  <ng-template #noExp>
+    <i>No explanation provided</i>
+  </ng-template>
 
 </mat-dialog-content>
 
