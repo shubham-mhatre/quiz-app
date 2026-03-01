@@ -1,0 +1,96 @@
+/* quiz.component.scss */
+
+.quiz-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+mat-card {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+}
+
+mat-card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+mat-card-content {
+  font-size: 1rem;
+  color: #555;
+}
+
+mat-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+mat-radio-button {
+  margin: 10px 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+mat-radio-button .mat-radio-label {
+  font-size: 1rem;
+}
+
+button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #00796b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #004d40;
+  }
+
+  &:disabled {
+    background-color: #b2dfdb;
+    cursor: not-allowed;
+  }
+}
+
+mat-progress-bar {
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #00796b;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1rem;
+  color: #777;
+  text-align: center;
+}
+
+mat-radio-group {
+  margin-top: 15px;
+}
+
+mat-radio-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

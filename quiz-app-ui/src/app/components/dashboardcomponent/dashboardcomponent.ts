@@ -50,6 +50,15 @@ export class Dashboardcomponent implements OnInit{
       width: '400px',
       data: { topicId } // Pass the topicId to the dialog
     });
+
+    dialogRef.afterClosed().subscribe((numberOfQuestions: number) => {
+      if (numberOfQuestions) {
+        // Navigate to the quiz component with the topicId and numberOfQuestions
+        this.router.navigate(['/quiz'], { queryParams: { topicId, numberOfQuestions } });
+      }
+    });
   }
+
+  
 
 }

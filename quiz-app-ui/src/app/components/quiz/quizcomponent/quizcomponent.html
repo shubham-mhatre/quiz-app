@@ -1,0 +1,25 @@
+<!-- quiz.component.html -->
+<div class="quiz-container">
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+  <div *ngIf="!loading && questions.length">
+    <h3>Topic: {{ topicId }}</h3>
+    <div *ngFor="let question of questions; let i = index">
+      <mat-card>
+        <mat-card-title>{{ i + 1 }}. {{ question.questionText }}</mat-card-title>
+
+        <mat-card-content>
+          <mat-radio-group>
+            <mat-radio-button *ngFor="let option of question.options" [value]="option.id">
+              {{ option.text }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <button mat-raised-button color="primary">Submit Quiz</button>
+  </div>
+
+  <p *ngIf="questions.length === 0 && !loading">No questions available for this topic.</p>
+</div>

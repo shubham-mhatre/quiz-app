@@ -5,6 +5,7 @@ import { Dashboardcomponent } from './components/dashboardcomponent/dashboardcom
 import { authguardGuard } from './guards/authguard-guard';
 import { roleguardGuard } from './guards/roleguard-guard';
 import { Unauthorized } from './components/unauthorized/unauthorized';
+import { Quizcomponent } from './components/quiz/quizcomponent/quizcomponent';
 
 const routes: Routes = [
   { path: 'login', component: Login },
@@ -12,6 +13,10 @@ const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'dashboard', 
     component: Dashboardcomponent, 
+    canActivate:[authguardGuard,roleguardGuard],
+    data: { role: 'USER' } 
+  },
+  { path: 'quiz', component: Quizcomponent,
     canActivate:[authguardGuard,roleguardGuard],
     data: { role: 'USER' } 
   },
