@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
   CONSTRAINT `answer_ibfk_2` FOREIGN KEY (`option_id`) REFERENCES `option_master` (`option_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.answer: ~12 rows (approximately)
+-- Dumping data for table quiz_db.answer: ~110 rows (approximately)
 INSERT INTO `answer` (`answer_id`, `question_id`, `option_id`, `created_at`) VALUES
 	(1, 1, 1, '2026-01-25 17:45:47'),
 	(2, 2, 4, '2026-01-25 17:54:44'),
@@ -134,7 +134,19 @@ INSERT INTO `answer` (`answer_id`, `question_id`, `option_id`, `created_at`) VAL
 	(97, 87, 266, '2026-02-28 12:12:25'),
 	(98, 88, 271, '2026-02-28 12:12:25'),
 	(99, 89, 273, '2026-02-28 12:12:25'),
-	(100, 90, 279, '2026-02-28 12:12:25');
+	(100, 90, 279, '2026-02-28 12:12:25'),
+	(101, 91, 283, '2026-03-01 03:49:05'),
+	(102, 92, 285, '2026-03-01 03:49:05'),
+	(103, 92, 288, '2026-03-01 03:49:05'),
+	(104, 93, 290, '2026-03-01 03:49:05'),
+	(105, 93, 291, '2026-03-01 03:49:05'),
+	(106, 94, 296, '2026-03-01 03:49:05'),
+	(107, 95, 299, '2026-03-01 03:49:05'),
+	(108, 96, 301, '2026-03-01 03:49:05'),
+	(109, 97, 304, '2026-03-01 03:49:05'),
+	(110, 98, 307, '2026-03-01 03:49:05'),
+	(111, 99, 309, '2026-03-01 03:49:05'),
+	(112, 100, 315, '2026-03-01 03:49:05');
 
 -- Dumping structure for table quiz_db.app_user
 DROP TABLE IF EXISTS `app_user`;
@@ -168,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `explanation` (
   CONSTRAINT `explanation_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.explanation: ~70 rows (approximately)
+-- Dumping data for table quiz_db.explanation: ~100 rows (approximately)
 INSERT INTO `explanation` (`explanation_id`, `question_id`, `explanation_text`, `created_at`, `is_active`) VALUES
 	(1, 1, 'Correct Answer is YES. \n\nExplanation:\nAzure Web Apps (Azure App Service) is a Platform as a Service (PaaS) offering.\nOne of the built-in features of App Service is automatic scaling:\n	Scale out/in (number of instances)\n	Scale up/down (pricing tier)\nScaling can be based on:\n	CPU usage\n	Memory\n	HTTP queue length\n	Schedules\nSo the platform does have the ability to scale automatically.', '2026-01-25 17:48:46', 1),
 	(2, 2, 'Correct answer: No\r\n \r\nExplanation\r\nEven if both virtual machines are the same size (D2s_v3), they will not always generate the same monthly cost because Azure \r\nVM costs depend on usage and configuration, such as:\r\n	Running time (24×7 vs stopped/deallocated)\r\n	OS type (Windows costs more than Linux due to licensing)\r\n	Region (prices vary by region)\r\n	Attached resources (disks, public IPs, backups)\r\n	Billing model (pay-as-you-go vs Reserved Instances)\r\nSo two identical VM sizes can still result in different monthly bills', '2026-01-25 17:55:06', 1),
@@ -259,7 +271,17 @@ INSERT INTO `explanation` (`explanation_id`, `question_id`, `explanation_text`, 
 	(89, 87, 'To meet the requirement that FinServer must be on a separate network segment, you need network-level isolation, not just management or access controls.\n\nBest recommendation:\n	✅ A virtual network for FinServer and another virtual network for all the other servers.\n\nWhy this is correct\n	An Azure virtual network (VNet) is a network segment.\n	Placing FinServer in its own VNet guarantees isolation from the other servers at the network level.\n	This cleanly satisfies compliance policies that require separation.\n\nWhy the other options don’t work\n	❌ Separate resource groups – resource groups are for management and billing, not network isolation\n	❌ VPN and virtual network gateway – these are for connectivity, not segmentation\n	❌ Resource lock – prevents changes, but does nothing for network separation', '2026-02-28 12:12:25', 1),
 	(90, 88, 'To map a network drive from Windows 10 computers, Azure needs to provide an SMB file share, just like a traditional file server.\n\n✅ Correct choice\n	A Files service in a storage account.\n\nWhy this works\n	Azure Files supports the SMB protocol, which Windows uses for mapped network drives.\n	You can map it directly using a drive letter (e.g., Z:) from Windows 10.\n	It’s designed exactly for shared file access scenarios.\n\nWhy the others don’t fit\n	❌ Azure SQL database – structured data, not files\n	❌ Virtual machine data disk – attached to a single VM, not a shared network drive\n	❌ Blobs service – object storage; cannot be mapped as a Windows network drive', '2026-02-28 12:12:25', 1),
 	(91, 89, 'To start using and exploring Azure at all, you need a billing and access boundary first.\n\n✅ Correct answer\n	A subscription.\n\nWhy this comes first\nAn Azure subscription is required before you can create any Azure resources.\nIt defines billing, quotas, and access control.\nResource groups, virtual networks, and management groups all exist within or above subscriptions, so they can’t be used until a subscription exists.\n\nWhy the others come later\n	❌ Resource group – requires a subscription\n	❌ Virtual network – requires a resource group and subscription\n	❌ Management group – used to organize multiple subscriptions, not required to start exploring Azure', '2026-02-28 12:12:25', 1),
-	(92, 90, 'You’re looking for a serverless way to trigger and send email notifications based on rules — no VM management, no infrastructure babysitting.\n\nCorrect recommendation\n	A Logic App\n\nWhy this is the right fit\n	Azure Logic Apps are fully serverless\n	They’re designed for workflow automation and rule-based actions\n	Built-in connectors make sending emails trivial (Office 365, SMTP, SendGrid, etc.)\n	Perfect for “when X happens, send an email” scenarios\n\nWhy the others don’t qualify\n	❌ Web app – requires app hosting and management\n	❌ Server image in Azure Marketplace – VM-based, not serverless\n	❌ API app – platform service, but not intended for rule-driven workflows like this', '2026-02-28 12:12:25', 1);
+	(92, 90, 'You’re looking for a serverless way to trigger and send email notifications based on rules — no VM management, no infrastructure babysitting.\n\nCorrect recommendation\n	A Logic App\n\nWhy this is the right fit\n	Azure Logic Apps are fully serverless\n	They’re designed for workflow automation and rule-based actions\n	Built-in connectors make sending emails trivial (Office 365, SMTP, SendGrid, etc.)\n	Perfect for “when X happens, send an email” scenarios\n\nWhy the others don’t qualify\n	❌ Web app – requires app hosting and management\n	❌ Server image in Azure Marketplace – VM-based, not serverless\n	❌ API app – platform service, but not intended for rule-driven workflows like this', '2026-02-28 12:12:25', 1),
+	(93, 91, 'You should recommend a content delivery network (CDN).\n\nWhy:\nA CDN caches and serves large video files from edge locations close to users around the world, which:\n	Reduces latency\n	Improves video streaming and playback performance\n	Offloads traffic from the origin website\n\nWhy not the others:\n	Application Gateway – load balancing and security, not global media delivery\n	Azure ExpressRoute – private connectivity, not for public worldwide users\n	Azure Traffic Manager – DNS-based routing, but it doesn’t cache or optimize video content', '2026-03-01 03:49:05', 1),
+	(94, 92, 'The two Azure resources you should identify are:\n	Azure IoT Hub\n	Azure Data Lake\n\nWhy these two:\nAzure IoT Hub is purpose-built to handle millions of IoT devices securely and reliably. It supports device authentication, telemetry ingestion at massive scale, and bi-directional communication with sensors.\n\nAzure Data Lake is designed for storing and analyzing very large volumes of data, making it ideal for long-term storage and analytics of the telemetry data uploaded by those sensors.\n\nWhy not the others:\n	Azure Queue Storage – useful for decoupling application components, but not required for large-scale IoT ingestion\n	Azure File Storage – file shares, not optimized for IoT telemetry\n	Azure Notification Hubs – used for sending push notifications to apps, not ingesting sensor data', '2026-03-01 03:49:05', 1),
+	(95, 93, 'The two Azure management tools you can use from an iPhone are:\n	The Azure portal\n	Azure Cloud Shell\n\nWhy these work:\n	Azure portal runs in a mobile browser (and via the Azure mobile app), so you can manage web app settings directly from your iPhone.\n	Azure Cloud Shell is browser-based and runs inside the Azure portal, giving you access to Azure CLI or PowerShell without installing anything on the phone.\n\nWhy not the others:\n	Azure CLI – requires local installation (not supported on iOS)\n	Windows PowerShell – Windows-only\n	Azure Storage Explorer – desktop application only\n\n✅ Correct answers: The Azure portal and Azure Cloud Shell', '2026-03-01 03:49:05', 1),
+	(96, 94, 'The correct choice is Azure Machine Learning Studio.\n\nWhy:\n	Azure Machine Learning Studio is specifically designed to build, train, test, and deploy predictive analytics and machine learning models. \n	It provides tools for data preparation, model training, experimentation, and deployment as web services.\n\nWhy not the others:\n	Azure Logic Apps – workflow automation, not AI model development\n	Azure Batch – large-scale parallel compute jobs, not ML lifecycle management\n	Azure Cosmos DB – globally distributed database, not an AI platform', '2026-03-01 03:49:05', 1),
+	(97, 95, 'Yes. ✅\nThis does meet the goal.\n\nWhy:\n	Azure Cloud Shell (even when you select PowerShell) includes the Azure CLI (az) by default.\n	You can run az vm create ... commands from either Bash or PowerShell in Cloud Shell.\n	Cloud Shell automatically uses the currently selected subscription in the Azure portal (Subscription1), where RG1 already exists.\n\nSo running this command in Cloud Shell (PowerShell) will successfully create VM1 in Subscription1.', '2026-03-01 03:49:05', 1),
+	(98, 96, 'Yes. ✅\nThis does meet the goal.\n\nWhy:\nAzure PowerShell is supported on Windows 10.\nInstalling the Azure PowerShell module (Az) allows the administrator to authenticate to Azure and create/manage Azure resources using PowerShell scripts.\nAs long as the user signs in with appropriate permissions, the script will run successfully.', '2026-03-01 03:49:05', 1),
+	(99, 97, 'The service that provides serverless computing in Azure is:\n✅ Azure Functions\n\nWhy:\nAzure Functions lets you run code without provisioning or managing servers. You only pay for the execution time, which is the core idea of serverless computing.\n\nWhy not the others:\n	Azure Virtual Machines – you manage the servers\n	Azure Storage account – storage service, not compute\n	Azure Container Instances – containers without VM management, but not serverless', '2026-03-01 03:49:05', 1),
+	(100, 98, 'Yes. ✅\nThis does meet the goal.\n\nWhy:\n	Azure Cloud Shell (Bash) natively supports the Azure CLI (az).\n	The command you’re using is an Azure CLI command, so Bash is actually the most common environment for it.\n	Cloud Shell automatically authenticates you and uses the current subscription (Subscription1) selected in the Azure portal.\n\nThe resource group RG1 already exists, so the VM can be created successfully.', '2026-03-01 03:49:05', 1),
+	(101, 99, 'You should recommend Azure Resource Manager (ARM) templates ✅\n\nWhy:\nARM templates let you define, deploy, and manage a consistent set of Azure resources as code. Since each business unit needs the same 20 resource types, you can create one template and reuse it to automatically deploy identical environments—fast, repeatable, and error-free.\n\nWhy not the others:\n	Virtual machine scale sets ❌ : Only for scaling VM instances, not for provisioning a full mix of Azure resources.\n	Azure API Management ❌ : Used to publish and manage APIs, not to automate infrastructure creation.\n	Management groups ❌ : Used for organizing subscriptions and applying governance, not deploying resources.', '2026-03-01 03:49:05', 1),
+	(102, 100, 'The right choice is Azure Monitor ✅\n\nWhy:\nAzure Monitor is designed to collect, aggregate, and store telemetry (events, logs, metrics) from multiple Azure resources into a centralized repository. \nIt’s the go-to service for monitoring, diagnostics, and analysis across your environment.\n\nWhy not the others:\n	Azure Event Hubs ❌ : Great for high-throughput event ingestion, but it’s more of a streaming pipeline than a centralized monitoring repository.\n	Azure Analysis Services ❌ : Used for data modeling and analytics, not event collection.\n	Azure Stream Analytics ❌ : Processes and analyzes streaming data in real time; it doesn’t act as a central event store.', '2026-03-01 03:49:05', 1);
 
 -- Dumping structure for table quiz_db.option_master
 DROP TABLE IF EXISTS `option_master`;
@@ -275,7 +297,7 @@ CREATE TABLE IF NOT EXISTS `option_master` (
   CONSTRAINT `option_master_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=281 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.option_master: ~206 rows (approximately)
+-- Dumping data for table quiz_db.option_master: ~316 rows (approximately)
 INSERT INTO `option_master` (`option_id`, `question_id`, `option_text`, `option_order`, `created_at`, `is_active`) VALUES
 	(1, 1, 'YES', 1, '2026-01-25 17:45:05', 1),
 	(2, 1, 'NO', 2, '2026-01-25 17:45:17', 1),
@@ -556,7 +578,43 @@ INSERT INTO `option_master` (`option_id`, `question_id`, `option_text`, `option_
 	(277, 90, 'A web app.', 1, '2026-02-28 12:12:25', 1),
 	(278, 90, 'A server image in Azure Marketplace.', 2, '2026-02-28 12:12:25', 1),
 	(279, 90, 'A logic app.', 3, '2026-02-28 12:12:25', 1),
-	(280, 90, 'An API app.', 4, '2026-02-28 12:12:25', 1);
+	(280, 90, 'An API app.', 4, '2026-02-28 12:12:25', 1),
+	(281, 91, 'An application gateway.', 1, '2026-03-01 03:49:05', 1),
+	(282, 91, 'An Azure ExpressRoute circuit.', 2, '2026-03-01 03:49:05', 1),
+	(283, 91, 'A content delivery network (CDN).', 3, '2026-03-01 03:49:05', 1),
+	(284, 91, 'An Azure Traffic Manager profile.', 4, '2026-03-01 03:49:05', 1),
+	(285, 92, 'Azure Data Lake.', 1, '2026-03-01 03:49:05', 1),
+	(286, 92, 'Azure Queue storage.', 2, '2026-03-01 03:49:05', 1),
+	(287, 92, 'Azure File Storage.', 3, '2026-03-01 03:49:05', 1),
+	(288, 92, 'Azure IoT Hub.', 4, '2026-03-01 03:49:05', 1),
+	(289, 92, 'Azure Notification Hubs.', 5, '2026-03-01 03:49:05', 1),
+	(290, 93, 'Azure CLI.', 1, '2026-03-01 03:49:05', 1),
+	(291, 93, 'The Azure portal.', 2, '2026-03-01 03:49:05', 1),
+	(292, 93, 'Azure Cloud Shell.', 3, '2026-03-01 03:49:05', 1),
+	(293, 93, 'Windows PowerShell.', 4, '2026-03-01 03:49:05', 1),
+	(294, 93, 'Azure Storage Explorer.', 5, '2026-03-01 03:49:05', 1),
+	(295, 94, 'Azure Logic Apps.', 1, '2026-03-01 03:49:05', 1),
+	(296, 94, 'Azure Machine Learning Studio.', 2, '2026-03-01 03:49:05', 1),
+	(297, 94, 'Azure Batch.', 3, '2026-03-01 03:49:05', 1),
+	(298, 94, 'Azure Cosmos DB.', 4, '2026-03-01 03:49:05', 1),
+	(299, 95, 'Yes', 1, '2026-03-01 03:49:05', 1),
+	(300, 95, 'No', 2, '2026-03-01 03:49:05', 1),
+	(301, 96, 'Yes', 1, '2026-03-01 03:49:05', 1),
+	(302, 96, 'No', 2, '2026-03-01 03:49:05', 1),
+	(303, 97, 'Azure Virtual Machines.', 1, '2026-03-01 03:49:05', 1),
+	(304, 97, 'Azure Functions.', 2, '2026-03-01 03:49:05', 1),
+	(305, 97, 'Azure storage account.', 3, '2026-03-01 03:49:05', 1),
+	(306, 97, 'Azure Container Instances', 4, '2026-03-01 03:49:05', 1),
+	(307, 98, 'Yes', 1, '2026-03-01 03:49:05', 1),
+	(308, 98, 'No', 2, '2026-03-01 03:49:05', 1),
+	(309, 99, 'Azure Resource Manager templates.', 1, '2026-03-01 03:49:05', 1),
+	(310, 99, 'Virtual machine scale sets.', 2, '2026-03-01 03:49:05', 1),
+	(311, 99, 'The Azure API Management service.', 3, '2026-03-01 03:49:05', 1),
+	(312, 99, 'Management groups.', 4, '2026-03-01 03:49:05', 1),
+	(313, 100, 'Azure Event Hubs.', 1, '2026-03-01 03:49:05', 1),
+	(314, 100, 'Azure Analysis Services.', 2, '2026-03-01 03:49:05', 1),
+	(315, 100, 'Azure Monitor.', 3, '2026-03-01 03:49:05', 1),
+	(316, 100, 'Azure Stream Analytics.', 4, '2026-03-01 03:49:05', 1);
 
 -- Dumping structure for table quiz_db.question
 DROP TABLE IF EXISTS `question`;
@@ -573,7 +631,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   CONSTRAINT `question_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`topic_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.question: ~90 rows (approximately)
+-- Dumping data for table quiz_db.question: ~100 rows (approximately)
 INSERT INTO `question` (`question_id`, `topic_id`, `question_text`, `question_type`, `difficulty`, `created_at`, `is_active`) VALUES
 	(1, 1, 'If you plan to host a web application in the Azure platform as a service solution of Azure Web Apps, then the platform will have the ability to scale automatically?', 'SINGLE', 'MEDIUM', '2026-01-25 17:44:39', 1),
 	(2, 1, 'You decide to create 2 Virtual machines. Each virtual machine is of the size D2s v3. Would these machines always generate the same monthly cost?', 'SINGLE', 'MEDIUM', '2026-01-25 17:53:06', 1),
@@ -664,7 +722,17 @@ INSERT INTO `question` (`question_id`, `topic_id`, `question_text`, `question_ty
 	(87, 1, 'Your company plans to move several servers to Azure. The company compliance policy states that a server named FinServer must be on a separate network segment. You are evaluating which Azure services can be used to meet the compliance policy requirements. Which Azure solution should you recommend?', 'SINGLE', 'MEDIUM', '2026-02-28 12:12:25', 1),
 	(88, 1, 'You plan to map a network drive from several computers that run Windows 10 to Azure Storage. You need to create a storage solution in Azure for the planned mapped drive. What should you create?', 'SINGLE', 'MEDIUM', '2026-02-28 12:12:25', 1),
 	(89, 1, 'Your company plans to migrate all its network resources to Azure. You need to start the planning process by exploring Azure. What should you create first?', 'SINGLE', 'MEDIUM', '2026-02-28 12:12:25', 1),
-	(90, 1, 'You have an on-premises application that sends email notifications automatically based on a rule, You plan to migrate the application to Azure. You need to recommend a serverless computing solution for the application. What should you include in the recommendation?', 'SINGLE', 'MEDIUM', '2026-02-28 12:12:25', 1);
+	(90, 1, 'You have an on-premises application that sends email notifications automatically based on a rule, You plan to migrate the application to Azure. You need to recommend a serverless computing solution for the application. What should you include in the recommendation?', 'SINGLE', 'MEDIUM', '2026-02-28 12:12:25', 1),
+	(91, 1, 'You plan to deploy a website to Azure. The website will be accessed by users worldwide and will host large video files. You need to recommend which Azure feature must be used to provide the best video playback experience. What should you recommend?', 'SINGLE', 'MEDIUM', '2026-03-01 03:49:05', 1),
+	(92, 1, 'Your company plans to deploy several million sensors that will upload data to Azure. You need to identify which Azure resources must be created to support the planned solution. Which two Azure resources should you identify?', 'MULTIPLE', 'MEDIUM', '2026-03-01 03:49:05', 1),
+	(93, 1, 'You have an Azure web app. You need to manage the settings of the web app from an iPhone. What are two Azure management tools that you can use?', 'MULTIPLE', 'MEDIUM', '2026-03-01 03:49:05', 1),
+	(94, 1, 'Company plans to deploy an Artificial Intelligence (AI) solution in Azure. What should the company use to build, test, and deploy predictive analytics solutions?', 'SINGLE', 'MEDIUM', '2026-03-01 03:49:05', 1),
+	(95, 1, 'You have an Azure subscription named Subscription1. You sign in to the Azure portal and create a resource group named RG1. From Azure documentation, you have the following command that creates a virtual machine named VM1. az vm create --resource-group RG1 --name VM1 --image UbuntuLTS --generate-ssh-keys. You need to create VM1 in Subscription1 by using the command. Solution: From the Azure portal, launch Azure Cloud Shell and select PowerShell. Run the command in Cloud Shell. Does this meet the goal?', 'SINGLE', 'MEDIUM', '2026-03-01 03:49:05', 1),
+	(96, 1, 'An Azure administrator plans to run a PowerShell script that creates Azure resources. You need to recommend which computer configuration to use to run the script. Solution: Run the script from a computer that runs Windows 10 and has the Azure PowerShell module installed. Does this meet the goal?', 'SINGLE', 'MEDIUM', '2026-03-01 03:49:05', 1),
+	(97, 1, 'Which service provides serverless computing in Azure?', 'SINGLE', 'MEDIUM', '2026-03-01 03:49:05', 1),
+	(98, 1, 'You have an Azure subscription named Subscription1. You sign in to the Azure portal and create a resource group named RG1. From Azure documentation, you have the following command that creates a virtual machine named VM1. az vm create --resource-group RG1 --name VM1 --image UbuntuLTS --generate-ssh-keys. You need to create VM1 in Subscription1 by using the command. Solution: From the Azure portal, launch Azure Cloud Shell and select Bash. Run the command in Cloud Shell. Does this meet the goal?', 'SINGLE', 'MEDIUM', '2026-03-01 03:49:05', 1),
+	(99, 1, 'Your company has several business units. Each business unit requires 20 different Azure resources for daily operation. All the business units require the same type of Azure resources. You need to recommend a solution to automate the creation of the Azure resources. What should you include in the recommendations?', 'SINGLE', 'MEDIUM', '2026-03-01 03:49:05', 1),
+	(100, 1, 'Which Azure service should you use to collect events from multiple resources into a centralized repository?', 'SINGLE', 'MEDIUM', '2026-03-01 03:49:05', 1);
 
 -- Dumping structure for table quiz_db.question_attempt
 DROP TABLE IF EXISTS `question_attempt`;
@@ -719,7 +787,7 @@ CREATE TABLE IF NOT EXISTS `quiz_attempt` (
   CONSTRAINT `quiz_attempt_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`topic_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table quiz_db.quiz_attempt: ~0 rows (approximately)
+-- Dumping data for table quiz_db.quiz_attempt: ~1 rows (approximately)
 INSERT INTO `quiz_attempt` (`attempt_id`, `user_id`, `topic_id`, `total_questions`, `correct_count`, `score`, `started_at`, `submitted_at`) VALUES
 	(1, 2, 1, 2, 1, 1, '2026-01-26 14:23:16', '2026-01-26 14:23:16');
 
