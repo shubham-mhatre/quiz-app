@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Auth } from '../../services/auth';
 import {Topic} from '../../models/topic';
 import { Topicservice } from '../../services/topicservice';
+import { MatDialog } from '@angular/material/dialog';
+import { QuizStartDialog } from '../quiz/quiz-start-dialog/quiz-start-dialog';
 
 @Component({
   selector: 'app-dashboardcomponent',
@@ -19,6 +21,7 @@ export class Dashboardcomponent implements OnInit{
   constructor(
     private router: Router,
     private auth: Auth,private topicService: Topicservice,
+    private dialog:MatDialog
   ) {
 
   }
@@ -42,7 +45,11 @@ export class Dashboardcomponent implements OnInit{
   }
 
   startQuiz(topicId: number): void {
-    this.router.navigate(['/quiz', topicId]);
+    // this.router.navigate(['/quiz', topicId]);
+    const dialogRef = this.dialog.open(QuizStartDialog, {
+      width: '400px',
+      data: { topicId } // Pass the topicId to the dialog
+    });
   }
 
 }
