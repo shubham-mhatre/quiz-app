@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
   CONSTRAINT `answer_ibfk_2` FOREIGN KEY (`option_id`) REFERENCES `option_master` (`option_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.answer: ~110 rows (approximately)
+-- Dumping data for table quiz_db.answer: ~121 rows (approximately)
 INSERT INTO `answer` (`answer_id`, `question_id`, `option_id`, `created_at`) VALUES
 	(1, 1, 1, '2026-01-25 17:45:47'),
 	(2, 2, 4, '2026-01-25 17:54:44'),
@@ -146,7 +146,18 @@ INSERT INTO `answer` (`answer_id`, `question_id`, `option_id`, `created_at`) VAL
 	(109, 97, 304, '2026-03-01 03:49:05'),
 	(110, 98, 307, '2026-03-01 03:49:05'),
 	(111, 99, 309, '2026-03-01 03:49:05'),
-	(112, 100, 315, '2026-03-01 03:49:05');
+	(112, 100, 315, '2026-03-01 03:49:05'),
+	(113, 101, 318, '2026-03-01 04:16:34'),
+	(114, 102, 319, '2026-03-01 04:16:34'),
+	(115, 103, 321, '2026-03-01 04:16:34'),
+	(116, 104, 325, '2026-03-01 04:16:34'),
+	(117, 105, 329, '2026-03-01 04:16:34'),
+	(118, 106, 336, '2026-03-01 04:16:34'),
+	(119, 107, 337, '2026-03-01 04:16:34'),
+	(120, 108, 339, '2026-03-01 04:16:34'),
+	(121, 109, 342, '2026-03-01 04:16:34'),
+	(122, 110, 345, '2026-03-01 04:16:34'),
+	(123, 110, 346, '2026-03-01 04:16:34');
 
 -- Dumping structure for table quiz_db.app_user
 DROP TABLE IF EXISTS `app_user`;
@@ -180,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `explanation` (
   CONSTRAINT `explanation_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.explanation: ~100 rows (approximately)
+-- Dumping data for table quiz_db.explanation: ~110 rows (approximately)
 INSERT INTO `explanation` (`explanation_id`, `question_id`, `explanation_text`, `created_at`, `is_active`) VALUES
 	(1, 1, 'Correct Answer is YES. \n\nExplanation:\nAzure Web Apps (Azure App Service) is a Platform as a Service (PaaS) offering.\nOne of the built-in features of App Service is automatic scaling:\n	Scale out/in (number of instances)\n	Scale up/down (pricing tier)\nScaling can be based on:\n	CPU usage\n	Memory\n	HTTP queue length\n	Schedules\nSo the platform does have the ability to scale automatically.', '2026-01-25 17:48:46', 1),
 	(2, 2, 'Correct answer: No\r\n \r\nExplanation\r\nEven if both virtual machines are the same size (D2s_v3), they will not always generate the same monthly cost because Azure \r\nVM costs depend on usage and configuration, such as:\r\n	Running time (24×7 vs stopped/deallocated)\r\n	OS type (Windows costs more than Linux due to licensing)\r\n	Region (prices vary by region)\r\n	Attached resources (disks, public IPs, backups)\r\n	Billing model (pay-as-you-go vs Reserved Instances)\r\nSo two identical VM sizes can still result in different monthly bills', '2026-01-25 17:55:06', 1),
@@ -281,7 +292,17 @@ INSERT INTO `explanation` (`explanation_id`, `question_id`, `explanation_text`, 
 	(99, 97, 'The service that provides serverless computing in Azure is:\n✅ Azure Functions\n\nWhy:\nAzure Functions lets you run code without provisioning or managing servers. You only pay for the execution time, which is the core idea of serverless computing.\n\nWhy not the others:\n	Azure Virtual Machines – you manage the servers\n	Azure Storage account – storage service, not compute\n	Azure Container Instances – containers without VM management, but not serverless', '2026-03-01 03:49:05', 1),
 	(100, 98, 'Yes. ✅\nThis does meet the goal.\n\nWhy:\n	Azure Cloud Shell (Bash) natively supports the Azure CLI (az).\n	The command you’re using is an Azure CLI command, so Bash is actually the most common environment for it.\n	Cloud Shell automatically authenticates you and uses the current subscription (Subscription1) selected in the Azure portal.\n\nThe resource group RG1 already exists, so the VM can be created successfully.', '2026-03-01 03:49:05', 1),
 	(101, 99, 'You should recommend Azure Resource Manager (ARM) templates ✅\n\nWhy:\nARM templates let you define, deploy, and manage a consistent set of Azure resources as code. Since each business unit needs the same 20 resource types, you can create one template and reuse it to automatically deploy identical environments—fast, repeatable, and error-free.\n\nWhy not the others:\n	Virtual machine scale sets ❌ : Only for scaling VM instances, not for provisioning a full mix of Azure resources.\n	Azure API Management ❌ : Used to publish and manage APIs, not to automate infrastructure creation.\n	Management groups ❌ : Used for organizing subscriptions and applying governance, not deploying resources.', '2026-03-01 03:49:05', 1),
-	(102, 100, 'The right choice is Azure Monitor ✅\n\nWhy:\nAzure Monitor is designed to collect, aggregate, and store telemetry (events, logs, metrics) from multiple Azure resources into a centralized repository. \nIt’s the go-to service for monitoring, diagnostics, and analysis across your environment.\n\nWhy not the others:\n	Azure Event Hubs ❌ : Great for high-throughput event ingestion, but it’s more of a streaming pipeline than a centralized monitoring repository.\n	Azure Analysis Services ❌ : Used for data modeling and analytics, not event collection.\n	Azure Stream Analytics ❌ : Processes and analyzes streaming data in real time; it doesn’t act as a central event store.', '2026-03-01 03:49:05', 1);
+	(102, 100, 'The right choice is Azure Monitor ✅\n\nWhy:\nAzure Monitor is designed to collect, aggregate, and store telemetry (events, logs, metrics) from multiple Azure resources into a centralized repository. \nIt’s the go-to service for monitoring, diagnostics, and analysis across your environment.\n\nWhy not the others:\n	Azure Event Hubs ❌ : Great for high-throughput event ingestion, but it’s more of a streaming pipeline than a centralized monitoring repository.\n	Azure Analysis Services ❌ : Used for data modeling and analytics, not event collection.\n	Azure Stream Analytics ❌ : Processes and analyzes streaming data in real time; it doesn’t act as a central event store.', '2026-03-01 03:49:05', 1),
+	(103, 101, 'Correct Answer is No.\n\nThe PowerApps (Power Apps) portal is for building and using business applications, not for managing Azure infrastructure. \nIt can’t be used to create Azure virtual machines.\n\nFrom an Android tablet, you could create a VM by using:\n	The Azure portal in a web browser, or\n	Azure management tools/APIs (not PowerApps)', '2026-03-01 04:16:34', 1),
+	(104, 102, 'Correct answer is Yes.\n\nThe Azure portal is web-based and can be accessed from a browser on an Android tablet, allowing you to create and manage Azure virtual machines.', '2026-03-01 04:16:34', 1),
+	(105, 103, 'The correct answer is: Azure Repos\n\nAzure Repos provides Git repositories and Team Foundation Version Control (TFVC), which are version control tools used to manage and track code changes.\n\nWhy the others don’t fit:\n	Azure DevTest Labs – Used for creating and managing development/test environments\n	Azure Storage – Stores blobs, files, queues, and tables\n	Azure Cosmos DB – A globally distributed database service', '2026-03-01 04:16:34', 1),
+	(106, 104, 'The correct answer is: Azure Key Vault\n\nWhy:\n	Azure Key Vault securely stores and encrypts sensitive information such as administrative usernames, passwords, certificates, and secrets. \n	During automated deployments (ARM templates, Bicep, Terraform, pipelines), credentials can be retrieved securely from Key Vault without\n	exposing them in code or logs.\n\nWhy not the others:\n	Microsoft Purview Information Protection – Focuses on data classification and labeling\n	Microsoft Defender for Cloud – Provides security posture management and threat protection\n	Azure Multi-Factor Authentication (MFA) – Adds an extra sign-in verification step but does not encrypt credentials during deployment', '2026-03-01 04:16:34', 1),
+	(107, 105, 'The correct answer is: Network Security Group (NSG)\n\nWhy:\nA Network Security Group (NSG) lets you control inbound and outbound network traffic to Azure virtual machines by \ndefining security rules that allow or deny traffic on specific ports, protocols, and source/destination IP addresses.\n\nWhy the others are incorrect:\n	Microsoft Entra ID role – Controls permissions to Azure resources, not network traffic\n	Microsoft Entra ID group – Used for identity and access management, not port control\n	Azure Key Vault – Stores secrets, keys, and certificates', '2026-03-01 04:16:34', 1),
+	(108, 106, 'The correct answer is: This service has been discontinued. Azure Germany was retired in 2021\n\nExplanation:\nAzure Germany was a sovereign cloud offering with special data residency and access controls. \nMicrosoft officially retired Azure Germany in 2021, and customers were migrated to standard Azure regions in Germany \n(such as Germany West Central and Germany North).', '2026-03-01 04:16:34', 1),
+	(109, 107, 'Corrected answer is Yes.\n\nModifying a Network Security Group (NSG) to allow inbound traffic on TCP port 80 (HTTP) from the Internet will make VM1 accessible over HTTP, assuming the NSG is associated with the VM’s network interface or subnet.', '2026-03-01 04:16:34', 1),
+	(110, 108, 'Corrected answer is Yes.\n\nAn Azure Firewall can be configured with inbound rules to allow HTTP (TCP port 80) traffic from the Internet to VM1. If the firewall is properly deployed (with a public IP and routing set up), modifying it to allow HTTP access meets the goal.', '2026-03-01 04:16:34', 1),
+	(111, 109, 'Corrected answer is No.\n\nAzure Traffic Manager is a DNS-based load-balancing service. It controls how clients are directed to endpoints, \nbut it does not open ports or allow network traffic to a virtual machine.\n\nTo make VM1 accessible over HTTP, you must allow inbound TCP port 80 using a Network Security Group or a firewall, not Traffic Manager.', '2026-03-01 04:16:34', 1),
+	(112, 110, 'The correct answers are:\n	✅ A United States government entity\n	✅ A United States government contractor\n\nWhy:\nAzure Government is a separate cloud environment designed specifically for U.S. government agencies and their partners/contractors who \nhandle sensitive government data. It is not available to foreign governments or contractors outside the U.S.\n\nWhy the others are incorrect:\n	Canadian or European entities/contractors are not eligible for Azure Government; they would use the standard Azure regions in their countries or regions.', '2026-03-01 04:16:34', 1);
 
 -- Dumping structure for table quiz_db.option_master
 DROP TABLE IF EXISTS `option_master`;
@@ -297,7 +318,7 @@ CREATE TABLE IF NOT EXISTS `option_master` (
   CONSTRAINT `option_master_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=281 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.option_master: ~316 rows (approximately)
+-- Dumping data for table quiz_db.option_master: ~347 rows (approximately)
 INSERT INTO `option_master` (`option_id`, `question_id`, `option_text`, `option_order`, `created_at`, `is_active`) VALUES
 	(1, 1, 'YES', 1, '2026-01-25 17:45:05', 1),
 	(2, 1, 'NO', 2, '2026-01-25 17:45:17', 1),
@@ -614,7 +635,38 @@ INSERT INTO `option_master` (`option_id`, `question_id`, `option_text`, `option_
 	(313, 100, 'Azure Event Hubs.', 1, '2026-03-01 03:49:05', 1),
 	(314, 100, 'Azure Analysis Services.', 2, '2026-03-01 03:49:05', 1),
 	(315, 100, 'Azure Monitor.', 3, '2026-03-01 03:49:05', 1),
-	(316, 100, 'Azure Stream Analytics.', 4, '2026-03-01 03:49:05', 1);
+	(316, 100, 'Azure Stream Analytics.', 4, '2026-03-01 03:49:05', 1),
+	(317, 101, 'Yes', 1, '2026-03-01 04:16:34', 1),
+	(318, 101, 'No', 2, '2026-03-01 04:16:34', 1),
+	(319, 102, 'Yes', 1, '2026-03-01 04:16:34', 1),
+	(320, 102, 'No', 2, '2026-03-01 04:16:34', 1),
+	(321, 103, 'Azure Repos.', 1, '2026-03-01 04:16:34', 1),
+	(322, 103, 'Azure DevTest Labs.', 2, '2026-03-01 04:16:34', 1),
+	(323, 103, 'Azure Storage.', 3, '2026-03-01 04:16:34', 1),
+	(324, 103, 'Azure Cosmos DB.', 4, '2026-03-01 04:16:34', 1),
+	(325, 104, 'Azure Key Vault.', 1, '2026-03-01 04:16:34', 1),
+	(326, 104, 'Microsoft Purview Information Protection.', 2, '2026-03-01 04:16:34', 1),
+	(327, 104, 'Microsoft Defender for Cloud.', 3, '2026-03-01 04:16:34', 1),
+	(328, 104, 'Azure Multi-Factor Authentication (MFA).', 4, '2026-03-01 04:16:34', 1),
+	(329, 105, 'Network Security Group (NSG).', 1, '2026-03-01 04:16:34', 1),
+	(330, 105, 'Microsoft Entra ID role.', 2, '2026-03-01 04:16:34', 1),
+	(331, 105, 'Microsoft Entra ID group.', 3, '2026-03-01 04:16:34', 1),
+	(332, 105, 'Azure key vault.', 4, '2026-03-01 04:16:34', 1),
+	(333, 106, 'No change is needed.', 1, '2026-03-01 04:16:34', 1),
+	(334, 106, 'Only enterprises that are registered in Germany.', 2, '2026-03-01 04:16:34', 1),
+	(335, 106, 'Only enterprises that purchase their azure licenses from a partner based in Germany.', 3, '2026-03-01 04:16:34', 1),
+	(336, 106, 'This service has been discontinued. Azure Germany was retired in 2021', 4, '2026-03-01 04:16:34', 1),
+	(337, 107, 'Yes', 1, '2026-03-01 04:16:34', 1),
+	(338, 107, 'No', 2, '2026-03-01 04:16:34', 1),
+	(339, 108, 'Yes', 1, '2026-03-01 04:16:34', 1),
+	(340, 108, 'No', 2, '2026-03-01 04:16:34', 1),
+	(341, 109, 'Yes', 1, '2026-03-01 04:16:34', 1),
+	(342, 109, 'No', 2, '2026-03-01 04:16:34', 1),
+	(343, 110, 'A Canadian government contractor.', 1, '2026-03-01 04:16:34', 1),
+	(344, 110, 'A European government contractor.', 2, '2026-03-01 04:16:34', 1),
+	(345, 110, 'A United States government entity.', 3, '2026-03-01 04:16:34', 1),
+	(346, 110, 'A United States government contractor.', 4, '2026-03-01 04:16:34', 1),
+	(347, 110, 'A European government entity.', 5, '2026-03-01 04:16:34', 1);
 
 -- Dumping structure for table quiz_db.question
 DROP TABLE IF EXISTS `question`;
@@ -631,7 +683,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   CONSTRAINT `question_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`topic_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.question: ~100 rows (approximately)
+-- Dumping data for table quiz_db.question: ~110 rows (approximately)
 INSERT INTO `question` (`question_id`, `topic_id`, `question_text`, `question_type`, `difficulty`, `created_at`, `is_active`) VALUES
 	(1, 1, 'If you plan to host a web application in the Azure platform as a service solution of Azure Web Apps, then the platform will have the ability to scale automatically?', 'SINGLE', 'MEDIUM', '2026-01-25 17:44:39', 1),
 	(2, 1, 'You decide to create 2 Virtual machines. Each virtual machine is of the size D2s v3. Would these machines always generate the same monthly cost?', 'SINGLE', 'MEDIUM', '2026-01-25 17:53:06', 1),
@@ -732,7 +784,17 @@ INSERT INTO `question` (`question_id`, `topic_id`, `question_text`, `question_ty
 	(97, 1, 'Which service provides serverless computing in Azure?', 'SINGLE', 'MEDIUM', '2026-03-01 03:49:05', 1),
 	(98, 1, 'You have an Azure subscription named Subscription1. You sign in to the Azure portal and create a resource group named RG1. From Azure documentation, you have the following command that creates a virtual machine named VM1. az vm create --resource-group RG1 --name VM1 --image UbuntuLTS --generate-ssh-keys. You need to create VM1 in Subscription1 by using the command. Solution: From the Azure portal, launch Azure Cloud Shell and select Bash. Run the command in Cloud Shell. Does this meet the goal?', 'SINGLE', 'MEDIUM', '2026-03-01 03:49:05', 1),
 	(99, 1, 'Your company has several business units. Each business unit requires 20 different Azure resources for daily operation. All the business units require the same type of Azure resources. You need to recommend a solution to automate the creation of the Azure resources. What should you include in the recommendations?', 'SINGLE', 'MEDIUM', '2026-03-01 03:49:05', 1),
-	(100, 1, 'Which Azure service should you use to collect events from multiple resources into a centralized repository?', 'SINGLE', 'MEDIUM', '2026-03-01 03:49:05', 1);
+	(100, 1, 'Which Azure service should you use to collect events from multiple resources into a centralized repository?', 'SINGLE', 'MEDIUM', '2026-03-01 03:49:05', 1),
+	(101, 1, 'You have an Azure environment. You need to create a new Azure virtual machine from a tablet that runs the Android operating system. Solution: You use the PowerApps portal. Does this meet the goal?', 'SINGLE', 'MEDIUM', '2026-03-01 04:16:34', 1),
+	(102, 1, 'You have an Azure environment. You need to create a new Azure virtual machine from a tablet that runs the Android operating system. Solution: You use the Azure portal. Does this meet the goal?', 'SINGLE', 'MEDIUM', '2026-03-01 04:16:34', 1),
+	(103, 1, 'Which Azure service provides a set of version control tools to manage code?', 'SINGLE', 'MEDIUM', '2026-03-01 04:16:34', 1),
+	(104, 1, 'Your company plans to automate the deployment of servers to Azure. Your manager is concerned that you may expose administrative credentials during the deployment. You need to recommend an Azure solution that encrypts the administrative credentials during the deployment. What should you include in the recommendation?', 'SINGLE', 'MEDIUM', '2026-03-01 04:16:34', 1),
+	(105, 1, 'You plan to deploy several Azure virtual machines. You need to control the ports that devices on the Internet can use to access the virtual machines. What should you use?', 'SINGLE', 'MEDIUM', '2026-03-01 04:16:34', 1),
+	(106, 1, 'Azure Germany can be used by legal residents of Germany only.', 'SINGLE', 'MEDIUM', '2026-03-01 04:16:34', 1),
+	(107, 1, 'Your Azure environment contains multiple Azure virtual machines. You need to ensure that a virtual machine named VM1 is accessible from the Internet over HTTP. Solution. You modify a Network Security Group (NSG). Does this meet the goal?', 'SINGLE', 'MEDIUM', '2026-03-01 04:16:34', 1),
+	(108, 1, 'Your Azure environment contains multiple Azure virtual machines. You need to ensure that a virtual machine named VM1 is accessible from the Internet over HTTP. Solution: You modify an Azure firewall. Does this meet the goal?', 'SINGLE', 'MEDIUM', '2026-03-01 04:16:34', 1),
+	(109, 1, 'Your Azure environment contains multiple Azure virtual machines. You need to ensure that a virtual machine named VM1 is accessible from the Internet over HTTP. Solution: You modify an Azure Traffic Manager profile. Does this meet the goal?', 'SINGLE', 'MEDIUM', '2026-03-01 04:16:34', 1),
+	(110, 1, 'Which two types of customers are eligible to use Azure Government to develop a cloud solution?', 'MULTIPLE', 'MEDIUM', '2026-03-01 04:16:34', 1);
 
 -- Dumping structure for table quiz_db.question_attempt
 DROP TABLE IF EXISTS `question_attempt`;
