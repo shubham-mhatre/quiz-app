@@ -1,25 +1,62 @@
-<!-- quiz.component.html -->
+<div class="quiz-header">
+  <h2>TOPIC : {{ topicName }}</h2>  <!-- Display the topic name at the top -->
+</div>
+
 <div class="quiz-container">
-  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
-
-  <div *ngIf="!loading && questions.length">
-    <h3>Topic: {{ topicId }}</h3>
-    <div *ngFor="let question of questions; let i = index">
-      <mat-card>
-        <mat-card-title>{{ i + 1 }}. {{ question.questionText }}</mat-card-title>
-
-        <mat-card-content>
-          <mat-radio-group>
-            <mat-radio-button *ngFor="let option of question.options" [value]="option.id">
-              {{ option.text }}
-            </mat-radio-button>
-          </mat-radio-group>
-        </mat-card-content>
-      </mat-card>
+  <!-- Question Navigation with scrollable container -->
+  <div class="question-nav">
+    <div class="question-buttons-container">
+      <div class="question-buttons">
+        <button
+          *ngFor="let num of questionButtons; let i = index"
+          [ngStyle]="{'background-color': getButtonColor(i)}"
+          (click)="navigateToQuestion(i)"
+        >
+          {{ i + 1 }}
+        </button>
+      </div>
     </div>
 
-    <button mat-raised-button color="primary">Submit Quiz</button>
+    <div class="quiz-timer">
+      <p><strong>Total Time Left: </strong>{{ getFormattedTime(timeLeft) }}</p>
+    </div>
   </div>
 
-  <p *ngIf="questions.length === 0 && !loading">No questions available for this topic.</p>
+  <!-- Question Details -->
+  <mat-card>
+    <mat-card-title>Question {{ currentQuestionIndex + 1 }}: {{ questions[currentQuestionIndex]?.questionText }}</mat-card-title>
+
+    <mat-card-content>
+      <mat-radio-group (change)="markAsAttempted()">
+        <mat-radio-button *ngFor="let option of questions[currentQuestionIndex]?.options; let i = index"
+          name="options"
+          [value]="option.id">
+          {{ option.text }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </mat-card-content>
+
+    <!-- <div class="timer">
+      <p>Time Left for This Question: {{ getFormattedTime(timeLeft) }}</p>
+    </div> -->
+
+    <!-- Navigation Buttons -->
+    <div class="navigation-buttons">
+      <button mat-raised-button color="primary" (click)="previousQuestion()" [disabled]="currentQuestionIndex === 0">
+        Previous
+      </button>
+      <button mat-raised-button color="primary" (click)="nextQuestion()" [disabled]="currentQuestionIndex === questions.length - 1">
+        Next
+      </button>
+    </div>
+  </mat-card>
+
+  <!-- Submit Quiz Button -->
+  <div class="submit-quiz">
+    <button mat-raised-button color="warn" (click)="openSubmitConfirmation()">
+      Submit Quiz
+    </button>
+  </div>
+
+  <mat-progress-bar *ngIf="isQuizFinished" mode="indeterminate"></mat-progress-bar>
 </div>

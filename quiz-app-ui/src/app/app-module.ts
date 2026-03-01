@@ -12,6 +12,7 @@ import { Unauthorized } from './components/unauthorized/unauthorized';
 import { SharedModule } from './shared/shared-module';
 import { QuizStartDialog } from './components/quiz/quiz-start-dialog/quiz-start-dialog';
 import { Quizcomponent } from './components/quiz/quizcomponent/quizcomponent';
+import { ConfirmationDialog } from './components/confirmation-dialog/confirmation-dialog';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { Quizcomponent } from './components/quiz/quizcomponent/quizcomponent';
     Unauthorized,
     QuizStartDialog,
     Quizcomponent,
+    ConfirmationDialog,
   ],
   imports: [
     FormsModule,
