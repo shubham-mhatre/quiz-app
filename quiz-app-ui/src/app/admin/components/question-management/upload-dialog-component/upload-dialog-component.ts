@@ -38,13 +38,11 @@ selectedFile: File | null = null;
     // Call the upload method from the questionService
     this.questionService.uploadCSV(formData).subscribe(
       (response) => {
-        debugger;
         this.loading = false;
         this.snackBar.open(response.message, 'Close', { duration: 3000 });
         this.dialogRef.close(response.message);  // Return response or success message
       },
       (error) => {
-        debugger;
         this.loading = false;
         this.errorMessage = "Error uploading the file. Please try again.";
       }
