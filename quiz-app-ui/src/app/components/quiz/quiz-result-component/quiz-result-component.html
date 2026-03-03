@@ -1,28 +1,64 @@
 <div class="quiz-result-container">
+
   <h2>Quiz Results</h2>
 
   <!-- ================= SUMMARY MODE ================= -->
-  <div *ngIf="!reviewMode && summary">
+  <div *ngIf="!reviewMode && summary" class="summary-section">
 
-    <p><strong>Total Questions:</strong> {{ summary.totalQuestions }}</p>
-    <p><strong>Correct Answers:</strong> {{ summary.correctAnswers }}</p>
+    <div class="summary-stats">
+      <p><strong>Total Questions:</strong> {{ summary.totalQuestions }}</p>
+      <p><strong>Correct Answers:</strong> {{ summary.correctAnswers }}</p>
+    </div>
 
-    <button mat-raised-button color="primary" (click)="reviewQuiz()">
-      Review Quiz
-    </button>
+    <!-- Score -->
+    <div class="score-section">
+      <p class="score-text">
+        {{ scorePercentage }}%
+      </p>
 
-    <button mat-raised-button color="accent" (click)="backToDashboard()">
-      Back to Dashboard
-    </button>
+      <mat-progress-bar
+        mode="determinate"
+        [value]="scorePercentage"
+        color="primary">
+      </mat-progress-bar>
+
+      <p class="performance-msg">
+        {{ performanceMessage }}
+      </p>
+    </div>
+
+    <div class="summary-actions">
+      <button mat-raised-button color="primary" (click)="reviewQuiz()">
+        Review Quiz
+      </button>
+
+      <button mat-raised-button color="accent" (click)="backToDashboard()">
+        Back to Dashboard
+      </button>
+    </div>
 
   </div>
+
 
   <!-- ================= REVIEW MODE ================= -->
   <div *ngIf="reviewMode" class="questions-list">
 
-    <div *ngFor="let question of reviewQuestions; let i = index" class="question-card">
+    <div *ngFor="let question of reviewQuestions; let i = index"
+         class="question-card">
 
-      <h3>Q{{ i + 1 }}: {{ question.questionText }}</h3>
+      <!-- Question Header with Status -->
+      <h3 class="question-header">
+        <span>
+          Q{{ i + 1 }}: {{ question.questionText }}
+        </span>
+
+        <span
+          class="question-status"
+          [ngClass]="isQuestionCorrect(question) ? 'correct' : 'wrong'">
+
+          {{ isQuestionCorrect(question) ? '✔ Correct' : '✖ Incorrect' }}
+        </span>
+      </h3>
 
       <ul>
         <li *ngFor="let option of question.options"
@@ -63,9 +99,12 @@
 
     </div>
 
-    <button mat-raised-button color="accent" (click)="backToDashboard()">
-      Back to Dashboard
-    </button>
+    <div class="review-actions">
+      <button mat-raised-button color="accent" (click)="backToDashboard()">
+        Back to Dashboard
+      </button>
+    </div>
 
   </div>
+
 </div>

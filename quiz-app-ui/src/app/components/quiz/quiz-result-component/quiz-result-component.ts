@@ -41,8 +41,10 @@ export class QuizResultComponent {
   reviewMode = false;
   reviewQuestions: QuizReviewQuestion[] = [];
 
-  constructor(private router: Router, private quizService: Quizservice) {
-    debugger;
+  constructor(
+    private router: Router,
+    private quizService: Quizservice
+  ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras?.state as any;
 
@@ -53,15 +55,32 @@ export class QuizResultComponent {
 
   ngOnInit(): void {}
 
+  // ================= SCORE PERCENTAGE =================
+  get scorePercentage(): number {
+    if (!this.summary?.totalQuestions) return 0;
+
+    return Math.round(
+      (this.summary.correctAnswers / this.summary.totalQuestions) * 100
+    );
+  }
+
+  // ================= PERFORMANCE MESSAGE =================
+  get performanceMessage(): string {
+    const score = this.scorePercentage;
+
+    if (score >= 85) return '🎉 Excellent Performance!';
+    if (score >= 60) return '👍 Good Job!';
+    if (score >= 40) return '🙂 Not Bad, Keep Improving!';
+    return '📚 Keep Practicing!';
+  }
+
   // ================= REVIEW API =================
   reviewQuiz() {
-    debugger;
     if (!this.summary?.attemptId) return;
 
     this.quizService.fetchQuizReview(this.summary.attemptId).subscribe(
       (questions: any[]) => {
 
-        // Transform backend response
         this.reviewQuestions = questions.map(q => ({
           questionText: q.questionText,
           options: q.options || [],
@@ -85,11 +104,25 @@ export class QuizResultComponent {
     this.router.navigate(['/dashboard']);
   }
 
+  // ================= OPTION CHECKS =================
   isOptionSelected(questionIndex: number, optionId: number): boolean {
     return this.reviewQuestions[questionIndex]?.selectedOptionIds.includes(optionId);
   }
 
   isOptionCorrect(questionIndex: number, optionId: number): boolean {
     return this.reviewQuestions[questionIndex]?.correctOptionIds.includes(optionId);
+  }
+
+  // ================= QUESTION STATUS =================
+  isQuestionCorrect(question: QuizReviewQuestion): boolean {
+
+    if (!question.selectedOptionIds?.length) return false;
+
+    return (
+      question.selectedOptionIds.length === question.correctOptionIds.length &&
+      question.selectedOptionIds.every(id =>
+        question.correctOptionIds.includes(id)
+      )
+    );
   }
 }
