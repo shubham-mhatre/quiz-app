@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import sm.quiz.entities.dto.ExplanationDto;
 import sm.quiz.entities.dto.QuestionDto;
 import sm.quiz.entities.dto.QuizResultResponse;
+import sm.quiz.entities.dto.QuizReviewDto;
 import sm.quiz.entities.dto.QuizSubmissionRequest;
 import sm.quiz.entities.dto.UserQuizHistoryDto;
 import sm.quiz.services.QuizService;
@@ -51,5 +52,11 @@ public class QuizController {
             @PathVariable Long userId) {
         return quizService.getUserQuizHistory(userId);
     }
+	
+	@GetMapping("/review")
+	public List<QuizReviewDto> reviewQuiz(@RequestParam Long attemptId) {
+		List<QuizReviewDto> quizResponse= quizService.reviewQuiz(attemptId);
+		return quizResponse;
+	}
 
 }

@@ -5,19 +5,28 @@ import { Router } from '@angular/router';
 interface QuizSummary {
   totalQuestions: number;
   correctAnswers: number;
-  results: { questionId: number; correct: boolean; score: number; correctOptionIds: number[] }[];
-  topicId:number;
-  quizAttemptId:number;
+  results: {
+    questionId: number;
+    correct: boolean;
+    score: number;
+    correctOptionIds: number[];
+  }[];
+  topicId: number;
+  attemptId: number;
 }
 
 interface QuizReviewQuestion {
-  id: number;
   questionText: string;
   options: { id: number; text: string }[];
+  selectedOptions: { id: number; text: string }[];
+  correctOptions: { id: number; text: string }[];
+  explanation?: string;
+
+  // Derived fields for easier UI checks
   selectedOptionIds: number[];
   correctOptionIds: number[];
-  explanation?: string;
 }
+
 
 @Component({
   selector: 'app-quiz-result-component',
@@ -33,7 +42,7 @@ export class QuizResultComponent {
   reviewQuestions: QuizReviewQuestion[] = [];
 
   constructor(private router: Router, private quizService: Quizservice) {
-    // Get summary result from navigation state
+    debugger;
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras?.state as any;
 
@@ -44,14 +53,27 @@ export class QuizResultComponent {
 
   ngOnInit(): void {}
 
-  // ================== Review API ==================
+  // ================= REVIEW API =================
   reviewQuiz() {
-    if (!this.summary) return;
+    debugger;
+    if (!this.summary?.attemptId) return;
 
-    this.quizService.fetchQuizReview(this.summary.quizAttemptId).subscribe(
-      (questions: QuizReviewQuestion[]) => {
-        this.reviewQuestions = questions;
-        this.reviewMode = true; // toggle UI to detailed review
+    this.quizService.fetchQuizReview(this.summary.attemptId).subscribe(
+      (questions: any[]) => {
+
+        // Transform backend response
+        this.reviewQuestions = questions.map(q => ({
+          questionText: q.questionText,
+          options: q.options || [],
+          selectedOptions: q.selectedOptions || [],
+          correctOptions: q.correctOptions || [],
+          explanation: q.explanation,
+
+          selectedOptionIds: (q.selectedOptions || []).map((o: any) => o.id),
+          correctOptionIds: (q.correctOptions || []).map((o: any) => o.id)
+        }));
+
+        this.reviewMode = true;
       },
       (error) => {
         console.error('Error fetching review:', error);

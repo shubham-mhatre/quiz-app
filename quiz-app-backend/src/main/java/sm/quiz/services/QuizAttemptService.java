@@ -2,6 +2,7 @@ package sm.quiz.services;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,5 +79,10 @@ public class QuizAttemptService {
     @Transactional(readOnly = true)
     public List<UserQuizHistoryDto> getUserHistory(Long userId) {
         return quizAttemptRepository.findUserHistory(userId);
+    }
+    
+    public QuizAttempt getAttemptDetails(Long attemptId) {
+    	 return quizAttemptRepository.findById(attemptId).get();
+
     }
 }

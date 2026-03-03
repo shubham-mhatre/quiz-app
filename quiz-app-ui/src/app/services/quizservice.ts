@@ -20,7 +20,7 @@ export class Quizservice {
   }
 
   fetchQuizReview(quizAttemptId:number): Observable<any> {
-    return this.httpClient.post<any>(`${this.baseUrl}/api/quiz/submit`, quizAttemptId);
+    return this.httpClient.get<any>(`${this.baseUrl}/api/quiz/review?attemptId=${quizAttemptId}`);
   }
   
 }
