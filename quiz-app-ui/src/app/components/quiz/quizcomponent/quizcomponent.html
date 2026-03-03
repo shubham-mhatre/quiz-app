@@ -27,18 +27,24 @@
     <mat-card-title>Question {{ currentQuestionIndex + 1 }}: {{ questions[currentQuestionIndex]?.questionText }}</mat-card-title>
 
     <mat-card-content>
-      <mat-radio-group (change)="markAsAttempted()">
-        <mat-radio-button *ngFor="let option of questions[currentQuestionIndex]?.options; let i = index"
-          name="options"
-          [value]="option.id">
-          {{ option.text }}
-        </mat-radio-button>
-      </mat-radio-group>
+      <!-- Conditionally Render Radio or Checkbox based on Question Type -->
+      <div *ngIf="questions[currentQuestionIndex]?.questionType === 'SINGLE'">
+        <mat-radio-group (change)="markAsAttempted()">
+          <mat-radio-button *ngFor="let option of questions[currentQuestionIndex]?.options; let i = index"
+                            [value]="option.id">
+            {{ option.text }}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      
+      <div *ngIf="questions[currentQuestionIndex]?.questionType === 'MULTIPLE'">
+        <div *ngFor="let option of questions[currentQuestionIndex]?.options; let i = index">
+          <mat-checkbox (change)="markAsAttempted()" [value]="option.id">
+            {{ option.text }}
+          </mat-checkbox>
+        </div>
+      </div>
     </mat-card-content>
-
-    <!-- <div class="timer">
-      <p>Time Left for This Question: {{ getFormattedTime(timeLeft) }}</p>
-    </div> -->
 
     <!-- Navigation Buttons -->
     <div class="navigation-buttons">
@@ -60,3 +66,4 @@
 
   <mat-progress-bar *ngIf="isQuizFinished" mode="indeterminate"></mat-progress-bar>
 </div>
+
