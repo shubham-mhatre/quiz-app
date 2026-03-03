@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Quizservice } from '../../../services/quizservice';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,39 +12,63 @@ import { ConfirmationDialog } from '../../confirmation-dialog/confirmation-dialo
 })
 export class Quizcomponent implements OnInit, OnDestroy {
 
-  topicId: number = 0;
-  numberOfQuestions: number = 0;
-  questions: any[] = []; // Store the fetched questions
-  loading: boolean = false;
+  // ================= STATES =================
+  readonly NOT_VISITED = 'NOT_VISITED';
+  readonly VISITED = 'VISITED';
+  readonly ATTEMPTED = 'ATTEMPTED';
+  readonly REVIEW = 'REVIEW';
 
-  currentQuestionIndex: number = 0;
-  timeLeft: number = 0;  // Total time for the quiz (in seconds)
-  totalTime: number = 0; // Total time for the entire quiz in seconds (number of questions * 90)
-  timerSubscription: any;
-  isQuizFinished: boolean = false;
-  questionStatus: string[] = []; // Track attempted or not for each question
+  topicId = 0;
+  numberOfQuestions = 0;
+  questions: any[] = [];
+
+  currentQuestionIndex = 0;
+
+  totalTime = 0;
+  timeLeft = 0;
+  formattedTime = '';
+
+  timer: any;
+  isQuizFinished = false;
 
   questionButtons: number[] = [];
-  attemptedQuestions: Set<number> = new Set();
-  topicName = '';
+  questionStates: string[] = [];
+  buttonColors: string[] = [];
 
-  // Object to track selected options for each question
-  selectedOptions: Map<number, any[]> = new Map();
+  selectedOptions = new Map<number, any[]>();
 
-  constructor(private route: ActivatedRoute, private quizService: Quizservice,
-    private router: Router, private dialog: MatDialog
-  ) { }
+  // Counters
+  attemptedCount = 0;
+  reviewCount = 0;
+  visitedCount = 0;
+  notVisitedCount = 0;
 
+  constructor(
+    private route: ActivatedRoute,
+    private quizService: Quizservice,
+    private router: Router,
+    private dialog: MatDialog,
+    private cd: ChangeDetectorRef
+  ) {}
+
+  // ================= INIT =================
   ngOnInit() {
-    // Capture query parameters passed from the DashboardComponent
     this.route.queryParams.subscribe(params => {
-      this.topicId = params['topicId'];
-      this.numberOfQuestions = params['numberOfQuestions'];
-      this.questionButtons = Array.from({ length: this.numberOfQuestions }, (_, i) => i + 1);
+      this.topicId = +params['topicId'];
+      this.numberOfQuestions = +params['numberOfQuestions'];
 
-      // Calculate the total time for the quiz (90 seconds per question)
+      this.questionButtons = Array.from(
+        { length: this.numberOfQuestions },
+        (_, i) => i
+      );
+
+      this.questionStates = Array(this.numberOfQuestions).fill(this.NOT_VISITED);
+
       this.totalTime = this.numberOfQuestions * 90;
       this.timeLeft = this.totalTime;
+
+      this.updateFormattedTime();
+      this.refreshUI();
 
       if (this.topicId && this.numberOfQuestions) {
         this.fetchQuestions();
@@ -53,143 +77,168 @@ export class Quizcomponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.timerSubscription) {
-      clearInterval(this.timerSubscription);
-    }
+    if (this.timer) clearInterval(this.timer);
   }
 
   fetchQuestions() {
-    this.loading = true;
-
-    this.quizService.fetchQuizQuestions(this.topicId, this.numberOfQuestions)
-      .subscribe((questions: any[]) => {
-        this.loading = false;
-        this.questions = questions; // Assign the fetched questions to the array
+    this.quizService
+      .fetchQuizQuestions(this.topicId, this.numberOfQuestions)
+      .subscribe(questions => {
+        this.questions = questions;
         this.startTimer();
-      }, (error) => {
-        this.loading = false;
-        console.error(error);
+        this.cd.markForCheck();
       });
   }
 
+  // ================= TIMER =================
   startTimer() {
-    this.timerSubscription = setInterval(() => {
-      this.timeLeft--; // Decrease the time
+    this.timer = setInterval(() => {
+      this.timeLeft--;
+      this.updateFormattedTime();
 
-      // If time is up, automatically submit the quiz
       if (this.timeLeft <= 0) {
-        this.finishQuiz();
+        this.submitQuiz(true); // auto submit
       }
+
+      this.cd.markForCheck();
     }, 1000);
   }
 
-  submitQuestion() {
-    // Save the answer for the current question
-    this.saveAnswer();
+  updateFormattedTime() {
+    const minutes = Math.floor(this.timeLeft / 60);
+    const seconds = this.timeLeft % 60;
+    this.formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  }
 
-    // Check if the quiz is finished or move to the next question
-    if (this.currentQuestionIndex === this.numberOfQuestions - 1) {
-      this.finishQuiz();
-    } else {
-      this.currentQuestionIndex++;
+  // ================= NAVIGATION =================
+  navigateToQuestion(index: number) {
+    this.currentQuestionIndex = index;
+
+    if (this.questionStates[index] === this.NOT_VISITED) {
+      this.questionStates[index] = this.VISITED;
     }
-  }
 
-  saveAnswer() {
-    // Save the answer for the current question
-    this.questionStatus[this.currentQuestionIndex] = 'attempted';
-  }
-
-  finishQuiz() {
-    // Submit the quiz and redirect to results
-    this.isQuizFinished = true;
-    clearInterval(this.timerSubscription); // Stop the timer
-    // Logic to finish and submit the quiz (e.g., call backend API)
-    console.log("Quiz submitted!");
-    // Redirect to results page or show results
-    this.router.navigate(['/quiz-results']);
+    this.refreshUI();
   }
 
   nextQuestion() {
     if (this.currentQuestionIndex < this.questions.length - 1) {
-      this.currentQuestionIndex++;
+      this.navigateToQuestion(this.currentQuestionIndex + 1);
     }
   }
 
   previousQuestion() {
     if (this.currentQuestionIndex > 0) {
-      this.currentQuestionIndex--;
+      this.navigateToQuestion(this.currentQuestionIndex - 1);
     }
   }
 
-  navigateToQuestion(index: number) {
-    this.currentQuestionIndex = index;
-  }
+  // ================= OPTION CHANGE =================
+  onOptionChange(questionIndex: number, optionId: any, isChecked?: boolean) {
 
-  markAsAttempted() {
-    this.attemptedQuestions.add(this.currentQuestionIndex);
-  }
-
-  getButtonColor(index: number): string {
-    if (this.attemptedQuestions.has(index)) {
-      return 'green';
+    if (this.questions[questionIndex]?.questionType === 'SINGLE') {
+      this.selectedOptions.set(questionIndex, [optionId]);
     }
-    if (index === this.currentQuestionIndex) {
-      return 'purple';  // Highlight current question in yellow
+
+    if (this.questions[questionIndex]?.questionType === 'MULTIPLE') {
+
+      let selected = this.selectedOptions.get(questionIndex) || [];
+
+      if (isChecked) {
+        selected = [...selected, optionId];
+      } else {
+        selected = selected.filter(id => id !== optionId);
+      }
+
+      this.selectedOptions.set(questionIndex, selected);
     }
-    return 'grey';
+
+    this.updateAttemptState(questionIndex);
   }
 
-  getFormattedTime(time: number): string {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  updateAttemptState(index: number) {
+    const selected = this.selectedOptions.get(index) || [];
+
+    if (selected.length > 0) {
+      this.questionStates[index] = this.ATTEMPTED;
+    } else {
+      this.questionStates[index] = this.VISITED;
+    }
+
+    this.refreshUI();
   }
 
+  // ================= REVIEW =================
+  markForReview() {
+    this.questionStates[this.currentQuestionIndex] = this.REVIEW;
+    this.refreshUI();
+  }
+
+  // ================= SUBMIT CONFIRMATION =================
   openSubmitConfirmation() {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
-      width: '300px',
-      data: { message: 'Are you sure you want to submit the quiz before time runs out?' },
+      width: '350px',
+      disableClose: true,
+      data: {
+        message: 'Are you sure you want to submit the quiz before time runs out?'
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.submitQuiz(); // Proceed with submitting the quiz if confirmed
+        this.submitQuiz(false); // manual submit
       }
     });
   }
 
-  submitQuiz() {
+  // ================= SUBMIT =================
+  submitQuiz(isAutoSubmit: boolean) {
 
+    if (this.isQuizFinished) return;
+
+    clearInterval(this.timer);
+    this.isQuizFinished = true;
+
+    const payload = {
+      topicId: this.topicId,
+      answers: Array.from(this.selectedOptions.entries()).map(([questionIndex, options]) => ({
+        questionIndex,
+        selectedOptionIds: options
+      })),
+      autoSubmitted: isAutoSubmit
+    };
+
+    console.log('Submitting quiz:', payload);
+
+    setTimeout(() => {
+      this.router.navigate(['/quiz-results']);
+    }, 1500);
   }
 
-  onOptionChange(questionIndex: number, optionId: any, isChecked?: boolean) {
-    // For single choice questions, directly select the option
-    if (this.questions[questionIndex]?.questionType === 'SINGLE') {
-      this.selectedOptions.set(questionIndex, [optionId]); // Store only the selected option ID
-      this.markAsAttempted();
-    } else if (this.questions[questionIndex]?.questionType === 'MULTIPLE') {
-      // For multiple choice, toggle the option in the selected options array
-      let selected = this.selectedOptions.get(questionIndex) || [];
-
-      if (isChecked) {
-        selected.push(optionId);
-      } else {
-        selected = selected.filter((id) => id !== optionId);
-      }
-
-      this.selectedOptions.set(questionIndex, selected);
-      let selOpt=this.selectedOptions.get(questionIndex);
-      if(selOpt && selOpt.length > 0){
-        this.markAsAttempted();
-      }
-      
-    }
+  // ================= UI HELPERS =================
+  refreshUI() {
+    this.updateButtonColors();
+    this.updateCounters();
+    this.cd.markForCheck();
   }
 
-  // Function to get the selected options for a particular question
-  getSelectedOption(questionIndex: number) {
-    return this.selectedOptions.get(questionIndex) || [];
+  updateButtonColors() {
+    this.buttonColors = this.questionStates.map(state => {
+      if (state === this.ATTEMPTED) return 'green';
+      if (state === this.REVIEW) return 'purple';
+      if (state === this.VISITED) return 'dodgerblue';
+      return 'lightgray';
+    });
   }
 
+  updateCounters() {
+    this.attemptedCount = this.questionStates.filter(s => s === this.ATTEMPTED).length;
+    this.reviewCount = this.questionStates.filter(s => s === this.REVIEW).length;
+    this.visitedCount = this.questionStates.filter(s => s === this.VISITED).length;
+    this.notVisitedCount = this.questionStates.filter(s => s === this.NOT_VISITED).length;
+  }
+
+  getSelectedOption(index: number) {
+    return this.selectedOptions.get(index) || [];
+  }
 }
