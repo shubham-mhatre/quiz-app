@@ -12,7 +12,15 @@ export class Quizservice {
   constructor(private httpClient: HttpClient) {}
 
   fetchQuizQuestions(topicId:number,numberOfQuestions:number): Observable<any[]>{
-    return this.httpClient.get<any[]>(`http://localhost:8080/api/quiz/questions?topicId=${topicId}&limit=${numberOfQuestions}`);
+    return this.httpClient.get<any[]>(`${this.baseUrl}/api/quiz/questions?topicId=${topicId}&limit=${numberOfQuestions}`);
+  }
+
+  submitQuiz(payload: any): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrl}/api/quiz/submit`, payload);
+  }
+
+  fetchQuizReview(quizAttemptId:number): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrl}/api/quiz/submit`, quizAttemptId);
   }
   
 }

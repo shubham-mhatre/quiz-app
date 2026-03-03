@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import sm.quiz.entities.Explanation;
 import sm.quiz.entities.Question;
+import sm.quiz.entities.QuizAttempt;
 import sm.quiz.entities.dto.AnswerResult;
 import sm.quiz.entities.dto.ExplanationDto;
 import sm.quiz.entities.dto.OptionDto;
@@ -60,7 +61,7 @@ public class QuizService {
 	public QuizResultResponse submitQuiz(QuizSubmissionRequest request) {
 		List<AnswerResult> results = request.getAnswers().stream().map(answerEvaluationService::evaluate).toList();
 		
-		attemptService.saveAttempt(
+		QuizAttempt quizAttempt=attemptService.saveAttempt(
 	            request.getUserId(),
 	            request.getTopicId(),
 	            request.getAnswers(),
@@ -73,6 +74,7 @@ public class QuizService {
 		response.setTotalQuestions(results.size());
 		response.setCorrectAnswers((int) correctCount);
 		response.setResults(results);
+		response.setAttemptId(quizAttempt.getAttemptId());
 
 		return response;
 

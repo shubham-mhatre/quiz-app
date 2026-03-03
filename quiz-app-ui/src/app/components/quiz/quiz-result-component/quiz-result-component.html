@@ -1,0 +1,44 @@
+<div class="quiz-result-container">
+  <h2>Quiz Results</h2>
+
+  <!-- Summary Mode -->
+  <div *ngIf="!reviewMode">
+    <p>Total Questions: {{ summary.totalQuestions }}</p>
+    <p>Correct Answers: {{ summary.correctAnswers }}</p>
+
+    <button mat-raised-button color="primary" (click)="reviewQuiz()">
+      Review Quiz
+    </button>
+
+    <button mat-raised-button color="accent" (click)="backToDashboard()">
+      Back to Dashboard
+    </button>
+  </div>
+
+  <!-- Review Mode -->
+  <div *ngIf="reviewMode" class="questions-list">
+    <div *ngFor="let question of reviewQuestions; let i = index" class="question-card">
+      <h3>Q{{ i + 1 }}: {{ question.questionText }}</h3>
+      <ul>
+        <li *ngFor="let option of question.options"
+            [ngClass]="{
+              'user-selected': isOptionSelected(i, option.id),
+              'correct-option': isOptionCorrect(i, option.id),
+              'wrong-selected': isOptionSelected(i, option.id) && !isOptionCorrect(i, option.id)
+            }">
+          {{ option.text }}
+          <span *ngIf="isOptionSelected(i, option.id) && isOptionCorrect(i, option.id)" class="badge">✔ Your Answer</span>
+          <span *ngIf="isOptionSelected(i, option.id) && !isOptionCorrect(i, option.id)" class="badge wrong">✖ Your Answer</span>
+          <span *ngIf="!isOptionSelected(i, option.id) && isOptionCorrect(i, option.id)" class="badge correct">✔ Correct Answer</span>
+        </li>
+      </ul>
+      <div *ngIf="question.explanation" class="explanation">
+        <strong>Explanation:</strong> {{ question.explanation }}
+      </div>
+    </div>
+
+    <button mat-raised-button color="accent" (click)="backToDashboard()">
+      Back to Dashboard
+    </button>
+  </div>
+</div>

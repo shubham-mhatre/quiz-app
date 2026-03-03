@@ -6,6 +6,7 @@ import { authguardGuard } from './guards/authguard-guard';
 import { roleguardGuard } from './guards/roleguard-guard';
 import { Unauthorized } from './components/unauthorized/unauthorized';
 import { Quizcomponent } from './components/quiz/quizcomponent/quizcomponent';
+import { QuizResultComponent } from './components/quiz/quiz-result-component/quiz-result-component';
 
 const routes: Routes = [
   { path: 'login', component: Login },
@@ -17,6 +18,11 @@ const routes: Routes = [
     data: { role: 'USER' } 
   },
   { path: 'quiz', component: Quizcomponent,
+    canActivate:[authguardGuard,roleguardGuard],
+    data: { role: 'USER' } 
+  },
+  {
+    path: 'quiz-results', component: QuizResultComponent,
     canActivate:[authguardGuard,roleguardGuard],
     data: { role: 'USER' } 
   },

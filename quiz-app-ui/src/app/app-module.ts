@@ -13,6 +13,7 @@ import { SharedModule } from './shared/shared-module';
 import { QuizStartDialog } from './components/quiz/quiz-start-dialog/quiz-start-dialog';
 import { Quizcomponent } from './components/quiz/quizcomponent/quizcomponent';
 import { ConfirmationDialog } from './components/confirmation-dialog/confirmation-dialog';
+import { QuizResultComponent } from './components/quiz/quiz-result-component/quiz-result-component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { ConfirmationDialog } from './components/confirmation-dialog/confirmatio
     QuizStartDialog,
     Quizcomponent,
     ConfirmationDialog,
+    QuizResultComponent,
   ],
   imports: [
     FormsModule,

@@ -3,12 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Quizservice } from '../../../services/quizservice';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialog } from '../../confirmation-dialog/confirmation-dialog';
+import { Auth } from '../../../services/auth';
 
 @Component({
   selector: 'app-quizcomponent',
   standalone: false,
   templateUrl: './quizcomponent.html',
-  styleUrl: './quizcomponent.scss',
+  styleUrls: ['./quizcomponent.scss']
 })
 export class Quizcomponent implements OnInit, OnDestroy {
 
@@ -48,8 +49,9 @@ export class Quizcomponent implements OnInit, OnDestroy {
     private quizService: Quizservice,
     private router: Router,
     private dialog: MatDialog,
-    private cd: ChangeDetectorRef
-  ) {}
+    private cd: ChangeDetectorRef,
+    private authService: Auth
+  ) { }
 
   // ================= INIT =================
   ngOnInit() {
@@ -193,26 +195,40 @@ export class Quizcomponent implements OnInit, OnDestroy {
 
   // ================= SUBMIT =================
   submitQuiz(isAutoSubmit: boolean) {
-
     if (this.isQuizFinished) return;
 
     clearInterval(this.timer);
     this.isQuizFinished = true;
 
+    console.log(this.authService.getUser());
+    let userId=this.authService.getUserId();
+    // Prepare payload as per your API
     const payload = {
+      userId: userId,
       topicId: this.topicId,
-      answers: Array.from(this.selectedOptions.entries()).map(([questionIndex, options]) => ({
-        questionIndex,
-        selectedOptionIds: options
-      })),
-      autoSubmitted: isAutoSubmit
+      answers: Array.from(this.selectedOptions.entries()).map(([questionIndex, optionIds]) => ({
+        questionId: this.questions[questionIndex]?.id || questionIndex,
+        selectedOptionIds: optionIds
+      }))
     };
 
-    console.log('Submitting quiz:', payload);
+    debugger;
+    console.log('Submitting quiz payload:', payload);
 
-    setTimeout(() => {
-      this.router.navigate(['/quiz-results']);
-    }, 1500);
+    // Call backend API
+    this.quizService.submitQuiz(payload).subscribe(
+      (response) => {
+        console.log('Quiz submitted successfully!', response);
+
+        // Redirect to results page or show result
+        // Example: pass results via state
+        this.router.navigate(['/quiz-results'], { state: { results: response } });
+      },
+      (error) => {
+        console.error('Error submitting quiz:', error);
+        // Optionally show a message to user
+      }
+    );
   }
 
   // ================= UI HELPERS =================

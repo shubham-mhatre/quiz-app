@@ -10,4 +10,5 @@ public class QuizResultResponse {
 	private int totalQuestions;
 	private int correctAnswers;
 	private List<AnswerResult> results;
+	private Long attemptId;
 }
