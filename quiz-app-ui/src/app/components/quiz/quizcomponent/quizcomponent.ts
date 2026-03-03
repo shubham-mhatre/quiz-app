@@ -1,5 +1,5 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
-import { ActivatedRoute,Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Quizservice } from '../../../services/quizservice';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialog } from '../../confirmation-dialog/confirmation-dialog';
@@ -10,7 +10,7 @@ import { ConfirmationDialog } from '../../confirmation-dialog/confirmation-dialo
   templateUrl: './quizcomponent.html',
   styleUrl: './quizcomponent.scss',
 })
-export class Quizcomponent implements OnInit,OnDestroy{
+export class Quizcomponent implements OnInit, OnDestroy {
 
   topicId: number = 0;
   numberOfQuestions: number = 0;
@@ -26,11 +26,14 @@ export class Quizcomponent implements OnInit,OnDestroy{
 
   questionButtons: number[] = [];
   attemptedQuestions: Set<number> = new Set();
-  topicName='';
+  topicName = '';
 
-  constructor(private route: ActivatedRoute,private quizService:Quizservice,
-    private router: Router,private dialog: MatDialog
-  ) {}
+  // Object to track selected options for each question
+  selectedOptions: Map<number, any[]> = new Map();
+
+  constructor(private route: ActivatedRoute, private quizService: Quizservice,
+    private router: Router, private dialog: MatDialog
+  ) { }
 
   ngOnInit() {
     // Capture query parameters passed from the DashboardComponent
@@ -42,14 +45,14 @@ export class Quizcomponent implements OnInit,OnDestroy{
       // Calculate the total time for the quiz (90 seconds per question)
       this.totalTime = this.numberOfQuestions * 90;
       this.timeLeft = this.totalTime;
-      
+
       if (this.topicId && this.numberOfQuestions) {
         this.fetchQuestions();
       }
     });
   }
 
-   ngOnDestroy() {
+  ngOnDestroy() {
     if (this.timerSubscription) {
       clearInterval(this.timerSubscription);
     }
@@ -58,8 +61,8 @@ export class Quizcomponent implements OnInit,OnDestroy{
   fetchQuestions() {
     this.loading = true;
 
-    this.quizService.fetchQuizQuestions(this.topicId,this.numberOfQuestions)
-    .subscribe((questions: any[]) => {
+    this.quizService.fetchQuizQuestions(this.topicId, this.numberOfQuestions)
+      .subscribe((questions: any[]) => {
         this.loading = false;
         this.questions = questions; // Assign the fetched questions to the array
         this.startTimer();
@@ -156,8 +159,37 @@ export class Quizcomponent implements OnInit,OnDestroy{
     });
   }
 
-  submitQuiz(){
+  submitQuiz() {
 
+  }
+
+  onOptionChange(questionIndex: number, optionId: any, isChecked?: boolean) {
+    // For single choice questions, directly select the option
+    if (this.questions[questionIndex]?.questionType === 'SINGLE') {
+      this.selectedOptions.set(questionIndex, [optionId]); // Store only the selected option ID
+      this.markAsAttempted();
+    } else if (this.questions[questionIndex]?.questionType === 'MULTIPLE') {
+      // For multiple choice, toggle the option in the selected options array
+      let selected = this.selectedOptions.get(questionIndex) || [];
+
+      if (isChecked) {
+        selected.push(optionId);
+      } else {
+        selected = selected.filter((id) => id !== optionId);
+      }
+
+      this.selectedOptions.set(questionIndex, selected);
+      let selOpt=this.selectedOptions.get(questionIndex);
+      if(selOpt && selOpt.length > 0){
+        this.markAsAttempted();
+      }
+      
+    }
+  }
+
+  // Function to get the selected options for a particular question
+  getSelectedOption(questionIndex: number) {
+    return this.selectedOptions.get(questionIndex) || [];
   }
 
 }

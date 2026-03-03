@@ -1,69 +1,69 @@
 <div class="quiz-header">
-  <h2>TOPIC : {{ topicName }}</h2>  <!-- Display the topic name at the top -->
+    <h2>TOPIC : {{ topicName }}</h2> <!-- Display the topic name at the top -->
 </div>
 
 <div class="quiz-container">
-  <!-- Question Navigation with scrollable container -->
-  <div class="question-nav">
-    <div class="question-buttons-container">
-      <div class="question-buttons">
-        <button
-          *ngFor="let num of questionButtons; let i = index"
-          [ngStyle]="{'background-color': getButtonColor(i)}"
-          (click)="navigateToQuestion(i)"
-        >
-          {{ i + 1 }}
-        </button>
-      </div>
-    </div>
-
-    <div class="quiz-timer">
-      <p><strong>Total Time Left: </strong>{{ getFormattedTime(timeLeft) }}</p>
-    </div>
-  </div>
-
-  <!-- Question Details -->
-  <mat-card>
-    <mat-card-title>Question {{ currentQuestionIndex + 1 }}: {{ questions[currentQuestionIndex]?.questionText }}</mat-card-title>
-
-    <mat-card-content>
-      <!-- Conditionally Render Radio or Checkbox based on Question Type -->
-      <div *ngIf="questions[currentQuestionIndex]?.questionType === 'SINGLE'">
-        <mat-radio-group (change)="markAsAttempted()">
-          <mat-radio-button *ngFor="let option of questions[currentQuestionIndex]?.options; let i = index"
-                            [value]="option.id">
-            {{ option.text }}
-          </mat-radio-button>
-        </mat-radio-group>
-      </div>
-      
-      <div *ngIf="questions[currentQuestionIndex]?.questionType === 'MULTIPLE'">
-        <div *ngFor="let option of questions[currentQuestionIndex]?.options; let i = index">
-          <mat-checkbox (change)="markAsAttempted()" [value]="option.id">
-            {{ option.text }}
-          </mat-checkbox>
+    <!-- Question Navigation with scrollable container -->
+    <div class="question-nav">
+        <div class="question-buttons-container">
+            <div class="question-buttons">
+                <button *ngFor="let num of questionButtons; let i = index"
+                    [ngStyle]="{'background-color': getButtonColor(i)}" (click)="navigateToQuestion(i)">
+                    {{ i + 1 }}
+                </button>
+            </div>
         </div>
-      </div>
-    </mat-card-content>
 
-    <!-- Navigation Buttons -->
-    <div class="navigation-buttons">
-      <button mat-raised-button color="primary" (click)="previousQuestion()" [disabled]="currentQuestionIndex === 0">
-        Previous
-      </button>
-      <button mat-raised-button color="primary" (click)="nextQuestion()" [disabled]="currentQuestionIndex === questions.length - 1">
-        Next
-      </button>
+        <div class="quiz-timer">
+            <p><strong>Total Time Left: </strong>{{ getFormattedTime(timeLeft) }}</p>
+        </div>
     </div>
-  </mat-card>
 
-  <!-- Submit Quiz Button -->
-  <div class="submit-quiz">
-    <button mat-raised-button color="warn" (click)="openSubmitConfirmation()">
-      Submit Quiz
-    </button>
-  </div>
+    <!-- Question Details -->
+    <mat-card>
+        <mat-card-title>Question {{ currentQuestionIndex + 1 }}: {{ questions[currentQuestionIndex]?.questionText
+            }}</mat-card-title>
 
-  <mat-progress-bar *ngIf="isQuizFinished" mode="indeterminate"></mat-progress-bar>
+        <mat-card-content>
+            <div *ngIf="questions[currentQuestionIndex]?.questionType === 'SINGLE'">
+                <mat-radio-group [value]="getSelectedOption(currentQuestionIndex)[0]"
+                    (change)="onOptionChange(currentQuestionIndex, $event.value)">
+                    <mat-radio-button *ngFor="let option of questions[currentQuestionIndex]?.options"
+                        [value]="option.id">
+                        {{ option.text }}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+            <div *ngIf="questions[currentQuestionIndex]?.questionType === 'MULTIPLE'">
+                <div *ngFor="let option of questions[currentQuestionIndex]?.options; let i = index">
+                    <mat-checkbox [checked]="getSelectedOption(currentQuestionIndex).includes(option.id)"
+                        (change)="onOptionChange(currentQuestionIndex, option.id, $event.checked)">
+                        {{ option.text }}
+                    </mat-checkbox>
+                </div>
+            </div>
+        </mat-card-content>
+
+        <!-- Navigation Buttons -->
+        <div class="navigation-buttons">
+            <button mat-raised-button color="primary" (click)="previousQuestion()"
+                [disabled]="currentQuestionIndex === 0">
+                Previous
+            </button>
+            <button mat-raised-button color="primary" (click)="nextQuestion()"
+                [disabled]="currentQuestionIndex === questions.length - 1">
+                Next
+            </button>
+        </div>
+    </mat-card>
+
+    <!-- Submit Quiz Button -->
+    <div class="submit-quiz">
+        <button mat-raised-button color="warn" (click)="openSubmitConfirmation()">
+            Submit Quiz
+        </button>
+    </div>
+
+    <mat-progress-bar *ngIf="isQuizFinished" mode="indeterminate"></mat-progress-bar>
 </div>
-
