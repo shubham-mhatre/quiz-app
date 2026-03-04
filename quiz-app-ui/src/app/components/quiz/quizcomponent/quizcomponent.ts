@@ -211,8 +211,7 @@ export class Quizcomponent implements OnInit, OnDestroy {
         selectedOptionIds: optionIds
       }))
     };
-
-    debugger;
+    
     console.log('Submitting quiz payload:', payload);
 
     // Call backend API
