@@ -67,6 +67,6 @@ export class QuizHistory {
   }
 
   reviewAttempt(attemptId: number) {
-    this.router.navigate(['/quiz-review', attemptId]);
-  }
+  this.router.navigate(['/quiz-results'], { state: { attemptId } });
+}
 }

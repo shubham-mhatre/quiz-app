@@ -50,6 +50,9 @@ export class QuizResultComponent {
 
     if (state?.results) {
       this.summary = state.results;
+    } else if (state?.attemptId) {
+      // Direct review from quiz-history
+      this.loadReview(state.attemptId);
     }
   }
 
@@ -124,5 +127,29 @@ export class QuizResultComponent {
         question.correctOptionIds.includes(id)
       )
     );
+  }
+
+   // ================= LOAD REVIEW =================
+  private loadReview(attemptId: number) {
+    this.quizService.fetchQuizReview(attemptId).subscribe(
+      (questions: any[]) => {
+        this.reviewQuestions = questions.map(q => ({
+          questionText: q.questionText,
+          options: q.options || [],
+          selectedOptions: q.selectedOptions || [],
+          correctOptions: q.correctOptions || [],
+          explanation: q.explanation,
+          selectedOptionIds: (q.selectedOptions || []).map((o: any) => o.id),
+          correctOptionIds: (q.correctOptions || []).map((o: any) => o.id)
+        }));
+
+        this.reviewMode = true;
+      },
+      error => console.error('Error fetching review:', error)
+    );
+  }
+
+  backToQuizHistory(){
+    this.router.navigate(['/quiz-history']);
   }
 }
