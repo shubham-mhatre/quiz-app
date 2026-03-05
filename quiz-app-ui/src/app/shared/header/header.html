@@ -1,7 +1,15 @@
 <mat-toolbar color="primary" class="toolbar">
-  <span class="title" routerLink="/">Quiz App</span>
+  <button mat-button class="title" (click)="backToDashboard()">Quiz App</button>
 
   <span class="spacer"></span>
+
+  <button mat-button (click)="quizHistory()" *ngIf="role === 'USER'">
+    Quiz History
+  </button>
+
+  <button mat-button (click)="logout()" *ngIf="role === 'USER'">
+    All Questions
+  </button>
 
   <span class="user">
     Welcome, {{ username }}

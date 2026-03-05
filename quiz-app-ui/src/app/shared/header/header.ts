@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { Auth } from '../../services/auth';
 import { Router } from '@angular/router';
 
@@ -8,12 +8,18 @@ import { Router } from '@angular/router';
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
-export class Header {
+export class Header implements OnInit{
+
+  role:string='';
 
   constructor(
     private auth: Auth,
     private router: Router
   ) {}
+
+  ngOnInit(): void {
+    this.role = this.auth.getRole() ?? '';
+  }
 
   get username(): string {
     return this.auth.getUserName() ?? '';
@@ -22,5 +28,13 @@ export class Header {
   logout() {
     this.auth.logout();
     this.router.navigate(['/login']);
+  }
+
+  quizHistory() {
+    this.router.navigate(['/quiz-history']);
+  }
+
+  backToDashboard(){
+    this.router.navigate(['/dashboard']);
   }
 }

@@ -47,9 +47,9 @@ public class QuizController {
 		return explanation;
 	}
 	
-	@GetMapping("/{userId}/quiz-history")
+	@GetMapping("/history")
     public List<UserQuizHistoryDto> getQuizHistory(
-            @PathVariable Long userId) {
+    		@RequestParam Long userId) {
         return quizService.getUserQuizHistory(userId);
     }
 	

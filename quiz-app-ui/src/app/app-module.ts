@@ -14,6 +14,7 @@ import { QuizStartDialog } from './components/quiz/quiz-start-dialog/quiz-start-
 import { Quizcomponent } from './components/quiz/quizcomponent/quizcomponent';
 import { ConfirmationDialog } from './components/confirmation-dialog/confirmation-dialog';
 import { QuizResultComponent } from './components/quiz/quiz-result-component/quiz-result-component';
+import { QuizHistory } from './components/quiz/quiz-history/quiz-history';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { QuizResultComponent } from './components/quiz/quiz-result-component/qui
     Quizcomponent,
     ConfirmationDialog,
     QuizResultComponent,
+    QuizHistory,
   ],
   imports: [
     FormsModule,

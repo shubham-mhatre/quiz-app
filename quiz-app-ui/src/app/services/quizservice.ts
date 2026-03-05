@@ -22,5 +22,9 @@ export class Quizservice {
   fetchQuizReview(quizAttemptId:number): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrl}/api/quiz/review?attemptId=${quizAttemptId}`);
   }
+
+  getQuizHistory(userId: number) {
+    return this.httpClient.get<any[]>(`${this.baseUrl}/api/quiz/history?userId=${userId}`);
+  }
   
 }

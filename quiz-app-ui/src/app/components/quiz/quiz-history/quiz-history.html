@@ -1,0 +1,73 @@
+<app-header></app-header>
+
+<div class="history-container">
+
+  <h2>Quiz History</h2>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- Attempt ID -->
+    <ng-container matColumnDef="attemptId">
+      <th mat-header-cell *matHeaderCellDef>Attempt ID</th>
+      <td mat-cell *matCellDef="let row">{{ row.attemptId }}</td>
+    </ng-container>
+
+    <!-- Topic -->
+    <ng-container matColumnDef="topic">
+      <th mat-header-cell *matHeaderCellDef>Topic</th>
+      <td mat-cell *matCellDef="let row">{{ row.topic }}</td>
+    </ng-container>
+
+    <!-- Total Questions -->
+    <ng-container matColumnDef="totalQuestions">
+      <th mat-header-cell *matHeaderCellDef>Total Questions</th>
+      <td mat-cell *matCellDef="let row">{{ row.totalQuestions }}</td>
+    </ng-container>
+
+    <!-- Correct Count -->
+    <ng-container matColumnDef="correctCount">
+      <th mat-header-cell *matHeaderCellDef>Correct</th>
+      <td mat-cell *matCellDef="let row">{{ row.correctCount }}</td>
+    </ng-container>
+
+    <!-- Started At -->
+    <ng-container matColumnDef="startedAt">
+      <th mat-header-cell *matHeaderCellDef>Started At</th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.startedAt | date:'medium' }}
+      </td>
+    </ng-container>
+
+    <!-- Submitted At -->
+    <ng-container matColumnDef="submittedAt">
+      <th mat-header-cell *matHeaderCellDef>Submitted At</th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.submittedAt | date:'medium' }}
+      </td>
+    </ng-container>
+
+    <!-- Action -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let row">
+
+        <button mat-raised-button color="primary"
+          (click)="reviewAttempt(row.attemptId)">
+          Review
+        </button>
+
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+  <mat-paginator
+    [pageSize]="5"
+    [pageSizeOptions]="[5,10,20]"
+    showFirstLastButtons>
+  </mat-paginator>
+
+</div>

@@ -7,11 +7,11 @@ import { roleguardGuard } from './guards/roleguard-guard';
 import { Unauthorized } from './components/unauthorized/unauthorized';
 import { Quizcomponent } from './components/quiz/quizcomponent/quizcomponent';
 import { QuizResultComponent } from './components/quiz/quiz-result-component/quiz-result-component';
+import { QuizHistory } from './components/quiz/quiz-history/quiz-history';
 
 const routes: Routes = [
   { path: 'login', component: Login },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: Login },
   { path: 'dashboard', 
     component: Dashboardcomponent, 
     canActivate:[authguardGuard,roleguardGuard],
@@ -24,6 +24,11 @@ const routes: Routes = [
   {
     path: 'quiz-results', component: QuizResultComponent,
     canActivate:[authguardGuard,roleguardGuard],
+    data: { role: 'USER' } 
+  },
+  {
+    path: 'quiz-history', component: QuizHistory,
+    // canActivate:[authguardGuard,roleguardGuard],
     data: { role: 'USER' } 
   },
   {
