@@ -1,0 +1,112 @@
+/* Full page layout */
+.page-wrapper {
+  height: calc(100vh - 64px); // adjust if header height different
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Topic row */
+.topic-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.topic-label {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.topic-dropdown {
+  width: 260px;
+}
+
+/* Questions section fills remaining space */
+.questions-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-top: 15px;
+  overflow: hidden;
+}
+
+/* Scroll only here */
+.cards-scroll-container {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* Cards grid */
+.question-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* Card styling */
+.question-card {
+  padding: 16px;
+  border-radius: 10px;
+  min-height: 150px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  transition: 0.25s;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+  &:hover {
+    box-shadow: 0 10px 18px rgba(0,0,0,0.18);
+    transform: translateY(-2px);
+  }
+}
+
+/* Question text clamp */
+.question-text {
+  font-size: 15px;
+  color: rgba(0,0,0,0.75);
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Paginator stays fixed */
+mat-paginator {
+  margin-top: 10px;
+  border-radius: 8px;
+  background: #f5f5f5;
+}
+
+.no-questions {
+  text-align: center;
+  margin-top: 40px;
+  color: rgba(0,0,0,0.6);
+}
+
+/* Scrollbar */
+.cards-scroll-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cards-scroll-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 6px;
+}

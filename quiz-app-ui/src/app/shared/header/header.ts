@@ -37,4 +37,8 @@ export class Header implements OnInit{
   backToDashboard(){
     this.router.navigate(['/dashboard']);
   }
+
+  allQuestions(){
+    this.router.navigate(['/all-questions']);
+  }
 }

@@ -8,6 +8,7 @@ import { Unauthorized } from './components/unauthorized/unauthorized';
 import { Quizcomponent } from './components/quiz/quizcomponent/quizcomponent';
 import { QuizResultComponent } from './components/quiz/quiz-result-component/quiz-result-component';
 import { QuizHistory } from './components/quiz/quiz-history/quiz-history';
+import { AllQuestions } from './components/quiz/all-questions/all-questions';
 
 const routes: Routes = [
   { path: 'login', component: Login },
@@ -29,6 +30,11 @@ const routes: Routes = [
   {
     path: 'quiz-history', component: QuizHistory,
     // canActivate:[authguardGuard,roleguardGuard],
+    data: { role: 'USER' } 
+  },
+  {
+    path: 'all-questions', component: AllQuestions,
+    canActivate:[authguardGuard,roleguardGuard],
     data: { role: 'USER' } 
   },
   {

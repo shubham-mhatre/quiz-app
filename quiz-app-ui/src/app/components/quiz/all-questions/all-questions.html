@@ -1,0 +1,71 @@
+<app-header></app-header>
+
+<div class="page-wrapper">
+
+  <div class="container">
+
+    <!-- Topic selector row -->
+    <div class="topic-row">
+
+      <h2 class="topic-label">Select Topic</h2>
+
+      <mat-form-field appearance="fill" class="topic-dropdown">
+        <mat-label>Topic</mat-label>
+        <mat-select [(ngModel)]="selectedTopicId" (selectionChange)="onTopicChange($event)">
+          <mat-option *ngFor="let topic of topics" [value]="topic.id">
+            {{ topic.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+    <div *ngIf="!loading && questions.length > 0" class="questions-wrapper">
+
+      <div class="cards-scroll-container">
+
+        <div class="question-cards">
+
+          <mat-card *ngFor="let question of questions" class="question-card">
+
+            <mat-card-title>
+              Question {{ question.id }}
+            </mat-card-title>
+
+            <mat-card-content>
+
+              <p class="question-text">
+                {{ question.questionText }}
+              </p>
+
+              <button mat-raised-button color="primary"
+                      (click)="checkAnswer(question.id)">
+                Check Answer
+              </button>
+
+            </mat-card-content>
+
+          </mat-card>
+
+        </div>
+
+      </div>
+
+      <mat-paginator
+        [length]="totalQuestions"
+        [pageSize]="pageSize"
+        [pageIndex]="pageIndex"
+        (page)="onPageChange($event)">
+      </mat-paginator>
+
+    </div>
+
+    <p *ngIf="!loading && questions.length === 0" class="no-questions">
+      No questions available for the selected topic.
+    </p>
+
+  </div>
+
+</div>
