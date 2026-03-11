@@ -38,9 +38,11 @@
 
         <h3>Explanation</h3>
 
-        <p>
-            {{ question.explanation }}
-        </p>
+        <p *ngIf="question.explanation; else noExp" [innerHTML]="question.explanation | newlineToBr"></p>
+
+        <ng-template #noExp>
+            <i>No explanation provided</i>
+        </ng-template>
 
     </div>
 
