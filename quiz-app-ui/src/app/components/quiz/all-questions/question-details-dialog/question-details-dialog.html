@@ -1,0 +1,59 @@
+<h2 mat-dialog-title>
+    Question
+</h2>
+
+<mat-dialog-content *ngIf="!loading">
+
+    <p class="question-text">
+        {{ question.questionText }}
+    </p>
+
+    <!-- SINGLE SELECT -->
+    <div *ngIf="question.questionType === 'SINGLE'">
+
+        <mat-radio-group [(ngModel)]="selectedOptionId">
+
+            <mat-radio-button *ngFor="let option of question.options" [value]="option.id!"
+                [class.correct]="isCorrect(option)" [class.wrong]="isWrong(option)">
+                {{ option.text }}
+            </mat-radio-button>
+
+        </mat-radio-group>
+
+    </div>
+
+    <!-- MULTI SELECT -->
+    <div *ngIf="question.questionType === 'MULTIPLE'">
+
+        <mat-checkbox *ngFor="let option of question.options" (change)="toggleOption(option.id!)"
+            [checked]="selectedOptionIds.includes(option.id!)" [class.correct]="isCorrect(option)"
+            [class.wrong]="isWrong(option)">
+            {{ option.text }}
+        </mat-checkbox>
+
+    </div>
+
+    <!-- Explanation -->
+    <div *ngIf="checkedAnswer" class="explanation">
+
+        <h3>Explanation</h3>
+
+        <p>
+            {{ question.explanation }}
+        </p>
+
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+    <button mat-raised-button color="primary" *ngIf="!checkedAnswer" (click)="checkAnswer()">
+        Check Answer
+    </button>
+
+    <button mat-button mat-dialog-close>
+        Close
+    </button>
+
+</mat-dialog-actions>

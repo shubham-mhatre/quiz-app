@@ -16,6 +16,7 @@ import { ConfirmationDialog } from './components/confirmation-dialog/confirmatio
 import { QuizResultComponent } from './components/quiz/quiz-result-component/quiz-result-component';
 import { QuizHistory } from './components/quiz/quiz-history/quiz-history';
 import { AllQuestions } from './components/quiz/all-questions/all-questions';
+import { QuestionDetailsDialog } from './components/quiz/all-questions/question-details-dialog/question-details-dialog';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { AllQuestions } from './components/quiz/all-questions/all-questions';
     QuizResultComponent,
     QuizHistory,
     AllQuestions,
+    QuestionDetailsDialog,
   ],
   imports: [
     FormsModule,

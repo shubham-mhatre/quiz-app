@@ -4,7 +4,7 @@ export interface Question {
   id?: number;
   topicId?: number;
   questionText: string;
-  questionType: 'SINGLE' | 'MULTI';
+  questionType: 'SINGLE' | 'MULTIPLE';
   options: Option[];
   explanation: string;
   message:string;
