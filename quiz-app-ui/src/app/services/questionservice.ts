@@ -27,9 +27,12 @@ export class Questionservice {
     );
   }
 
-  getByTopicWithPagination(topicId: number, page: number, size: number): Observable<any> {
+  getByTopicWithPagination(topicId: number, page: number, size: number,
+    sortDir: 'ASC' | 'DESC' = 'DESC'
+  ): Observable<any> {
     return this.http.get<any>(
-      `${this.baseUrl}/api/admin/questions/${topicId}/bytopic?page=${page}&size=${size}`
+      `${this.baseUrl}/api/admin/questions/${topicId}/bytopic?page=${page}&size=${size}
+      &sortDir=${sortDir}`
     );
   }
 

@@ -26,8 +26,9 @@ public class AdminQuestionController {
 	@GetMapping("/{topicId}/bytopic")
 	public Page<QuestionDto> getByTopic(@PathVariable Integer topicId, 
 	                                     @RequestParam int page, 
-	                                     @RequestParam int size) {
-	    return questionService.getByTopicPaginated(topicId, page, size);
+	                                     @RequestParam int size,
+	                                     @RequestParam(defaultValue = "DESC") String sortDir) {
+	    return questionService.getByTopicPaginated(topicId, page, size,sortDir);
 	}
 	
 	@GetMapping("/{questionId}")

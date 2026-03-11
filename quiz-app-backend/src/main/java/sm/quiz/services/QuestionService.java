@@ -32,6 +32,7 @@ import sm.quiz.repositories.TopicRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 @Service
 @RequiredArgsConstructor
@@ -44,10 +45,15 @@ public class QuestionService {
 	private final AnswerRepository answerRepository;
 
 	/* GET BY TOPIC */
-	public Page<QuestionDto> getByTopicPaginated(Integer topicId, int page, int size) {
-		Pageable pageable = PageRequest.of(page, size);
-		Page<Question> questionsPage = questionRepository.findByTopicIdOrderByIdDesc(topicId.longValue(), pageable);
+	public Page<QuestionDto> getByTopicPaginated(Integer topicId, int page, int size,String sortDir) {
+		
+		Sort sort = sortDir.equalsIgnoreCase("ASC") 
+                ? Sort.by("id").ascending() 
+                : Sort.by("id").descending();
 
+		Pageable pageable = PageRequest.of(page, size, sort);
+		Page<Question> questionsPage = questionRepository.findByTopicId(topicId.longValue(), pageable);
+		
 		return questionsPage.map(this::toGriDto);
 
 	}

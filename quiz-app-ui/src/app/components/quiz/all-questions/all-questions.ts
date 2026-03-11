@@ -42,7 +42,7 @@ export class AllQuestions implements OnInit{
   onTopicChange(event: any) {
     if (this.selectedTopicId) {
       this.loading = true;
-      this.questionservice.getByTopicWithPagination(this.selectedTopicId, this.pageIndex, this.pageSize)
+      this.questionservice.getByTopicWithPagination(this.selectedTopicId, this.pageIndex, this.pageSize,'ASC')
         .subscribe((response) => {
           this.questions = response.content;  // Paginated questions (change according to your API response)
           this.totalQuestions = response.totalElements; // Total number of questions (change according to your API response)
