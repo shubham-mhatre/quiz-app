@@ -33,9 +33,9 @@ CREATE TABLE IF NOT EXISTS `answer` (
   KEY `idx_answer_question` (`question_id`),
   CONSTRAINT `answer_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`),
   CONSTRAINT `answer_ibfk_2` FOREIGN KEY (`option_id`) REFERENCES `option_master` (`option_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=268 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=299 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.answer: ~165 rows (approximately)
+-- Dumping data for table quiz_db.answer: ~284 rows (approximately)
 INSERT INTO `answer` (`answer_id`, `question_id`, `option_id`, `created_at`) VALUES
 	(1, 1, 1, '2026-01-25 17:45:47'),
 	(2, 2, 4, '2026-01-25 17:54:44'),
@@ -289,7 +289,38 @@ INSERT INTO `answer` (`answer_id`, `question_id`, `option_id`, `created_at`) VAL
 	(264, 251, 748, '2026-03-04 18:46:28'),
 	(265, 252, 749, '2026-03-04 18:46:28'),
 	(266, 253, 753, '2026-03-04 18:46:28'),
-	(267, 254, 770, '2026-03-04 18:46:28');
+	(267, 254, 770, '2026-03-04 18:46:28'),
+	(268, 255, 772, '2026-03-05 16:45:05'),
+	(269, 256, 773, '2026-03-05 16:45:05'),
+	(270, 257, 776, '2026-03-05 16:45:05'),
+	(271, 258, 779, '2026-03-05 16:45:05'),
+	(272, 259, 781, '2026-03-05 16:45:05'),
+	(273, 260, 784, '2026-03-05 16:45:05'),
+	(274, 261, 786, '2026-03-05 16:45:05'),
+	(275, 262, 788, '2026-03-05 16:45:05'),
+	(276, 263, 790, '2026-03-05 16:45:05'),
+	(277, 264, 791, '2026-03-05 16:45:05'),
+	(278, 265, 794, '2026-03-05 17:14:28'),
+	(279, 266, 796, '2026-03-05 17:14:28'),
+	(280, 267, 800, '2026-03-05 17:14:28'),
+	(281, 268, 802, '2026-03-05 17:14:28'),
+	(282, 269, 803, '2026-03-05 17:14:28'),
+	(283, 270, 806, '2026-03-05 17:14:28'),
+	(284, 271, 808, '2026-03-05 17:14:28'),
+	(285, 272, 811, '2026-03-05 17:14:28'),
+	(286, 273, 812, '2026-03-05 17:14:28'),
+	(287, 274, 815, '2026-03-05 17:14:28'),
+	(288, 275, 817, '2026-03-05 17:31:19'),
+	(289, 276, 819, '2026-03-05 17:31:19'),
+	(290, 277, 820, '2026-03-05 17:31:19'),
+	(291, 278, 823, '2026-03-05 17:31:19'),
+	(292, 279, 824, '2026-03-05 17:31:19'),
+	(293, 280, 826, '2026-03-05 17:31:19'),
+	(294, 280, 829, '2026-03-05 17:31:19'),
+	(295, 281, 830, '2026-03-05 17:31:19'),
+	(296, 282, 832, '2026-03-05 17:31:19'),
+	(297, 283, 834, '2026-03-05 17:31:19'),
+	(298, 284, 836, '2026-03-05 17:31:19');
 
 -- Dumping structure for table quiz_db.app_user
 DROP TABLE IF EXISTS `app_user`;
@@ -321,9 +352,9 @@ CREATE TABLE IF NOT EXISTS `explanation` (
   PRIMARY KEY (`explanation_id`),
   UNIQUE KEY `question_id` (`question_id`),
   CONSTRAINT `explanation_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=255 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.explanation: ~152 rows (approximately)
+-- Dumping data for table quiz_db.explanation: ~270 rows (approximately)
 INSERT INTO `explanation` (`explanation_id`, `question_id`, `explanation_text`, `created_at`, `is_active`) VALUES
 	(1, 1, 'Correct Answer is YES. \n\nExplanation:\nAzure Web Apps (Azure App Service) is a Platform as a Service (PaaS) offering.\nOne of the built-in features of App Service is automatic scaling:\n	Scale out/in (number of instances)\n	Scale up/down (pricing tier)\nScaling can be based on:\n	CPU usage\n	Memory\n	HTTP queue length\n	Schedules\nSo the platform does have the ability to scale automatically.', '2026-01-25 17:48:46', 1),
 	(2, 2, 'Correct answer: No\r\n \r\nExplanation\r\nEven if both virtual machines are the same size (D2s_v3), they will not always generate the same monthly cost because Azure \r\nVM costs depend on usage and configuration, such as:\r\n	Running time (24×7 vs stopped/deallocated)\r\n	OS type (Windows costs more than Linux due to licensing)\r\n	Region (prices vary by region)\r\n	Attached resources (disks, public IPs, backups)\r\n	Billing model (pay-as-you-go vs Reserved Instances)\r\nSo two identical VM sizes can still result in different monthly bills', '2026-01-25 17:55:06', 1),
@@ -564,7 +595,37 @@ INSERT INTO `explanation` (`explanation_id`, `question_id`, `explanation_text`, 
 	(251, 251, 'Explanation\nIn Microsoft Azure, Availability Zones replicate resources across separate datacenters within the same region, not across multiple regions.\n\nReplication across multiple regions is handled by other services such as:\nAzure region pairs\nGeo-redundant storage (GRS)\n\nAvailability Zones provide high availability within a single region, not cross-region replication.', '2026-03-04 18:46:28', 1),
 	(252, 252, 'Explanation\n\nUnmanaged VM disks are stored as VHD files in Azure Blob Storage, and blobs are organized inside containers. That’s where the disk files actually reside.\n\n❌ File shares\nAzure File shares are part of Azure Files.\nThey are used for SMB/NFS file sharing, not for storing VHD disk files for unmanaged VMs.\nVM unmanaged disks are not stored in file shares.\n\n❌ Tables\nAzure Table Storage is a NoSQL key-value store.\nIt is used for structured, non-relational data.\nIt cannot store VHD files for virtual machine disks.\n\n❌ Queues\nAzure Queue Storage is used for message storage and processing communication between application components.\nIt is not used for file or disk storage.', '2026-03-04 18:46:28', 1),
 	(253, 253, 'Explanation\n\nIn Microsoft Azure, Azure Cosmos DB is the only option listed that:\n✅ Supports multi-region writes (active-active replication)\n✅ Natively stores JSON documents\n✅ Is globally distributed with low latency\n✅ Supports automatic multi-region replication\n\nWhy the other options are incorrect\nSQL databases / SQL servers / SQL managed instances / SQL elastic pools / Virtual Clusters / Managed databases\nPrimarily relational databases\nDo not natively support multi-region concurrent writes like Cosmos DB\n\nAzure Database for MySQL / PostgreSQL / MariaDB\nRelational databases\nNo built-in global multi-master write capability\nNot designed for native JSON document-based workloads at global scale\n\nSQL Data warehouses\nDesigned for analytics (OLAP), not operational multi-region writes\n\nAzure Database Migration Services\nUsed for database migration, not for hosting databases\n\nAzure Cache for Redis\nIn-memory cache, not a primary database for JSON documents with global writes\n\nData factories\nData integration service, not a database\n\nElastic Job agents\nUsed for managing SQL jobs across databases\n\nSQL Server stretch databases\nUsed to stretch on-prem SQL to Azure, not for multi-region JSON workloads', '2026-03-04 18:46:28', 1),
-	(254, 254, 'Explanation\n\nIn Microsoft Azure, resources inside a resource group do not have to be in the same region.\nA resource group has a region (for storing its metadata).\nThe resources inside it can be deployed to different Azure regions.\nSo, resources in a single resource group can span multiple regions.', '2026-03-04 18:46:28', 1);
+	(254, 254, 'Explanation\n\nIn Microsoft Azure, resources inside a resource group do not have to be in the same region.\nA resource group has a region (for storing its metadata).\nThe resources inside it can be deployed to different Azure regions.\nSo, resources in a single resource group can span multiple regions.', '2026-03-04 18:46:28', 1),
+	(255, 255, 'In Microsoft Azure, tags applied to a resource group are not automatically inherited by the resources inside it.\n\nA Resource Group tag applies only to the resource group itself.\nResources inside the group keep their own tags.\n\nIf you want the same tag on the resources, you must:\nAdd the tag individually, or\nUse automation such as Azure Policy to enforce or inherit tags.', '2026-03-05 16:45:05', 1),
+	(256, 256, 'In Microsoft Azure, if a user is assigned a role (like Owner, Contributor, or another role) at the Resource Group level, that permission is inherited by all resources inside that resource group.\n\nHow it works\nAzure uses Role-Based Access Control (RBAC). Permissions assigned at a higher scope apply to lower scopes.\n\nScope hierarchy:\nManagement Group\nSubscription\nResource Group\nResource\n\nSo if a user gets permission on a Resource Group, they can manage all resources within that group, such as:\nVirtual Machines\nStorage Accounts\nDatabases\nNetworking resources', '2026-03-05 16:45:05', 1),
+	(257, 257, 'To achieve 99.99% availability for Microsoft Azure Virtual Machines, you must deploy them across Availability Zones.\nAzure provides 99.99% SLA for Azure Virtual Machines when two or more VMs are deployed across Availability Zones in the same region using Azure Availability Zones.\n\nMinimum requirements\nMinimum virtual machines: 2\nMinimum availability zones: 2\n\nWhy?\nAvailability Zones are physically separate datacenters within a region.\nIf one zone fails, the VM in the other zone continues running.\nAzure guarantees 99.99% uptime SLA for this configuration.', '2026-03-05 16:45:05', 1),
+	(258, 258, 'To achieve 99.99% availability for Azure Virtual Machines in Microsoft Azure, you must deploy the VMs across multiple Availability Zones using Azure Availability Zones.\n\nMinimum requirements for 99.99% SLA\nVirtual Machines: 2\nAvailability Zones: 2\n\nWhy 2 zones?\nEach Availability Zone is a separate physical datacenter within an Azure region.\nDeploying VMs in at least two zones protects the application if one datacenter fails.\nAzure guarantees 99.99% uptime when VMs are distributed across zones.', '2026-03-05 16:45:05', 1),
+	(259, 259, 'In Microsoft Azure, data stored in an Azure Storage account is automatically replicated at least three times.\n\nWhy?\nBy default, Azure uses Locally Redundant Storage which:\nKeeps 3 copies of your data\nStores them within a single datacenter in the same region\nProtects against disk or hardware failures\n\nOther replication options (even more copies)\n\nAzure also offers:\nZone-Redundant Storage – copies across multiple availability zones\nGeo-Redundant Storage – copies to another region\nRead-Access Geo-Redundant Storage – geo replication with read access\n\nBut the minimum is always three copies.', '2026-03-05 16:45:05', 1),
+	(260, 260, 'In Microsoft Azure, data stored in an Azure Storage account is not automatically backed up to another data center by default.\n\nWhy?\nThe default replication option is Locally Redundant Storage, which:\nKeeps 3 copies of the data\nStores them within the same data center in the same region\nDoes not replicate to another Azure data center\n\nReplication to another data center only happens if you choose:\nGeo-Redundant Storage\nRead-Access Geo-Redundant Storage\nGeo-Zone-Redundant Storage\n\nThese options replicate data to a secondary Azure region.', '2026-03-05 16:45:05', 1),
+	(261, 261, 'In Microsoft Azure, an Azure Storage account does not have a limit of 2 TB or one million files.\n\nActual limits\nAzure Storage accounts can store petabytes (PBs) of data.\nThey can support millions or even billions of files/objects, depending on the storage service (Blob, Files, Tables, or Queues).\n\nFor example:\nAzure Blob Storage can store massive amounts of unstructured data such as files, images, and backups.\nIndividual blobs can be up to hundreds of terabytes in size.', '2026-03-05 16:45:05', 1),
+	(262, 262, 'In Microsoft Azure, Availability Zones are not available in every Azure region.\n\nAzure Availability Zones are physically separate datacenters within a region, but only certain Azure regions support them.\n\nThis means:\nSome regions have 3 availability zones.\nSome regions do not support availability zones at all.\nTherefore, even if you deploy resources in every Azure region, you cannot implement availability zones in all of them.', '2026-03-05 16:45:05', 1),
+	(263, 263, 'In Microsoft Azure, North America is not represented by a single region. Instead, it contains multiple Azure regions.\n\nExamples of Azure regions in North America\nEast US\nEast US 2\nCentral US\nWest US\nWest US 2\nCanada Central\n\nAzure divides the world into many regions so organizations can deploy resources closer to users and ensure high availability and compliance.', '2026-03-05 16:45:05', 1),
+	(264, 264, 'In Microsoft Azure, each Azure Region is made up of multiple datacenters.\n\nWhy multiple datacenters?\nHaving several datacenters in a region helps Azure provide:\nHigh availability\nFault tolerance\nScalability\nIn some regions, these datacenters are organized into Azure Availability Zones, which are physically separate locations with independent power, cooling, and networking.', '2026-03-05 16:45:05', 1),
+	(265, 265, 'In Microsoft Azure, data transfers between services in different regions are not free.\n\nExplanation\nInbound data transfers (data going into Azure from the internet) are usually free.\nOutbound data transfers (data leaving Azure, including between regions) incur charges.\nData transfer within the same region is generally free.', '2026-03-05 17:14:28', 1),
+	(266, 266, 'Explanation\n\nIn Microsoft Azure, Azure Service Health is used to monitor the health of your Azure services and resources and to receive alerts about planned maintenance, outages, or other issues.\n\nwhy not others:\nAzure Monitor – Collects metrics and logs from your resources; used for performance monitoring and alerting on your application or resources, not for Microsoft’s maintenance notifications.\n\nAzure Advisor – Gives recommendations to optimize cost, performance, security, and reliability, not maintenance alerts.\n\nMicrosoft Trust Center – Provides information about compliance, security, and privacy, not operational notifications.', '2026-03-05 17:14:28', 1),
+	(267, 267, 'In Microsoft Azure, a Windows Virtual Desktop (now called Azure Virtual Desktop) session host can run multiple versions of Windows, not just Windows 10.\n\nSupported operating systems\nWindows 10 Enterprise multi-session (optimized for virtual desktops)\nWindows 10 Enterprise\nWindows 11 Enterprise\nWindows Server versions (like Windows Server 2019/2022)\n\nKey point\nThe session host is flexible and supports both client OS (Windows 10/11) and server OS for hosting multiple users.', '2026-03-05 17:14:28', 1),
+	(268, 268, 'In Azure Virtual Desktop, a host pool can contain multiple session hosts, and each session host can support multiple simultaneous user sessions.\n\nKey points:\nSession hosts are VMs running Windows 10/11 Enterprise multi-session or Windows Server.\nEach session host can handle multiple users at the same time (depending on VM size and resources).\nTherefore, a host pool with 20 session hosts can support many more than 20 simultaneous users.\n\nExample:\nIf each session host supports 10 concurrent sessions, a pool of 20 hosts can support 200 simultaneous users.', '2026-03-05 17:14:28', 1),
+	(269, 269, 'In Azure Virtual Desktop (formerly Windows Virtual Desktop), you can provide both:\nDesktop virtualization – Full Windows desktops to users, allowing them to access a complete virtual desktop environment.\nApp virtualization – Individual Windows applications streamed to users without giving them a full desktop.\nThis flexibility allows organizations to deliver either full desktops or specific apps depending on user needs.', '2026-03-05 17:14:28', 1),
+	(270, 270, 'Explanation:\n\n✅ Azure TCO Calculator – Estimates cost savings and total cost of ownership when migrating on-premises workloads (like Microsoft SQL Server) to Azure. It includes factors like:\nHardware costs\nSoftware licensing\nElectricity and cooling\nIT personnel\n\n❌ Azure Migrate: Server Assessment – Assesses your on-premises servers for migration readiness, sizing, and dependency mapping, but does not calculate electricity cost savings.\n\n❌ Database Migration Assistant – Helps assess and migrate SQL databases to Azure, focusing on compatibility and feature recommendations, not costs.\n\n❌ Azure Pricing Calculator – Estimates Azure service costs, but doesn’t calculate on-premises vs. Azure cost savings.', '2026-03-05 17:14:28', 1),
+	(271, 271, 'In Microsoft Azure, Availability Zones are designed to protect Azure resources, including virtual machines, from datacenter failures.\n\nKey points:\nEach Availability Zone is a physically separate datacenter within the same Azure region.\nDeploying VMs across two or more zones ensures that if one datacenter fails, the other VMs continue running.\nAzure guarantees 99.99% SLA for VMs when deployed across Availability Zones.', '2026-03-05 17:14:28', 1),
+	(272, 272, 'Availability Zones in Microsoft Azure protect resources like Azure Virtual Machines from datacenter-level failures within a single region, not from a full region failure.\n\nAvailability Zones: Separate physical datacenters inside the same region.\nThey protect against power, cooling, or networking failures in one datacenter.\nIf the entire region goes down, all zones in that region could be affected.\n\nTo protect against a region failure, you should use:\nCross-region replication\nAzure Region Pairs\nDisaster recovery solutions like Azure Site Recovery', '2026-03-05 17:14:28', 1),
+	(273, 273, 'In Microsoft Azure, Availability Zones can be used to protect Azure managed disks from datacenter failures.\n\nHow it works:\nAzure Managed Disks can be zonal or zone-redundant (ZRS).\nZonal disks are associated with a specific Availability Zone.\nZone-Redundant Storage (ZRS) disks automatically replicate your managed disk across multiple zones within a region.\n\nIf one datacenter fails, the disk remains available in another zone.', '2026-03-05 17:14:28', 1),
+	(274, 274, 'In Microsoft Azure, an Azure subscription has only one Account Administrator.\n\nKey points:\nThe Account Administrator:\nIs the person who owns the subscription and handles billing.\nCan change service settings and assign other roles.\n\nYou can have multiple users with other roles (like Service Administrator or Owner/Contributor via RBAC) but only one Account Administrator exists per subscription.', '2026-03-05 17:14:28', 1),
+	(275, 275, 'An Azure subscription can be managed using different types of identities, not only a Microsoft account.\n\nYou can manage an Azure subscription with:\nMicrosoft accounts (e.g., Outlook, Hotmail, Live)\nWork or school accounts from Microsoft Entra ID (formerly Azure Active Directory)\n\nFor example:\nA personal Azure subscription might use a Microsoft account.\nAn organization’s Azure subscription usually uses a work or school account through Microsoft Entra ID.', '2026-03-05 17:31:19', 1),
+	(276, 276, 'In Microsoft Azure, the hierarchy works like this:\nManagement Group → Subscription → Resource Group → Resources\n\nKey rule:\nA Resource Group belongs to only one Subscription.\nIt cannot contain multiple subscriptions.\n\nHowever:\nOne Subscription can contain multiple Resource Groups.\nEach Resource Group can contain multiple resources (VMs, storage accounts, databases, etc.).', '2026-03-05 17:31:19', 1),
+	(277, 277, 'To sign in to a Windows 10 computer using Microsoft Entra ID credentials, the device must be joined to Microsoft Entra ID (formerly Azure Active Directory).\n\nThis process is called Azure AD Join.\n\nWhy this is required:\nThe device needs to be registered and trusted by **Microsoft Entra ID.\nOnly then can users authenticate with their work or school account to log in to Windows 10.', '2026-03-05 17:31:19', 1),
+	(278, 278, 'In Microsoft Entra ID, users are not organized using resource groups.\nUsers and groups are managed inside Microsoft Entra ID (identity management).\nResource groups are used in Microsoft Azure to organize Azure resources like virtual machines, storage accounts, and databases.\n\nSummary:\nUsers → Managed in Microsoft Entra ID\nResources → Organized using Resource Groups in Azure', '2026-03-05 17:31:19', 1),
+	(279, 279, 'Microsoft Entra ID groups support dynamic membership rules.\n\nDynamic membership allows users or devices to be automatically added or removed from a group based on rules you define.\n\nExample\nYou can create a rule like:\nAll users where department = Sales\nAll devices where OS = Windows\nWhen a new user matches the rule, they are automatically added to the group without manual action.\n\nThis feature helps automate:\nAccess management\nApplication assignments\nPolicy enforcement', '2026-03-05 17:31:19', 1),
+	(280, 280, 'To keep services available if a single data center fails, you must use solutions that distribute VMs across separate physical infrastructure within a region.\n\n✅ Deploy the virtual machines to two or more availability zones\nCorrect.\nEach zone is a separate datacenter, so if one fails, the others continue running.\n\n✅ Deploy the virtual machines to two or more regions\nAlso valid in many practice questions.\nRegions contain multiple datacenters, so deploying in different regions also ensures availability if one datacenter fails (and even protects against regional failure).\n\nWhy other options are wrong\n❌ Two or more resource groups\nResource groups are logical containers, not infrastructure separation.\n❌ Deploy to a scale set\nA scale set does not automatically protect against datacenter failure unless it is explicitly configured across zones.', '2026-03-05 17:31:19', 1),
+	(281, 281, 'Azure Monitor can monitor the performance of on-premises computers as well as Azure resources.\n\nHow it works\nYou install the Log Analytics agent / Azure Monitor agent on the on-premises machines, which sends performance and log data to Microsoft Azure.\n\nWhat Azure Monitor can track from on-premises machines\nCPU usage\nMemory usage\nDisk performance\nNetwork activity\nEvent logs and system logs\nThis allows organizations to monitor both cloud and on-premises environments from a single monitoring platform.', '2026-03-05 17:31:19', 1),
+	(282, 282, 'Azure Monitor can monitor the performance of on-premises computers as well as Azure resources.\n\nHow it works\nYou install the Log Analytics agent / Azure Monitor agent on the on-premises machines, which sends performance and log data to Microsoft Azure.\nWhat Azure Monitor can track from on-premises machines\nCPU usage\nMemory usage\nDisk performance\nNetwork activity\nEvent logs and system logs\n\nThis allows organizations to monitor both cloud and on-premises environments from a single monitoring platform.', '2026-03-05 17:31:19', 1),
+	(283, 283, 'Azure Monitor can trigger alerts based on data collected in an Azure Log Analytics workspace.\n\nHow it works:\nLog Analytics workspace collects logs and metrics from Azure resources, virtual machines, and even on-premises systems.\n\nAzure Monitor Alerts can be configured to:\nWatch for specific log query results\nTrigger notifications or actions when conditions are met\n\nExample:\nYou create a log query to detect CPU usage over 90% for 5 minutes.\nAzure Monitor triggers an alert and can notify you via email, SMS, or trigger an automation runbook.', '2026-03-05 17:31:19', 1),
+	(284, 284, 'Azure Service Health allows administrators to view the health of all Azure services in their environment.\n\nWhat Azure Service Health provides:\nAzure Status – Global view of the health of all Azure services.\nService Issues – Information about outages or incidents affecting your subscribed services.\nPlanned Maintenance – Notifications about upcoming maintenance that might affect your resources.\nHealth Alerts – Ability to set up alerts for service issues affecting your resources.\n\nThis helps admins stay informed and take action quickly when issues occur.', '2026-03-05 17:31:19', 1);
 
 -- Dumping structure for table quiz_db.option_master
 DROP TABLE IF EXISTS `option_master`;
@@ -578,9 +639,9 @@ CREATE TABLE IF NOT EXISTS `option_master` (
   PRIMARY KEY (`option_id`),
   KEY `idx_option_question` (`question_id`,`is_active`),
   CONSTRAINT `option_master_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=771 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=838 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.option_master: ~497 rows (approximately)
+-- Dumping data for table quiz_db.option_master: ~797 rows (approximately)
 INSERT INTO `option_master` (`option_id`, `question_id`, `option_text`, `option_order`, `created_at`, `is_active`) VALUES
 	(1, 1, 'YES', 1, '2026-01-25 17:45:05', 1),
 	(2, 1, 'NO', 2, '2026-01-25 17:45:17', 1),
@@ -1311,7 +1372,74 @@ INSERT INTO `option_master` (`option_id`, `question_id`, `option_text`, `option_
 	(767, 253, 'Elastic Job agents', 15, '2026-03-04 18:46:28', 1),
 	(768, 253, 'SQL managed instances', 16, '2026-03-04 18:46:28', 1),
 	(769, 254, 'Yes', 1, '2026-03-04 18:46:28', 1),
-	(770, 254, 'No', 2, '2026-03-04 18:46:28', 1);
+	(770, 254, 'No', 2, '2026-03-04 18:46:28', 1),
+	(771, 255, 'Yes', 1, '2026-03-05 16:45:05', 1),
+	(772, 255, 'No', 2, '2026-03-05 16:45:05', 1),
+	(773, 256, 'Yes', 1, '2026-03-05 16:45:05', 1),
+	(774, 256, 'No', 2, '2026-03-05 16:45:05', 1),
+	(775, 257, '1', 1, '2026-03-05 16:45:05', 1),
+	(776, 257, '2', 2, '2026-03-05 16:45:05', 1),
+	(777, 257, '3', 3, '2026-03-05 16:45:05', 1),
+	(778, 258, '1', 1, '2026-03-05 16:45:05', 1),
+	(779, 258, '2', 2, '2026-03-05 16:45:05', 1),
+	(780, 258, '3', 3, '2026-03-05 16:45:05', 1),
+	(781, 259, 'Yes', 1, '2026-03-05 16:45:05', 1),
+	(782, 259, 'No', 2, '2026-03-05 16:45:05', 1),
+	(783, 260, 'Yes', 1, '2026-03-05 16:45:05', 1),
+	(784, 260, 'No', 2, '2026-03-05 16:45:05', 1),
+	(785, 261, 'Yes', 1, '2026-03-05 16:45:05', 1),
+	(786, 261, 'No', 2, '2026-03-05 16:45:05', 1),
+	(787, 262, 'Yes', 1, '2026-03-05 16:45:05', 1),
+	(788, 262, 'No', 2, '2026-03-05 16:45:05', 1),
+	(789, 263, 'Yes', 1, '2026-03-05 16:45:05', 1),
+	(790, 263, 'No', 2, '2026-03-05 16:45:05', 1),
+	(791, 264, 'Yes', 1, '2026-03-05 16:45:05', 1),
+	(792, 264, 'No', 2, '2026-03-05 16:45:05', 1),
+	(793, 265, 'Yes', 1, '2026-03-05 17:14:28', 1),
+	(794, 265, 'No', 2, '2026-03-05 17:14:28', 1),
+	(795, 266, 'Azure Monitor', 1, '2026-03-05 17:14:28', 1),
+	(796, 266, 'Azure Service Health', 2, '2026-03-05 17:14:28', 1),
+	(797, 266, 'Azure Advisor', 3, '2026-03-05 17:14:28', 1),
+	(798, 266, 'Microsoft Trust Center', 4, '2026-03-05 17:14:28', 1),
+	(799, 267, 'Yes', 1, '2026-03-05 17:14:28', 1),
+	(800, 267, 'No', 2, '2026-03-05 17:14:28', 1),
+	(801, 268, 'Yes', 1, '2026-03-05 17:14:28', 1),
+	(802, 268, 'No', 2, '2026-03-05 17:14:28', 1),
+	(803, 269, 'Yes', 1, '2026-03-05 17:14:28', 1),
+	(804, 269, 'No', 2, '2026-03-05 17:14:28', 1),
+	(805, 270, 'The Azure Migrate: Server Assessment tool', 1, '2026-03-05 17:14:28', 1),
+	(806, 270, 'The Azure Total Cost of Ownership (TCO) calculator', 2, '2026-03-05 17:14:28', 1),
+	(807, 270, 'The Database Migration Assistant', 3, '2026-03-05 17:14:28', 1),
+	(808, 271, 'Yes', 1, '2026-03-05 17:14:28', 1),
+	(809, 271, 'No', 2, '2026-03-05 17:14:28', 1),
+	(810, 272, 'Yes', 1, '2026-03-05 17:14:28', 1),
+	(811, 272, 'No', 2, '2026-03-05 17:14:28', 1),
+	(812, 273, 'Yes', 1, '2026-03-05 17:14:28', 1),
+	(813, 273, 'No', 2, '2026-03-05 17:14:28', 1),
+	(814, 274, 'Yes', 1, '2026-03-05 17:14:28', 1),
+	(815, 274, 'No', 2, '2026-03-05 17:14:28', 1),
+	(816, 275, 'Yes', 1, '2026-03-05 17:31:19', 1),
+	(817, 275, 'No', 2, '2026-03-05 17:31:19', 1),
+	(818, 276, 'Yes', 1, '2026-03-05 17:31:19', 1),
+	(819, 276, 'No', 2, '2026-03-05 17:31:19', 1),
+	(820, 277, 'Yes', 1, '2026-03-05 17:31:19', 1),
+	(821, 277, 'No', 2, '2026-03-05 17:31:19', 1),
+	(822, 278, 'Yes', 1, '2026-03-05 17:31:19', 1),
+	(823, 278, 'No', 2, '2026-03-05 17:31:19', 1),
+	(824, 279, 'Yes', 1, '2026-03-05 17:31:19', 1),
+	(825, 279, 'No', 2, '2026-03-05 17:31:19', 1),
+	(826, 280, 'Deploy the virtual machines to two or more availability zones', 1, '2026-03-05 17:31:19', 1),
+	(827, 280, 'Deploy the virtual machines to two or more resource groups', 2, '2026-03-05 17:31:19', 1),
+	(828, 280, 'Deploy the virtual machines to a scale set', 3, '2026-03-05 17:31:19', 1),
+	(829, 280, 'Deploy the virtual machines to two or more regions', 4, '2026-03-05 17:31:19', 1),
+	(830, 281, 'Yes', 1, '2026-03-05 17:31:19', 1),
+	(831, 281, 'No', 2, '2026-03-05 17:31:19', 1),
+	(832, 282, 'Yes', 1, '2026-03-05 17:31:19', 1),
+	(833, 282, 'No', 2, '2026-03-05 17:31:19', 1),
+	(834, 283, 'Yes', 1, '2026-03-05 17:31:19', 1),
+	(835, 283, 'No', 2, '2026-03-05 17:31:19', 1),
+	(836, 284, 'Yes', 1, '2026-03-05 17:31:19', 1),
+	(837, 284, 'No', 2, '2026-03-05 17:31:19', 1);
 
 -- Dumping structure for table quiz_db.question
 DROP TABLE IF EXISTS `question`;
@@ -1326,9 +1454,9 @@ CREATE TABLE IF NOT EXISTS `question` (
   PRIMARY KEY (`question_id`),
   KEY `idx_question_topic` (`topic_id`,`is_active`),
   CONSTRAINT `question_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`topic_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=255 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.question: ~154 rows (approximately)
+-- Dumping data for table quiz_db.question: ~270 rows (approximately)
 INSERT INTO `question` (`question_id`, `topic_id`, `question_text`, `question_type`, `difficulty`, `created_at`, `is_active`) VALUES
 	(1, 1, 'If you plan to host a web application in the Azure platform as a service solution of Azure Web Apps, then the platform will have the ability to scale automatically?', 'SINGLE', 'MEDIUM', '2026-01-25 17:44:39', 1),
 	(2, 1, 'You decide to create 2 Virtual machines. Each virtual machine is of the size D2s v3. Would these machines always generate the same monthly cost?', 'SINGLE', 'MEDIUM', '2026-01-25 17:53:06', 1),
@@ -1569,7 +1697,37 @@ INSERT INTO `question` (`question_id`, `topic_id`, `question_text`, `question_ty
 	(251, 1, 'Availability zones are used to replicate data and applications to multiple regions?', 'SINGLE', 'MEDIUM', '2026-03-04 18:46:28', 1),
 	(252, 1, 'You plan to create an Azure virtual machine. You need to identify which storage service must be used to store the unmanaged data disks of the virtual machine. What should you identify?', 'SINGLE', 'MEDIUM', '2026-03-04 18:46:28', 1),
 	(253, 1, 'You plan to implement an Azure database solution. You need to implement a database solution that meets the following requirements: Can add data concurrently from multiple regions. Can store JSON documents Which database service should you deploy?', 'SINGLE', 'MEDIUM', '2026-03-04 18:46:28', 1),
-	(254, 1, 'All the Azure resources deployed to a resource group must use the same Azure region?', 'SINGLE', 'MEDIUM', '2026-03-04 18:46:28', 1);
+	(254, 1, 'All the Azure resources deployed to a resource group must use the same Azure region?', 'SINGLE', 'MEDIUM', '2026-03-04 18:46:28', 1),
+	(255, 1, 'If you assign a tag to a resource group, all the Azure resources in that resource group are assigned to the same tag?', 'SINGLE', 'MEDIUM', '2026-03-05 16:45:05', 1),
+	(256, 1, 'If you assign permissions for a user to manage a resource group, the user can manage all the Azure resources in that resource group?', 'SINGLE', 'MEDIUM', '2026-03-05 16:45:05', 1),
+	(257, 1, 'You plan to deploy a critical line-of-business application to Azure. The application will run on an Azure virtual machine. You need to recommend a deployment solution for the application. The solution must provide a guaranteed availability of 99.99 percent. What is the minimum number of virtual machines and the minimum number of availability zones you should recommend for the deployment, Minimum number of virtual machines?', 'SINGLE', 'MEDIUM', '2026-03-05 16:45:05', 1),
+	(258, 1, 'You plan to deploy a critical line-of-business application to Azure. The application will run on an Azure virtual machine. You need to recommend a deployment solution for the application. The solution must provide a guaranteed availability of 99.99 percent. What is the minimum number of virtual machines and the minimum number of availability zones you should recommend for the deployment Minimum number of availability zones?', 'SINGLE', 'MEDIUM', '2026-03-05 16:45:05', 1),
+	(259, 1, 'Data that is stored in an Azure Storage account automatically has at least three copies?', 'SINGLE', 'MEDIUM', '2026-03-05 16:45:05', 1),
+	(260, 1, 'All data that is copied to an Azure Storage account is backed up automatically to another Azure data center?', 'SINGLE', 'MEDIUM', '2026-03-05 16:45:05', 1),
+	(261, 1, 'An Azure Storage account can contain up to 2 TB of data and up to one million files?', 'SINGLE', 'MEDIUM', '2026-03-05 16:45:05', 1),
+	(262, 1, 'If you have Azure resources deployed to every region, you can implement availability zones in all the regions?', 'SINGLE', 'MEDIUM', '2026-03-05 16:45:05', 1),
+	(263, 1, 'North America is represented by a single Azure region?', 'SINGLE', 'MEDIUM', '2026-03-05 16:45:05', 1),
+	(264, 1, 'Every Azure region has multiple datacenters?', 'SINGLE', 'MEDIUM', '2026-03-05 16:45:05', 1),
+	(265, 1, 'Data transfers between Azure services located in different Azure regions are always free?', 'SINGLE', 'MEDIUM', '2026-03-05 17:14:28', 1),
+	(266, 1, 'You need to be notified when Microsoft plans to perform maintenance that can affect the resources deployed to an Azure subscription. What should you use?', 'SINGLE', 'MEDIUM', '2026-03-05 17:14:28', 1),
+	(267, 1, 'A Windows Virtual Desktop session host can run Windows 10 only?', 'SINGLE', 'MEDIUM', '2026-03-05 17:14:28', 1),
+	(268, 1, 'A Windows Virtual Desktop host pool that includes 20 session hosts supports a maximum of 20 simultaneous user connections?', 'SINGLE', 'MEDIUM', '2026-03-05 17:14:28', 1),
+	(269, 1, 'Windows Virtual Desktop supports desktop and app virtualization?', 'SINGLE', 'MEDIUM', '2026-03-05 17:14:28', 1),
+	(270, 1, '[...] can calculate cost savings due to reduced electricity consumption as a result of migrating on-premises Microsoft SQL servers to Azure?', 'SINGLE', 'MEDIUM', '2026-03-05 17:14:28', 1),
+	(271, 1, 'You can use Availability Zones in Azure to protect Azure virtual machines from a datacenter failure?', 'SINGLE', 'MEDIUM', '2026-03-05 17:14:28', 1),
+	(272, 1, 'You can use Availability Zones in Azure to protect Azure virtual machines from a region failure?', 'SINGLE', 'MEDIUM', '2026-03-05 17:14:28', 1),
+	(273, 1, 'You can use Availability Zones in Azure to protect Azure managed disks from a datacenter failure?', 'SINGLE', 'MEDIUM', '2026-03-05 17:14:28', 1),
+	(274, 1, 'An Azure subscription can have multiple account administrators?', 'SINGLE', 'MEDIUM', '2026-03-05 17:14:28', 1),
+	(275, 1, 'An Azure subscription can be managed by using a Microsoft account only?', 'SINGLE', 'MEDIUM', '2026-03-05 17:31:19', 1),
+	(276, 1, 'An Azure resource group can contain multiple Azure subscriptions?', 'SINGLE', 'MEDIUM', '2026-03-05 17:31:19', 1),
+	(277, 1, 'To use Microsoft Entra ID credentials to sign in to a computer that runs Windows 10, the computer must be joined to Microsoft Entra ID?', 'SINGLE', 'MEDIUM', '2026-03-05 17:31:19', 1),
+	(278, 1, 'Users in Microsoft Entra ID are organized by using resource groups?', 'SINGLE', 'MEDIUM', '2026-03-05 17:31:19', 1),
+	(279, 1, 'Microsoft Entra ID groups support dynamic membership rules?', 'SINGLE', 'MEDIUM', '2026-03-05 17:31:19', 1),
+	(280, 1, 'You plan to deploy several Azure virtual machines. You need to ensure that the services running on the virtual machines remain available if a single data center fails. What are two possible solutions?', 'MULTIPLE', 'MEDIUM', '2026-03-05 17:31:19', 1),
+	(281, 1, 'Azure Monitor can monitor the performance of on-premises computers?', 'SINGLE', 'MEDIUM', '2026-03-05 17:31:19', 1),
+	(282, 1, 'Azure Monitor can send alerts to Microsoft Entra ID security groups?', 'SINGLE', 'MEDIUM', '2026-03-05 17:31:19', 1),
+	(283, 1, 'Azure Monitor can trigger alerts based on data in an Azure Log Analytics workspace?', 'SINGLE', 'MEDIUM', '2026-03-05 17:31:19', 1),
+	(284, 1, 'From Azure Service Health, an administrator can view the health of all the services in an Azure environment?', 'SINGLE', 'MEDIUM', '2026-03-05 17:31:19', 1);
 
 -- Dumping structure for table quiz_db.question_attempt
 DROP TABLE IF EXISTS `question_attempt`;
@@ -1583,29 +1741,9 @@ CREATE TABLE IF NOT EXISTS `question_attempt` (
   KEY `question_id` (`question_id`),
   CONSTRAINT `question_attempt_ibfk_1` FOREIGN KEY (`attempt_id`) REFERENCES `quiz_attempt` (`attempt_id`),
   CONSTRAINT `question_attempt_ibfk_2` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table quiz_db.question_attempt: ~19 rows (approximately)
-INSERT INTO `question_attempt` (`question_attempt_id`, `attempt_id`, `question_id`, `is_correct`) VALUES
-	(1, 1, 94, 1),
-	(2, 1, 89, 1),
-	(3, 2, 2, 1),
-	(4, 2, 26, 1),
-	(5, 3, 69, 0),
-	(6, 3, 33, 1),
-	(7, 3, 51, 0),
-	(8, 3, 19, 0),
-	(9, 3, 101, 1),
-	(10, 4, 5, 1),
-	(11, 4, 28, 1),
-	(12, 4, 3, 0),
-	(13, 4, 61, 1),
-	(14, 4, 23, 1),
-	(15, 5, 2, 1),
-	(16, 5, 43, 0),
-	(17, 5, 36, 0),
-	(18, 5, 102, 0),
-	(19, 5, 32, 0);
+-- Dumping data for table quiz_db.question_attempt: ~29 rows (approximately)
 
 -- Dumping structure for table quiz_db.question_attempt_option
 DROP TABLE IF EXISTS `question_attempt_option`;
@@ -1618,29 +1756,9 @@ CREATE TABLE IF NOT EXISTS `question_attempt_option` (
   KEY `option_id` (`option_id`),
   CONSTRAINT `question_attempt_option_ibfk_1` FOREIGN KEY (`question_attempt_id`) REFERENCES `question_attempt` (`question_attempt_id`),
   CONSTRAINT `question_attempt_option_ibfk_2` FOREIGN KEY (`option_id`) REFERENCES `option_master` (`option_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table quiz_db.question_attempt_option: ~19 rows (approximately)
-INSERT INTO `question_attempt_option` (`id`, `question_attempt_id`, `option_id`) VALUES
-	(1, 1, 296),
-	(2, 2, 273),
-	(3, 3, 4),
-	(4, 4, 79),
-	(5, 5, 199),
-	(6, 6, 105),
-	(7, 7, 150),
-	(8, 8, 57),
-	(9, 9, 318),
-	(10, 10, 16),
-	(11, 11, 84),
-	(12, 12, 5),
-	(13, 13, 170),
-	(14, 14, 70),
-	(15, 15, 4),
-	(16, 16, 132),
-	(17, 17, 112),
-	(18, 18, 320),
-	(19, 19, 100);
+-- Dumping data for table quiz_db.question_attempt_option: ~31 rows (approximately)
 
 -- Dumping structure for table quiz_db.quiz_attempt
 DROP TABLE IF EXISTS `quiz_attempt`;
@@ -1656,15 +1774,9 @@ CREATE TABLE IF NOT EXISTS `quiz_attempt` (
   PRIMARY KEY (`attempt_id`),
   KEY `topic_id` (`topic_id`),
   CONSTRAINT `quiz_attempt_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`topic_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table quiz_db.quiz_attempt: ~5 rows (approximately)
-INSERT INTO `quiz_attempt` (`attempt_id`, `user_id`, `topic_id`, `total_questions`, `correct_count`, `score`, `started_at`, `submitted_at`) VALUES
-	(1, 2, 1, 2, 2, 2, '2026-03-03 19:52:58', '2026-03-03 19:52:58'),
-	(2, 2, 1, 2, 2, 2, '2026-03-03 19:53:35', '2026-03-03 19:53:35'),
-	(3, 2, 1, 5, 2, 2, '2026-03-03 19:53:56', '2026-03-03 19:53:56'),
-	(4, 2, 1, 5, 4, 4, '2026-03-03 20:34:58', '2026-03-03 20:34:58'),
-	(5, 2, 1, 5, 1, 1, '2026-03-03 20:40:13', '2026-03-03 20:40:13');
+-- Dumping data for table quiz_db.quiz_attempt: ~0 rows (approximately)
 
 -- Dumping structure for table quiz_db.topic
 DROP TABLE IF EXISTS `topic`;
