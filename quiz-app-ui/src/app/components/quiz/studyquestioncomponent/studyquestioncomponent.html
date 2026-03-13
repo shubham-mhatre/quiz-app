@@ -1,0 +1,179 @@
+<app-header></app-header>
+
+<div class="study-wrapper">
+
+  <div class="container">
+
+    <!-- Topic selector -->
+
+    <div class="topic-row">
+
+      <h2>Select Topic</h2>
+
+      <mat-form-field appearance="fill">
+
+        <mat-label>Topic</mat-label>
+
+        <mat-select [(ngModel)]="selectedTopicId"
+                    (selectionChange)="onTopicChange()">
+
+          <mat-option *ngFor="let topic of topics"
+                      [value]="topic.id">
+
+            {{ topic.name }}
+
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+    </div>
+
+
+    <mat-progress-bar *ngIf="loading"
+                      mode="indeterminate">
+    </mat-progress-bar>
+
+
+    <div *ngIf="question" class="study-container">
+
+      <!-- HEADER -->
+
+      <div class="study-header">
+
+        <h2>
+          Question {{currentIndex + 1}} / {{totalQuestions}}
+        </h2>
+
+        <div>
+
+          <button mat-icon-button
+                  (click)="previousQuestion()"
+                  [disabled]="currentIndex === 0">
+
+            <mat-icon>arrow_back</mat-icon>
+
+          </button>
+
+          <button mat-icon-button
+                  (click)="nextQuestion()"
+                  [disabled]="currentIndex === totalQuestions - 1">
+
+            <mat-icon>arrow_forward</mat-icon>
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- QUESTION -->
+
+      <div class="question-box">
+
+        {{question.questionText}}
+
+      </div>
+
+
+      <!-- SINGLE SELECT -->
+
+      <mat-radio-group
+        *ngIf="question.questionType === 'SINGLE'"
+        [(ngModel)]="selectedOptionId">
+
+        <mat-radio-button
+          *ngFor="let option of question.options"
+          [value]="option.id"
+          [class.correct]="isCorrect(option)"
+          [class.wrong]="isWrong(option)">
+
+          {{option.text}}
+
+        </mat-radio-button>
+
+      </mat-radio-group>
+
+
+      <!-- MULTIPLE SELECT -->
+
+      <div *ngIf="question.questionType === 'MULTIPLE'">
+
+        <mat-checkbox
+          *ngFor="let option of question.options"
+          (change)="toggleOption(option.id!)"
+          [checked]="selectedOptionIds.includes(option.id!)"
+          [class.correct]="isCorrect(option)"
+          [class.wrong]="isWrong(option)">
+
+          {{option.text}}
+
+        </mat-checkbox>
+
+      </div>
+
+
+      <!-- BUTTONS -->
+
+      <div class="buttons">
+
+        <button mat-raised-button
+                color="primary"
+                *ngIf="!checkedAnswer"
+                (click)="checkAnswer()">
+
+          Check Answer
+
+        </button>
+
+
+        <button mat-raised-button
+                color="accent"
+                *ngIf="checkedAnswer"
+                (click)="nextQuestion()">
+
+          Next Question
+
+        </button>
+
+      </div>
+
+
+      <!-- RESULT -->
+
+      <div *ngIf="checkedAnswer" class="result">
+
+        <h3 *ngIf="isAnswerCorrect()" class="correct-msg">
+          Correct Answer 🎉
+        </h3>
+
+        <h3 *ngIf="!isAnswerCorrect()" class="wrong-msg">
+          Incorrect Answer
+        </h3>
+
+      </div>
+
+
+      <!-- EXPLANATION -->
+
+      <div *ngIf="checkedAnswer" class="explanation">
+
+        <h3>Explanation</h3>
+
+        <p *ngIf="question.explanation; else noExp"
+           [innerHTML]="question.explanation | newlineToBr">
+        </p>
+
+        <ng-template #noExp>
+          <i>No explanation provided</i>
+        </ng-template>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -9,6 +9,7 @@ import { Quizcomponent } from './components/quiz/quizcomponent/quizcomponent';
 import { QuizResultComponent } from './components/quiz/quiz-result-component/quiz-result-component';
 import { QuizHistory } from './components/quiz/quiz-history/quiz-history';
 import { AllQuestions } from './components/quiz/all-questions/all-questions';
+import { Studyquestioncomponent } from './components/quiz/studyquestioncomponent/studyquestioncomponent';
 
 const routes: Routes = [
   { path: 'login', component: Login },
@@ -33,7 +34,7 @@ const routes: Routes = [
     data: { role: 'USER' } 
   },
   {
-    path: 'all-questions', component: AllQuestions,
+    path: 'all-questions', component: Studyquestioncomponent,
     canActivate:[authguardGuard,roleguardGuard],
     data: { role: 'USER' } 
   },
