@@ -28,6 +28,10 @@ export class Studyquestioncomponent {
 
   checkedAnswer = false;
 
+  answers: any[] = [];
+  navigatorPage = 0;
+  navigatorPageSize = 40;
+
   constructor(
     private questionService: Questionservice,
     private topicService: Topicservice
@@ -50,11 +54,13 @@ export class Studyquestioncomponent {
     this.loading = true;
 
     this.questionService
-      .getByTopicWithPagination(this.selectedTopicId, 0, 100, 'ASC')
+      .getByTopicWithPagination(this.selectedTopicId, 0, 500, 'ASC')
       .subscribe(res => {
 
         this.questions = res.content;
         this.totalQuestions = this.questions.length;
+
+        this.answers = new Array(this.totalQuestions).fill(null);
 
         this.currentIndex = 0;
 
@@ -124,9 +130,6 @@ export class Studyquestioncomponent {
 
   }
 
-  checkAnswer() {
-    this.checkedAnswer = true;
-  }
 
   isCorrect(option: any) {
     return this.checkedAnswer && option.correct;
@@ -162,6 +165,73 @@ export class Studyquestioncomponent {
       [...this.selectedOptionIds].sort();
 
     return JSON.stringify(correctIds) === JSON.stringify(selected);
+
+  }
+
+  getNavigatorClass(index: number) {
+
+    if (this.answers[index] === true) return 'nav-correct';
+
+    if (this.answers[index] === false) return 'nav-wrong';
+
+    return 'nav-unanswered';
+
+  }
+
+  goToQuestion(index: number) {
+
+    const realIndex =
+      this.navigatorPage * this.navigatorPageSize + index;
+
+    this.currentIndex = realIndex;
+
+    this.loadQuestion();
+
+  }
+
+  checkAnswer() {
+
+    this.checkedAnswer = true;
+
+    const correct = this.isAnswerCorrect();
+
+    this.answers[this.currentIndex] = correct;
+
+  }
+
+  get visibleNavigatorQuestions() {
+
+    const start = this.navigatorPage * this.navigatorPageSize;
+    const end = start + this.navigatorPageSize;
+
+    return this.questions.slice(start, end);
+
+  }
+
+  nextNavigatorPage() {
+
+    const maxPage =
+      Math.ceil(this.questions.length / this.navigatorPageSize) - 1;
+
+    if (this.navigatorPage < maxPage) {
+      this.navigatorPage++;
+    }
+
+  }
+
+  previousNavigatorPage() {
+
+    if (this.navigatorPage > 0) {
+      this.navigatorPage--;
+    }
+
+  }
+
+  getNavigatorEnd(): number {
+
+    const end = (this.navigatorPage + 1) * this.navigatorPageSize;
+
+    return end > this.totalQuestions ? this.totalQuestions : end;
 
   }
 }

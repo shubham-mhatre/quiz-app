@@ -78,3 +78,89 @@ mat-checkbox {
   background: #f5f5f5;
   border-radius: 6px;
 }
+
+.navigator {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.navigator-title {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.navigator-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.nav-box {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+
+  border: 1px solid #ccc;
+
+  transition: 0.2s;
+}
+
+.nav-box:hover {
+  transform: scale(1.05);
+}
+
+/* States */
+
+.nav-unanswered {
+  background: #f5f5f5;
+}
+
+.nav-correct {
+  background: #c8e6c9;
+}
+
+.nav-wrong {
+  background: #ffcdd2;
+}
+
+.navigator {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.navigator-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.nav-box {
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 6px;
+  border: 1px solid #ccc;
+
+  cursor: pointer;
+
+  font-size: 13px;
+}
+
+.navigator-controls {
+  margin-top: 12px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
