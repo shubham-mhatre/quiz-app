@@ -187,12 +187,19 @@ export class Studyquestioncomponent {
 
   getNavigatorClass(index: number) {
 
-    if (this.answers[index] === true) return 'nav-correct';
+    if (index === this.currentIndex) {
+      return 'nav-current';
+    }
 
-    if (this.answers[index] === false) return 'nav-wrong';
+    if (this.answers[index] === true) {
+      return 'nav-correct';
+    }
+
+    if (this.answers[index] === false) {
+      return 'nav-wrong';
+    }
 
     return 'nav-unanswered';
-
   }
 
   goToQuestion(index: number) {

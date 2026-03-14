@@ -2,7 +2,7 @@
   min-height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* keeps content at top */
+  justify-content: flex-start;
   padding-top: 20px;
 }
 
@@ -32,9 +32,7 @@
   margin-top: 20px;
   font-size: 18px;
   font-weight: 500;
-
   padding: 16px;
-
   background: #fafafa;
   border-left: 4px solid #3f51b5;
   border-radius: 6px;
@@ -81,6 +79,10 @@ mat-checkbox {
   border-radius: 6px;
 }
 
+/* Navigator */
+
+/* Navigator */
+
 .navigator {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -91,93 +93,95 @@ mat-checkbox {
   margin-bottom: 10px;
 }
 
-// .navigator-grid {
-//   display: flex;
-//   flex-wrap: wrap;
-//   gap: 8px;
-// }
-
 .navigator-grid {
   display: flex;
-  gap: 4px;
+  gap: 6px;
   overflow-x: auto;
+  padding-bottom: 4px;
 }
 
 .nav-box {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-
   border: 1px solid #ccc;
 
-  transition: 0.2s;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+
+  transition: all 0.2s ease;
 }
 
 .nav-box:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 /* States */
 
 .nav-unanswered {
   background: #f5f5f5;
+  color: #444;
 }
 
 .nav-correct {
-  background: #c8e6c9;
+  background: #4caf50;
+  color: white;
+  border-color: #4caf50;
 }
 
 .nav-wrong {
-  background: #ffcdd2;
+  background: #f44336;
+  color: white;
+  border-color: #f44336;
 }
 
-.navigator {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-// .navigator-grid {
-//   display: grid;
-//   grid-template-columns: repeat(10, 1fr);
-//   gap: 8px;
-//   margin-top: 10px;
-// }
-
-.nav-box {
-  height: 36px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 6px;
-  border: 1px solid #ccc;
-
-  cursor: pointer;
-
-  font-size: 13px;
-}
-
-.nav-box {
-  width: 32px;
-  height: 32px;
-  font-size: 12px;
+.nav-current {
+  background: #2196f3;
+  color: white;
+  border-color: #2196f3;
+  font-weight: 600;
 }
 
 .navigator-controls {
   margin-top: 12px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
+/*navigator legend */
+
+.navigator-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-box {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+.legend-box.current { background: #2196f3; }
+.legend-box.correct { background: #4caf50; }
+.legend-box.wrong { background: #f44336; }
+.legend-box.unanswered { background: #f5f5f5; border:1px solid #ccc; }
+
+/* No Questions */
 
 .no-questions {
   margin-top: 20px;
