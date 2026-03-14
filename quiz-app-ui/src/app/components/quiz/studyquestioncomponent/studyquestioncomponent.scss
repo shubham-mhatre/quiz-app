@@ -91,10 +91,16 @@ mat-checkbox {
   margin-bottom: 10px;
 }
 
+// .navigator-grid {
+//   display: flex;
+//   flex-wrap: wrap;
+//   gap: 8px;
+// }
+
 .navigator-grid {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  gap: 4px;
+  overflow-x: auto;
 }
 
 .nav-box {
@@ -137,12 +143,12 @@ mat-checkbox {
   margin-bottom: 20px;
 }
 
-.navigator-grid {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 8px;
-  margin-top: 10px;
-}
+// .navigator-grid {
+//   display: grid;
+//   grid-template-columns: repeat(10, 1fr);
+//   gap: 8px;
+//   margin-top: 10px;
+// }
 
 .nav-box {
   height: 36px;
@@ -157,6 +163,12 @@ mat-checkbox {
   cursor: pointer;
 
   font-size: 13px;
+}
+
+.nav-box {
+  width: 32px;
+  height: 32px;
+  font-size: 12px;
 }
 
 .navigator-controls {
