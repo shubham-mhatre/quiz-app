@@ -30,7 +30,7 @@ export class Studyquestioncomponent {
 
   answers: any[] = [];
   navigatorPage = 0;
-  navigatorPageSize = 10;
+  navigatorPageSize = 20;
 
   constructor(
     private questionService: Questionservice,
@@ -57,14 +57,27 @@ export class Studyquestioncomponent {
       .getByTopicWithPagination(this.selectedTopicId, 0, 500, 'ASC')
       .subscribe(res => {
 
-        this.questions = res.content;
+        // this.questions = res.content;
+        // this.totalQuestions = this.questions.length;
+
+        // this.answers = new Array(this.totalQuestions).fill(null);
+
+        // this.currentIndex = 0;
+
+        // this.loadQuestion();
+
+        this.questions = res.content || [];
         this.totalQuestions = this.questions.length;
 
         this.answers = new Array(this.totalQuestions).fill(null);
 
         this.currentIndex = 0;
 
-        this.loadQuestion();
+        if (this.totalQuestions > 0) {
+          this.loadQuestion();
+        } else {
+          this.question = null as any;
+        }
 
         this.loading = false;
 
@@ -74,6 +87,10 @@ export class Studyquestioncomponent {
 
   loadQuestion() {
 
+
+    if (!this.questions || this.questions.length === 0) {
+      return;
+    }
     const questionId = this.questions[this.currentIndex].id;
 
     this.questionService.getQuestionById(questionId)

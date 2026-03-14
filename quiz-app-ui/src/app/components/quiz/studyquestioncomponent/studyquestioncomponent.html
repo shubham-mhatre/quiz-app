@@ -32,6 +32,11 @@
         <mat-progress-bar *ngIf="loading" mode="indeterminate">
         </mat-progress-bar>
 
+        <div *ngIf="selectedTopicId && !loading && questions.length === 0" class="no-questions">
+            <mat-icon>info</mat-icon>
+            No questions available for this topic.
+        </div>
+
 
         <div *ngIf="question" class="study-container">
 
