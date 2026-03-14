@@ -30,7 +30,7 @@ export class Studyquestioncomponent {
 
   answers: any[] = [];
   navigatorPage = 0;
-  navigatorPageSize = 40;
+  navigatorPageSize = 10;
 
   constructor(
     private questionService: Questionservice,

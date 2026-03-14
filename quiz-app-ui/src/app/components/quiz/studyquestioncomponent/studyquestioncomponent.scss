@@ -1,12 +1,14 @@
 .study-wrapper {
-  height: calc(100vh - 64px);
+  min-height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
+  justify-content: flex-start; /* keeps content at top */
+  padding-top: 20px;
 }
 
 .container {
   max-width: 900px;
-  margin: auto;
+  margin: 0 auto;
   padding: 24px;
 }
 
