@@ -134,5 +134,3 @@ Feel free to fork this repository, make your changes, and submit a pull request.
 - All tests pass.
 - The code follows the established style guide.
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
