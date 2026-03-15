@@ -152,8 +152,9 @@ f) **Quiz History**
 	
 g) **Study/Prep for Quiz**
 	![Study/Prep-1 for Quiz](images/study_component1.png)
-	
-	![Study/Prep-2 for Quiz](images/study_component_2.png)
+
+h) **Study/Prep-2 for Quiz**
+	![Study/Prep-2 for Quiz](images/study_component2.png)
 
 
 ## Known Issues
