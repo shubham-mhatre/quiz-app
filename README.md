@@ -116,13 +116,45 @@ This is a **Quiz App** built using **Angular**, **Spring Boot**, and **MySQL**. 
 ## Screenshots
 
 Few screenshots of the app in action:
+1. **Admin Login**
 
-1. **Admin Dashboard**
+a) **Admin Dashboard**
     ![Admin Dashboard](images/admin_dashboard.png)
+	
+b) **User Onboarding**
+	![User Onboarding](images/user_onboarding.png)
+	
+c) **Topic Onboarding**
+	![Topic Onboarding](images/topic_onboarding.png)
+	
+d) **Question Onboarding**
+	![Question Onboarding](images/question_onboarding.png)
 
+2. **User Login**
 
-3. **User Dashboard**
-4. **Quiz Result Page**
+a) **User Dashboard**
+	![User Dashboard](images/user_dashboard.png)
+	
+b) **Start Quiz**
+	![Start Quiz](images/start_quiz.png)
+	
+c) **Quiz Attempt**
+	![Quiz Attempt](images/quiz_attempt.png)
+	
+d) **Quiz Result**
+	![Quiz Result](images/quiz_result.png)
+	
+e) **Quiz Review**
+	![Quiz Review](images/quiz_review.png)
+	
+f) **Quiz History**
+	![Quiz History](images/quiz_history.png)
+	
+g) **Study/Prep for Quiz**
+	![Study/Prep-1 for Quiz](images/study_component1.png)
+	
+	![Study/Prep-2 for Quiz](images/study_component2.png)
+
 
 ## Known Issues
 - Issue with uploading large files for questions in bulk (workaround: use smaller files).
