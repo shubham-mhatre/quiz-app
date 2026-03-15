@@ -118,7 +118,7 @@ This is a **Quiz App** built using **Angular**, **Spring Boot**, and **MySQL**. 
 Few screenshots of the app in action:
 
 1. **Admin Dashboard**
-    
+    ![Admin Dashboard](images/admin_dashboard.png)
 
 
 3. **User Dashboard**
