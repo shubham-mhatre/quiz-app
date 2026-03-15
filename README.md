@@ -118,8 +118,11 @@ This is a **Quiz App** built using **Angular**, **Spring Boot**, and **MySQL**. 
 Few screenshots of the app in action:
 
 1. **Admin Dashboard**
-2. **User Dashboard**
-3. **Quiz Result Page**
+    
+
+
+3. **User Dashboard**
+4. **Quiz Result Page**
 
 ## Known Issues
 - Issue with uploading large files for questions in bulk (workaround: use smaller files).
