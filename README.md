@@ -44,7 +44,7 @@ This is a **Quiz App** built using **Angular**, **Spring Boot**, and **MySQL**. 
 ### Prerequisites
 - Java 21 or higher
 - Node.js (24.11.1)
-- MySQL Database (5.7)
+- MySQL Database (8.0)
 
 ### Backend Setup (Spring Boot)
 1. Clone this repository:
