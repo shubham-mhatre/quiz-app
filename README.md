@@ -2,6 +2,8 @@
 
 This is a **Quiz App** built using **Angular**, **Spring Boot**, and **MySQL**. It supports two types of logins: **Admin** and **User**. The admin panel provides features for onboarding users, managing quiz topics, and creating or uploading quiz questions. The user panel includes functionality to attempt quizzes, view results, review past attempts, and study topics.
 
+![Angular](https://img.shields.io/badge/Angular-20.3.11-brightgreen)  ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.10-brightgreen) ![Java](https://img.shields.io/badge/Java-21.0.6-red) ![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)
+
 ## Features
 
 ### Admin Features
@@ -26,13 +28,16 @@ This is a **Quiz App** built using **Angular**, **Spring Boot**, and **MySQL**. 
   - Users can prepare for quizzes by studying topic-wise questions.
 
 ## Technologies Used
-- **Frontend**: Angular (20.3.11)
-- **Backend**: Spring Boot(3.5.10), Java (21.0.6)
-- **Database**: MySQL (5.7)
-- **Additional Tools**: 
-  - JPA for ORM
-  - Swagger API
-  - Angular Material for UI components
+
+- **Frontend**: Angular (20.3.11) ![Angular](https://img.shields.io/badge/Angular-20.3.11-brightgreen)
+- **Backend**: Spring Boot(3.5.10), Java (21.0.6) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.10-brightgreen) ![Java](https://img.shields.io/badge/Java-21.0.6-red)
+- **Database**: MySQL (8.0) ![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)
+- **Additional Tools**:
+  - JPA for ORM ![JPA](https://img.shields.io/badge/JPA-ORM-blue)
+  - Swagger API ![Swagger](https://img.shields.io/badge/Swagger-API-yellow)
+  - Angular Material for UI components ![Angular Material](https://img.shields.io/badge/Angular%20Material-UI-lightgrey)
+  - **Package Manager**: npm 11.6.2 ![npm](https://img.shields.io/badge/npm-11.6.2-blue)
+  - **Node.js**: 24.11.1 ![Node.js](https://img.shields.io/badge/Node.js-24.11.1-brightgreen)
 
 ## Setup Instructions
 
