@@ -119,42 +119,42 @@ Few screenshots of the app in action:
 1. **Admin Login**
 
 a) **Admin Dashboard**
-    ![Admin Dashboard](images/admin_dashboard.png)
+    ![Admin Dashboard](applications_ss/admin_dashboard.png)
 	
 b) **User Onboarding**
-	![User Onboarding](images/user_onboarding.png)
+	![User Onboarding](applications_ss/user_onboarding.png)
 	
 c) **Topic Onboarding**
-	![Topic Onboarding](images/topic_onboarding.png)
+	![Topic Onboarding](applications_ss/topic_onboarding.png)
 	
 d) **Question Onboarding**
-	![Question Onboarding](images/question_onboarding.png)
+	![Question Onboarding](applications_ss/question_onboarding.png)
 
 2. **User Login**
 
 a) **User Dashboard**
-	![User Dashboard](images/user_dashboard.png)
+	![User Dashboard](applications_ss/user_dashboard.png)
 	
 b) **Start Quiz**
-	![Start Quiz](images/start_quiz.png)
+	![Start Quiz](applications_ss/start_quiz.png)
 	
 c) **Quiz Attempt**
-	![Quiz Attempt](images/quiz_attempt.png)
+	![Quiz Attempt](applications_ss/quiz_attempt.png)
 	
 d) **Quiz Result**
-	![Quiz Result](images/quiz_result.png)
+	![Quiz Result](applications_ss/quiz_result.png)
 	
 e) **Quiz Review**
-	![Quiz Review](images/quiz_review.png)
+	![Quiz Review](applications_ss/quiz_review.png)
 	
 f) **Quiz History**
-	![Quiz History](images/quiz_history.png)
+	![Quiz History](applications_ss/quiz_history.png)
 	
 g) **Study/Prep for Quiz**
-	![Study/Prep-1 for Quiz](images/study_component1.png)
+	![Study/Prep-1 for Quiz](applications_ss/study_component1.png)
 
 h) **Study/Prep-2 for Quiz**
-	![Study/Prep-2 for Quiz](images/study_component2.png)
+	![Study/Prep-2 for Quiz](applications_ss/study_component2.png)
 
 
 ## Known Issues
