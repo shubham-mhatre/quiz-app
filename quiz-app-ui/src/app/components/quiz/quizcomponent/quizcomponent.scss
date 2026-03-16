@@ -165,3 +165,49 @@
     width: 100%;
   }
 }
+
+.no-questions-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  padding: 20px;
+  background: #f5f7fb;
+
+  mat-card {
+    width: 420px;
+    max-width: 90%;
+    text-align: center;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+
+    mat-card-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #e53935;
+      margin-bottom: 10px;
+    }
+
+    mat-card-content {
+      p {
+        font-size: 15px;
+        color: #555;
+        line-height: 1.5;
+        margin-bottom: 15px;
+      }
+    }
+
+    mat-card-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+
+      button {
+        padding: 8px 20px;
+        font-weight: 500;
+        border-radius: 6px;
+      }
+    }
+  }
+}

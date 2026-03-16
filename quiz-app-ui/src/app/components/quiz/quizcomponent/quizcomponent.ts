@@ -44,6 +44,8 @@ export class Quizcomponent implements OnInit, OnDestroy {
   visitedCount = 0;
   notVisitedCount = 0;
 
+  noQuestionsFound = false;
+
   constructor(
     private route: ActivatedRoute,
     private quizService: Quizservice,
@@ -86,6 +88,14 @@ export class Quizcomponent implements OnInit, OnDestroy {
     this.quizService
       .fetchQuizQuestions(this.topicId, this.numberOfQuestions)
       .subscribe(questions => {
+
+        if (!questions || questions.length === 0) {
+          this.noQuestionsFound = true;
+          this.questions = [];
+          this.cd.markForCheck();
+          return;
+        }
+
         this.questions = questions;
         this.startTimer();
         this.cd.markForCheck();
@@ -201,7 +211,7 @@ export class Quizcomponent implements OnInit, OnDestroy {
     this.isQuizFinished = true;
 
     console.log(this.authService.getUser());
-    let userId=this.authService.getUserId();
+    let userId = this.authService.getUserId();
     // Prepare payload as per your API
     const payload = {
       userId: userId,
@@ -211,7 +221,7 @@ export class Quizcomponent implements OnInit, OnDestroy {
         selectedOptionIds: optionIds
       }))
     };
-    
+
     console.log('Submitting quiz payload:', payload);
 
     // Call backend API
@@ -255,5 +265,9 @@ export class Quizcomponent implements OnInit, OnDestroy {
 
   getSelectedOption(index: number) {
     return this.selectedOptions.get(index) || [];
+  }
+
+  goToDashboard() {
+    this.router.navigate(['/dashboard']);
   }
 }
