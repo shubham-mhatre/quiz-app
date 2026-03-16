@@ -35,7 +35,11 @@ export class Header implements OnInit{
   }
 
   backToDashboard(){
-    this.router.navigate(['/dashboard']);
+    if(this.role === "ADMIN"){
+      this.router.navigate(['/admin']);
+    }else{
+      this.router.navigate(['/dashboard']);
+    }    
   }
 
   allQuestions(){
