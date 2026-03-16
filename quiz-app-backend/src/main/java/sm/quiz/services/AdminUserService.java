@@ -38,6 +38,7 @@ public class AdminUserService {
         savedResponse.setUserId(saved.getUserId());
         savedResponse.setUsername(saved.getUsername());
         savedResponse.setRole(saved.getRole());
+        savedResponse.setCreatedAt(saved.getCreatedAt());
         
         return savedResponse;
     }
