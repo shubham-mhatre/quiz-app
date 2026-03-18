@@ -48,7 +48,6 @@ export class Studyquestioncomponent {
   }
 
   onTopicChange() {
-
     if (!this.selectedTopicId) return;
 
     this.loading = true;
@@ -56,16 +55,6 @@ export class Studyquestioncomponent {
     this.questionService
       .getByTopicWithPagination(this.selectedTopicId, 0, 500, 'ASC')
       .subscribe(res => {
-
-        // this.questions = res.content;
-        // this.totalQuestions = this.questions.length;
-
-        // this.answers = new Array(this.totalQuestions).fill(null);
-
-        // this.currentIndex = 0;
-
-        // this.loadQuestion();
-
         this.questions = res.content || [];
         this.totalQuestions = this.questions.length;
 
@@ -80,14 +69,10 @@ export class Studyquestioncomponent {
         }
 
         this.loading = false;
-
       });
-
   }
 
   loadQuestion() {
-
-
     if (!this.questions || this.questions.length === 0) {
       return;
     }
@@ -95,65 +80,44 @@ export class Studyquestioncomponent {
 
     this.questionService.getQuestionById(questionId)
       .subscribe(res => {
-
         this.question = res;
-
         this.selectedOptionId = null;
         this.selectedOptionIds = [];
         this.checkedAnswer = false;
-
       });
-
   }
 
   nextQuestion() {
-
     if (this.currentIndex < this.totalQuestions - 1) {
-
       this.currentIndex++;
       this.loadQuestion();
-
+      this.updateNavigatorPage();
     }
-
   }
 
   previousQuestion() {
-
     if (this.currentIndex > 0) {
-
       this.currentIndex--;
       this.loadQuestion();
-
+      this.updateNavigatorPage();
     }
-
   }
 
   toggleOption(optionId: number) {
-
     if (this.question.questionType === 'MULTIPLE') {
-
       if (this.selectedOptionIds.includes(optionId)) {
-
-        this.selectedOptionIds =
-          this.selectedOptionIds.filter(id => id !== optionId);
-
+        this.selectedOptionIds = this.selectedOptionIds.filter(id => id !== optionId);
       } else {
-
         this.selectedOptionIds.push(optionId);
-
       }
-
     }
-
   }
-
 
   isCorrect(option: any) {
     return this.checkedAnswer && option.correct;
   }
 
   isWrong(option: any) {
-
     if (!this.checkedAnswer) return false;
 
     if (this.question.questionType === 'MULTIPLE') {
@@ -164,12 +128,9 @@ export class Studyquestioncomponent {
   }
 
   isAnswerCorrect(): boolean {
-
     if (this.question.questionType === 'SINGLE') {
-
       const correct = this.question.options.find(o => o.correct);
       return correct?.id === this.selectedOptionId;
-
     }
 
     const correctIds =
@@ -182,11 +143,9 @@ export class Studyquestioncomponent {
       [...this.selectedOptionIds].sort();
 
     return JSON.stringify(correctIds) === JSON.stringify(selected);
-
   }
 
   getNavigatorClass(index: number) {
-
     if (index === this.currentIndex) {
       return 'nav-current';
     }
@@ -203,59 +162,59 @@ export class Studyquestioncomponent {
   }
 
   goToQuestion(index: number) {
-
-    const realIndex =
-      this.navigatorPage * this.navigatorPageSize + index;
-
+    const realIndex = this.navigatorPage * this.navigatorPageSize + index;
     this.currentIndex = realIndex;
-
     this.loadQuestion();
-
+    this.updateNavigatorPage();
   }
 
   checkAnswer() {
-
     this.checkedAnswer = true;
 
     const correct = this.isAnswerCorrect();
 
     this.answers[this.currentIndex] = correct;
-
   }
 
   get visibleNavigatorQuestions() {
-
     const start = this.navigatorPage * this.navigatorPageSize;
     const end = start + this.navigatorPageSize;
 
     return this.questions.slice(start, end);
-
   }
 
   nextNavigatorPage() {
-
     const maxPage =
       Math.ceil(this.questions.length / this.navigatorPageSize) - 1;
 
     if (this.navigatorPage < maxPage) {
       this.navigatorPage++;
+      this.updateCurrentIndex();
+      this.loadQuestion();  // Ensure current question is loaded
     }
-
   }
 
   previousNavigatorPage() {
-
     if (this.navigatorPage > 0) {
       this.navigatorPage--;
+      this.updateCurrentIndex();
+      this.loadQuestion();  // Ensure current question is loaded
     }
-
   }
 
   getNavigatorEnd(): number {
-
     const end = (this.navigatorPage + 1) * this.navigatorPageSize;
-
     return end > this.totalQuestions ? this.totalQuestions : end;
+  }
 
+  updateNavigatorPage() {
+    const pageIndex = Math.floor(this.currentIndex / this.navigatorPageSize);
+    if (this.navigatorPage !== pageIndex) {
+      this.navigatorPage = pageIndex;
+    }
+  }
+
+  updateCurrentIndex() {
+    this.currentIndex = this.navigatorPage * this.navigatorPageSize;
   }
 }
