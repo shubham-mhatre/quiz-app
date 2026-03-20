@@ -1,3 +1,4 @@
+/* Main Wrapper */
 .study-wrapper {
   min-height: calc(100vh - 64px);
   display: flex;
@@ -48,14 +49,15 @@ mat-checkbox {
   margin-top: 20px;
 }
 
+/* Answer Result Styling */
 .correct {
-  background: #e8f5e9;
+  background: #e8f5e9 !important;
   padding: 6px;
   border-radius: 6px;
 }
 
 .wrong {
-  background: #ffebee;
+  background: #ffebee !important;
   padding: 6px;
   border-radius: 6px;
 }
@@ -80,9 +82,6 @@ mat-checkbox {
 }
 
 /* Navigator */
-
-/* Navigator */
-
 .navigator {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -95,57 +94,70 @@ mat-checkbox {
 
 .navigator-grid {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
   overflow-x: auto;
   padding-bottom: 4px;
+  max-height: 120px;
 }
 
 .nav-box {
   width: 34px;
   height: 34px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   border-radius: 6px;
-  border: 1px solid #ccc;
-
+  border: 2px solid #ddd;
   cursor: pointer;
   font-size: 13px;
   font-weight: 500;
-
   transition: all 0.2s ease;
+  user-select: none;
 }
 
 .nav-box:hover {
+  transform: scale(1.05);
+  border-width: 2px;
+}
+
+.nav-box.nav-current:hover {
   transform: scale(1.1);
 }
 
-/* States */
-
+/* Navigator States */
 .nav-unanswered {
   background: #f5f5f5;
-  color: #444;
+  color: #666;
+  border-color: #ddd;
 }
 
 .nav-correct {
-  background: #4caf50;
-  color: white;
-  border-color: #4caf50;
+  background: #4caf50 !important;
+  color: white !important;
+  border-color: #45a049 !important;
+  font-weight: 600;
 }
 
 .nav-wrong {
-  background: #f44336;
-  color: white;
-  border-color: #f44336;
+  background: #f44336 !important;
+  color: white !important;
+  border-color: #d32f2f !important;
+  font-weight: 600;
 }
 
 .nav-current {
-  background: #2196f3;
-  color: white;
-  border-color: #2196f3;
-  font-weight: 600;
+  background: #2196f3 !important;
+  color: white !important;
+  border-color: #1976d2 !important;
+  font-weight: 700;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(33, 150, 243, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0); }
 }
 
 .navigator-controls {
@@ -153,15 +165,21 @@ mat-checkbox {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
 }
 
-/*navigator legend */
+.navigator-controls span {
+  font-size: 14px;
+  color: #666;
+}
 
+/* Legend */
 .navigator-legend {
   display: flex;
   gap: 16px;
   margin-top: 10px;
   font-size: 13px;
+  flex-wrap: wrap;
 }
 
 .legend-item {
@@ -174,15 +192,26 @@ mat-checkbox {
   width: 14px;
   height: 14px;
   border-radius: 3px;
+  border: 1px solid #ccc;
 }
 
-.legend-box.current { background: #2196f3; }
-.legend-box.correct { background: #4caf50; }
-.legend-box.wrong { background: #f44336; }
-.legend-box.unanswered { background: #f5f5f5; border:1px solid #ccc; }
+.legend-box.current { 
+  background: #2196f3; 
+}
+
+.legend-box.correct { 
+  background: #4caf50; 
+}
+
+.legend-box.wrong { 
+  background: #f44336; 
+}
+
+.legend-box.unanswered { 
+  background: #f5f5f5; 
+}
 
 /* No Questions */
-
 .no-questions {
   margin-top: 20px;
   padding: 16px;
@@ -192,4 +221,17 @@ mat-checkbox {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navigator-grid {
+    gap: 4px;
+  }
+  
+  .nav-box {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
 }

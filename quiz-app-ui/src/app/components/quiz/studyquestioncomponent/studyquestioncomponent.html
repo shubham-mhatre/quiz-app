@@ -1,223 +1,126 @@
 <app-header></app-header>
 
 <div class="study-wrapper">
-
-    <div class="container">
-
-        <!-- Topic selector -->
-
-        <div class="topic-row">
-
-            <h4>Select Topic</h4>
-
-            <mat-form-field appearance="fill">
-
-                <mat-label>Topic</mat-label>
-
-                <mat-select [(ngModel)]="selectedTopicId" (selectionChange)="onTopicChange()">
-
-                    <mat-option *ngFor="let topic of topics" [value]="topic.id">
-
-                        {{ topic.name }}
-
-                    </mat-option>
-
-                </mat-select>
-
-            </mat-form-field>
-
-        </div>
-
-
-        <mat-progress-bar *ngIf="loading" mode="indeterminate">
-        </mat-progress-bar>
-
-        <div *ngIf="selectedTopicId && !loading && questions.length === 0" class="no-questions">
-            <mat-icon>info</mat-icon>
-            No questions available for this topic.
-        </div>
-
-
-        <div *ngIf="question" class="study-container">
-
-            <!-- HEADER -->
-
-            <div class="study-header">
-
-                <h4>
-                    Question {{currentIndex + 1}} / {{totalQuestions}}
-                </h4>
-
-                <div>
-
-                    <button mat-icon-button (click)="previousQuestion()" [disabled]="currentIndex === 0">
-
-                        <mat-icon>arrow_back</mat-icon>
-
-                    </button>
-
-                    <button mat-icon-button (click)="nextQuestion()" [disabled]="currentIndex === totalQuestions - 1">
-
-                        <mat-icon>arrow_forward</mat-icon>
-
-                    </button>
-
-                </div>
-
-            </div>
-
-            <div class="navigator" *ngIf="questions.length > 0">
-
-                <div class="navigator-title">
-                    Question Navigator
-                </div>
-
-                <div class="navigator-grid">
-
-                    <div *ngFor="let q of visibleNavigatorQuestions; let i = index" class="nav-box"
-                        [ngClass]="getNavigatorClass(navigatorPage * navigatorPageSize + i)" (click)="goToQuestion(i)">
-
-                        {{ navigatorPage * navigatorPageSize + i + 1 }}
-
-                    </div>
-
-                </div>
-
-
-                <div class="navigator-controls">
-
-                    <button mat-button (click)="previousNavigatorPage()">
-                        Previous
-                    </button>
-
-                    <span>
-                        <span>
-                            {{ navigatorPage * navigatorPageSize + 1 }}
-                            -
-                            {{ getNavigatorEnd() }}
-                            / {{ totalQuestions }}
-                        </span>
-                    </span>
-
-                    <button mat-button (click)="nextNavigatorPage()">
-                        Next
-                    </button>
-
-                </div>
-
-            </div>
-
-            <div class="navigator-legend">
-
-                <span class="legend-item">
-                    <span class="legend-box current"></span> Current
-                </span>
-
-                <span class="legend-item">
-                    <span class="legend-box correct"></span> Correct
-                </span>
-
-                <span class="legend-item">
-                    <span class="legend-box wrong"></span> Wrong
-                </span>
-
-                <span class="legend-item">
-                    <span class="legend-box unanswered"></span> Unanswered
-                </span>
-
-            </div>
-
-
-            <!-- QUESTION -->
-
-            <div class="question-box">
-
-                {{question.questionText}}
-
-            </div>
-
-
-            <!-- SINGLE SELECT -->
-
-            <mat-radio-group *ngIf="question.questionType === 'SINGLE'" [(ngModel)]="selectedOptionId">
-
-                <mat-radio-button *ngFor="let option of question.options" [value]="option.id"
-                    [class.correct]="isCorrect(option)" [class.wrong]="isWrong(option)">
-
-                    {{option.text}}
-
-                </mat-radio-button>
-
-            </mat-radio-group>
-
-
-            <!-- MULTIPLE SELECT -->
-
-            <div *ngIf="question.questionType === 'MULTIPLE'">
-
-                <mat-checkbox *ngFor="let option of question.options" (change)="toggleOption(option.id!)"
-                    [checked]="selectedOptionIds.includes(option.id!)" [class.correct]="isCorrect(option)"
-                    [class.wrong]="isWrong(option)">
-
-                    {{option.text}}
-
-                </mat-checkbox>
-
-            </div>
-
-
-            <!-- BUTTONS -->
-
-            <div class="buttons">
-
-                <button mat-raised-button color="primary" *ngIf="!checkedAnswer" (click)="checkAnswer()">
-
-                    Check Answer
-
-                </button>
-
-
-                <button mat-raised-button color="accent" *ngIf="checkedAnswer" (click)="nextQuestion()">
-
-                    Next Question
-
-                </button>
-
-            </div>
-
-
-            <!-- RESULT -->
-
-            <div *ngIf="checkedAnswer" class="result">
-
-                <h3 *ngIf="isAnswerCorrect()" class="correct-msg">
-                    Correct Answer 🎉
-                </h3>
-
-                <h3 *ngIf="!isAnswerCorrect()" class="wrong-msg">
-                    Incorrect Answer
-                </h3>
-
-            </div>
-
-
-            <!-- EXPLANATION -->
-
-            <div *ngIf="checkedAnswer" class="explanation">
-
-                <h3>Explanation</h3>
-
-                <p *ngIf="question.explanation; else noExp" [innerHTML]="question.explanation | newlineToBr">
-                </p>
-
-                <ng-template #noExp>
-                    <i>No explanation provided</i>
-                </ng-template>
-
-            </div>
-
-        </div>
-
+  <div class="container">
+
+    <!-- Topic selector -->
+    <div class="topic-row">
+      <h4>Select Topic</h4>
+      <mat-form-field appearance="fill">
+        <mat-label>Topic</mat-label>
+        <mat-select [(ngModel)]="selectedTopicId" (selectionChange)="onTopicChange()">
+          <mat-option *ngFor="let topic of topics" [value]="topic.id">
+            {{ topic.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+    <div *ngIf="selectedTopicId && !loading && questions.length === 0" class="no-questions">
+      <mat-icon>info</mat-icon>
+      No questions available for this topic.
+    </div>
+
+    <div *ngIf="question" class="study-container">
+
+      <!-- HEADER -->
+      <div class="study-header">
+        <h4> Question {{ currentIndex + 1 }} / {{ totalQuestions }} </h4>
+        <div>
+          <button mat-icon-button (click)="previousQuestion()" [disabled]="currentIndex === 0">
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+          <button mat-icon-button (click)="nextQuestion()" [disabled]="currentIndex === totalQuestions - 1">
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- NAVIGATOR -->
+      <div class="navigator" *ngIf="questions.length > 0">
+        <div class="navigator-title"> Question Navigator </div>
+        <div class="navigator-grid">
+          <div *ngFor="let q of visibleNavigatorQuestions; let i = index" 
+               class="nav-box"
+               [ngClass]="getNavigatorClass(navigatorPage * navigatorPageSize + i)"
+               (click)="goToQuestion(i)">
+            {{ navigatorPage * navigatorPageSize + i + 1 }}
+          </div>
+        </div>
+
+        <div class="navigator-controls">
+          <button mat-button (click)="previousNavigatorPage()">Previous</button>
+          <span>
+            {{ navigatorPage * navigatorPageSize + 1 }} - {{ getNavigatorEnd() }} / {{ totalQuestions }}
+          </span>
+          <button mat-button (click)="nextNavigatorPage()">Next</button>
+        </div>
+      </div>
+
+      <div class="navigator-legend">
+        <span class="legend-item">
+          <span class="legend-box current"></span> Current
+        </span>
+        <span class="legend-item">
+          <span class="legend-box correct"></span> Correct
+        </span>
+        <span class="legend-item">
+          <span class="legend-box wrong"></span> Wrong
+        </span>
+        <span class="legend-item">
+          <span class="legend-box unanswered"></span> Unanswered
+        </span>
+      </div>
+
+      <!-- QUESTION -->
+      <div class="question-box">
+        {{ question.questionText }}
+      </div>
+
+      <!-- SINGLE SELECT -->
+      <mat-radio-group *ngIf="question.questionType === 'SINGLE'" [(ngModel)]="selectedOptionId">
+        <mat-radio-button *ngFor="let option of question.options" [value]="option.id"
+          [class.correct]="isCorrect(option)" [class.wrong]="isWrong(option)">
+          {{ option.text }}
+        </mat-radio-button>
+      </mat-radio-group>
+
+      <!-- MULTIPLE SELECT -->
+      <div *ngIf="question.questionType === 'MULTIPLE'">
+        <mat-checkbox *ngFor="let option of question.options" (change)="toggleOption(option.id!)"
+          [checked]="selectedOptionIds.includes(option.id!)" [class.correct]="isCorrect(option)"
+          [class.wrong]="isWrong(option)">
+          {{ option.text }}
+        </mat-checkbox>
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="buttons">
+        <button mat-raised-button color="primary" *ngIf="!checkedAnswer" (click)="checkAnswer()">
+          Check Answer
+        </button>
+        <button mat-raised-button color="accent" *ngIf="checkedAnswer" (click)="nextQuestion()">
+          Next Question
+        </button>
+      </div>
+
+      <!-- RESULT -->
+      <div *ngIf="checkedAnswer" class="result">
+        <h3 *ngIf="isAnswerCorrect()" class="correct-msg"> Correct Answer 🎉 </h3>
+        <h3 *ngIf="!isAnswerCorrect()" class="wrong-msg"> Incorrect Answer </h3>
+      </div>
+
+      <!-- EXPLANATION -->
+      <div *ngIf="checkedAnswer" class="explanation">
+        <h3>Explanation</h3>
+        <p *ngIf="question.explanation; else noExp" [innerHTML]="question.explanation | newlineToBr"></p>
+        <ng-template #noExp>
+          <i>No explanation provided</i>
+        </ng-template>
+      </div>
+    </div>
+
+  </div>
 </div>
