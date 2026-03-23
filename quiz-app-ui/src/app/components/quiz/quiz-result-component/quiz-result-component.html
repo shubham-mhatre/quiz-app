@@ -78,7 +78,7 @@
               'wrong-selected': isOptionSelected(i, option.id) && !isOptionCorrect(i, option.id)
             }">
 
-          {{ option.text }}
+          <span [innerHTML]="option.text | newlineToBr"></span>
 
           <!-- Selected & Correct -->
           <span *ngIf="isOptionSelected(i, option.id) && isOptionCorrect(i, option.id)"

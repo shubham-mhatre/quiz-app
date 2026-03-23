@@ -63,7 +63,7 @@
           <mat-radio-group [value]="getSelectedOption(currentQuestionIndex)[0]"
             (change)="onOptionChange(currentQuestionIndex, $event.value)">
             <mat-radio-button *ngFor="let option of questions[currentQuestionIndex]?.options" [value]="option.id">
-              {{ option.text }}
+              <span [innerHTML]="option.text | newlineToBr"></span>
             </mat-radio-button>
           </mat-radio-group>
         </div>
@@ -73,7 +73,7 @@
           <mat-checkbox *ngFor="let option of questions[currentQuestionIndex]?.options"
             [checked]="getSelectedOption(currentQuestionIndex).includes(option.id)"
             (change)="onOptionChange(currentQuestionIndex, option.id, $event.checked)">
-            {{ option.text }}
+            <span [innerHTML]="option.text | newlineToBr"></span>
           </mat-checkbox>
         </div>
 
