@@ -1,0 +1,12 @@
+
+#to newly build image & run container
+docker compose up --build -d
+
+#to stop container
+docker compose down
+
+#build image with latest tag
+docker build -t shubhammhatre09/quiz-frontend:latest .
+
+#push docker image
+docker push shubhammhatre09/quiz-frontend:latest
