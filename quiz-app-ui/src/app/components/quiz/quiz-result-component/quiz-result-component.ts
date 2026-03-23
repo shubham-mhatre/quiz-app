@@ -25,6 +25,7 @@ interface QuizReviewQuestion {
   // Derived fields for easier UI checks
   selectedOptionIds: number[];
   correctOptionIds: number[];
+  isUnattempted: boolean;
 }
 
 
@@ -78,30 +79,37 @@ export class QuizResultComponent {
   }
 
   // ================= REVIEW API =================
-  reviewQuiz() {
-    if (!this.summary?.attemptId) return;
+reviewQuiz() {
+  if (!this.summary?.attemptId) return;
 
-    this.quizService.fetchQuizReview(this.summary.attemptId).subscribe(
-      (questions: any[]) => {
+  this.quizService.fetchQuizReview(this.summary.attemptId).subscribe(
+    (questions: any[]) => {
+      this.reviewQuestions = questions.map(q => {
+        const selectedOptionIds = (q.selectedOptions || []).map((o: any) => o.id);
+        const correctOptionIds = (q.correctOptions || []).map((o: any) => o.id);
 
-        this.reviewQuestions = questions.map(q => ({
+        return {
           questionText: q.questionText,
           options: q.options || [],
           selectedOptions: q.selectedOptions || [],
           correctOptions: q.correctOptions || [],
           explanation: q.explanation,
 
-          selectedOptionIds: (q.selectedOptions || []).map((o: any) => o.id),
-          correctOptionIds: (q.correctOptions || []).map((o: any) => o.id)
-        }));
+          selectedOptionIds: selectedOptionIds,
+          correctOptionIds: correctOptionIds,
+          
+          // Determine if the question is unattempted
+          isUnattempted: selectedOptionIds.length === 0
+        };
+      });
 
-        this.reviewMode = true;
-      },
-      (error) => {
-        console.error('Error fetching review:', error);
-      }
-    );
-  }
+      this.reviewMode = true;
+    },
+    (error) => {
+      console.error('Error fetching review:', error);
+    }
+  );
+}
 
   backToDashboard() {
     this.router.navigate(['/dashboard']);
@@ -130,24 +138,47 @@ export class QuizResultComponent {
   }
 
    // ================= LOAD REVIEW =================
-  private loadReview(attemptId: number) {
-    this.quizService.fetchQuizReview(attemptId).subscribe(
-      (questions: any[]) => {
-        this.reviewQuestions = questions.map(q => ({
-          questionText: q.questionText,
+   private loadReview(attemptId: number) {
+  this.quizService.fetchQuizReview(attemptId).subscribe(
+    (questions: any[]) => {
+      if (!questions || !Array.isArray(questions)) {
+        console.error('Invalid review questions data:', questions);
+        return;
+      }
+
+      this.reviewQuestions = questions.map(q => {
+        // Ensure selectedOptions and correctOptions are arrays
+        const selectedOptionIds = Array.isArray(q.selectedOptions) 
+          ? q.selectedOptions.map((o: any) => o.id) 
+          : [];
+        const correctOptionIds = Array.isArray(q.correctOptions) 
+          ? q.correctOptions.map((o: any) => o.id) 
+          : [];
+
+        return {
+          questionText: q.questionText || '',
           options: q.options || [],
           selectedOptions: q.selectedOptions || [],
           correctOptions: q.correctOptions || [],
-          explanation: q.explanation,
-          selectedOptionIds: (q.selectedOptions || []).map((o: any) => o.id),
-          correctOptionIds: (q.correctOptions || []).map((o: any) => o.id)
-        }));
+          explanation: q.explanation || '',
 
-        this.reviewMode = true;
-      },
-      error => console.error('Error fetching review:', error)
-    );
-  }
+          // Mapping the selected options and correct options safely
+          selectedOptionIds: selectedOptionIds,
+          correctOptionIds: correctOptionIds,
+
+          // Determine if the question is unattempted
+          isUnattempted: selectedOptionIds.length === 0
+        };
+      });
+
+      this.reviewMode = true;
+    },
+    (error) => {
+      console.error('Error fetching review:', error);
+      // Optionally, you could show a user-friendly message here
+    }
+  );
+}
 
   backToQuizHistory(){
     this.router.navigate(['/quiz-history']);

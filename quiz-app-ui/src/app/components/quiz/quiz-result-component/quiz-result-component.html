@@ -62,6 +62,12 @@
 
           {{ isQuestionCorrect(question) ? '✔ Correct' : '✖ Incorrect' }}
         </span>
+
+        <!-- Unattempted Tag -->
+        <span *ngIf="question.isUnattempted" class="badge unattempted">
+          ❌ Unattempted
+        </span>
+
       </h3>
 
       <ul>

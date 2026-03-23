@@ -168,6 +168,16 @@ mat-progress-bar {
   color: white;
 }
 
+/* Style for Unattempted Tag */
+.badge.unattempted {
+  background-color: #f44336; /* Red color */
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
 /* ================= EXPLANATION ================= */
 
 .explanation {
