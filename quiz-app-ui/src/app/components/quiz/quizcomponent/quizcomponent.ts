@@ -205,40 +205,85 @@ export class Quizcomponent implements OnInit, OnDestroy {
 
   // ================= SUBMIT =================
   submitQuiz(isAutoSubmit: boolean) {
-    if (this.isQuizFinished) return;
+  if (this.isQuizFinished) return;
 
-    clearInterval(this.timer);
-    this.isQuizFinished = true;
+  clearInterval(this.timer);
+  this.isQuizFinished = true;
 
-    console.log(this.authService.getUser());
-    let userId = this.authService.getUserId();
-    // Prepare payload as per your API
-    const payload = {
-      userId: userId,
-      topicId: this.topicId,
-      answers: Array.from(this.selectedOptions.entries()).map(([questionIndex, optionIds]) => ({
-        questionId: this.questions[questionIndex]?.id || questionIndex,
-        selectedOptionIds: optionIds
-      }))
+  let userId = this.authService.getUserId();
+
+  // Prepare the answers, ensuring all questions (attempted or not) are included
+  const answers = this.questions.map((question, index) => {
+    const selectedOptionIds = this.selectedOptions.get(index) || [];
+
+    // If the question is unattempted (no selected options), mark it as unattempted
+    const isUnattempted = selectedOptionIds.length === 0;
+
+    // Include all questions, even unattempted ones
+    return {
+      questionId: question?.id || index,  // Ensure the question id is included
+      selectedOptionIds: isUnattempted ? [] : selectedOptionIds,  // Empty array for unattempted questions
+      isUnattempted: isUnattempted  // Flag for unattempted questions
     };
+  });
 
-    console.log('Submitting quiz payload:', payload);
+  const payload = {
+    userId: userId,
+    topicId: this.topicId,
+    answers: answers  // Ensure the answers array contains all questions
+  };
 
-    // Call backend API
-    this.quizService.submitQuiz(payload).subscribe(
-      (response) => {
-        console.log('Quiz submitted successfully!', response);
+  console.log('Submitting quiz payload:', payload);
 
-        // Redirect to results page or show result
-        // Example: pass results via state
-        this.router.navigate(['/quiz-results'], { state: { results: response } });
-      },
-      (error) => {
-        console.error('Error submitting quiz:', error);
-        // Optionally show a message to user
-      }
-    );
-  }
+  // Call backend API to submit the quiz
+  this.quizService.submitQuiz(payload).subscribe(
+    (response) => {
+      console.log('Quiz submitted successfully!', response);
+
+      // Redirect to results page or show result
+      this.router.navigate(['/quiz-results'], { state: { results: response } });
+    },
+    (error) => {
+      console.error('Error submitting quiz:', error);
+      // Optionally show a message to user
+    }
+  );
+}
+  // submitQuiz(isAutoSubmit: boolean) {
+  //   if (this.isQuizFinished) return;
+
+  //   clearInterval(this.timer);
+  //   this.isQuizFinished = true;
+
+  //   console.log(this.authService.getUser());
+  //   let userId = this.authService.getUserId();
+  //   // Prepare payload as per your API
+  //   const payload = {
+  //     userId: userId,
+  //     topicId: this.topicId,
+  //     answers: Array.from(this.selectedOptions.entries()).map(([questionIndex, optionIds]) => ({
+  //       questionId: this.questions[questionIndex]?.id || questionIndex,
+  //       selectedOptionIds: optionIds
+  //     }))
+  //   };
+
+  //   console.log('Submitting quiz payload:', payload);
+
+  //   // Call backend API
+  //   this.quizService.submitQuiz(payload).subscribe(
+  //     (response) => {
+  //       console.log('Quiz submitted successfully!', response);
+
+  //       // Redirect to results page or show result
+  //       // Example: pass results via state
+  //       this.router.navigate(['/quiz-results'], { state: { results: response } });
+  //     },
+  //     (error) => {
+  //       console.error('Error submitting quiz:', error);
+  //       // Optionally show a message to user
+  //     }
+  //   );
+  // }
 
   // ================= UI HELPERS =================
   refreshUI() {
