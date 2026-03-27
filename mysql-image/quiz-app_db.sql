@@ -31,9 +31,9 @@ CREATE TABLE IF NOT EXISTS `answer` (
   UNIQUE KEY `question_id` (`question_id`,`option_id`),
   KEY `option_id` (`option_id`),
   KEY `idx_answer_question` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=373 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=509 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.answer: ~470 rows (approximately)
+-- Dumping data for table quiz_db.answer: ~469 rows (approximately)
 INSERT INTO `answer` (`answer_id`, `question_id`, `option_id`, `created_at`) VALUES
 	(1, 1, 1, '2026-01-25 17:45:47'),
 	(2, 2, 4, '2026-01-25 17:54:44'),
@@ -58,7 +58,7 @@ INSERT INTO `answer` (`answer_id`, `question_id`, `option_id`, `created_at`) VAL
 	(23, 20, 60, '2026-01-25 18:50:02'),
 	(24, 21, 64, '2026-01-25 18:53:10'),
 	(25, 22, 68, '2026-01-25 18:53:24'),
-	(26, 23, 70, '2026-01-25 18:53:33'),
+	(26, 23, 71, '2026-01-25 18:53:33'),
 	(27, 24, 72, '2026-01-25 18:53:41'),
 	(28, 25, 74, '2026-01-25 18:53:50'),
 	(29, 26, 79, '2026-01-25 18:54:01'),
@@ -116,7 +116,7 @@ INSERT INTO `answer` (`answer_id`, `question_id`, `option_id`, `created_at`) VAL
 	(81, 74, 220, '2026-02-28 11:02:30'),
 	(82, 75, 224, '2026-02-28 11:02:30'),
 	(83, 76, 227, '2026-02-28 11:02:30'),
-	(84, 77, 231, '2026-02-28 11:02:30'),
+	(84, 77, 228, '2026-02-28 11:02:30'),
 	(85, 78, 232, '2026-02-28 11:02:30'),
 	(86, 78, 234, '2026-02-28 11:02:30'),
 	(87, 79, 237, '2026-02-28 11:02:31'),
@@ -136,8 +136,8 @@ INSERT INTO `answer` (`answer_id`, `question_id`, `option_id`, `created_at`) VAL
 	(101, 91, 283, '2026-03-01 03:49:05'),
 	(102, 92, 285, '2026-03-01 03:49:05'),
 	(103, 92, 288, '2026-03-01 03:49:05'),
-	(104, 93, 290, '2026-03-01 03:49:05'),
-	(105, 93, 291, '2026-03-01 03:49:05'),
+	(104, 93, 291, '2026-03-01 03:49:05'),
+	(105, 93, 292, '2026-03-01 03:49:05'),
 	(106, 94, 296, '2026-03-01 03:49:05'),
 	(107, 95, 299, '2026-03-01 03:49:05'),
 	(108, 96, 301, '2026-03-01 03:49:05'),
@@ -553,7 +553,7 @@ CREATE TABLE IF NOT EXISTS `app_user` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table quiz_db.app_user: ~3 rows (approximately)
 INSERT INTO `app_user` (`user_id`, `username`, `password`, `role`, `is_active`, `created_at`) VALUES
@@ -571,22 +571,22 @@ CREATE TABLE IF NOT EXISTS `explanation` (
   `is_active` int DEFAULT '1',
   PRIMARY KEY (`explanation_id`),
   UNIQUE KEY `question_id` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=353 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=488 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.explanation: ~450 rows (approximately)
+-- Dumping data for table quiz_db.explanation: ~485 rows (approximately)
 INSERT INTO `explanation` (`explanation_id`, `question_id`, `explanation_text`, `created_at`, `is_active`) VALUES
 	(1, 1, 'Correct Answer is YES. \n\nExplanation:\nAzure Web Apps (Azure App Service) is a Platform as a Service (PaaS) offering.\nOne of the built-in features of App Service is automatic scaling:\n	Scale out/in (number of instances)\n	Scale up/down (pricing tier)\nScaling can be based on:\n	CPU usage\n	Memory\n	HTTP queue length\n	Schedules\nSo the platform does have the ability to scale automatically.', '2026-01-25 17:48:46', 1),
 	(2, 2, 'Correct answer: No\r\n \r\nExplanation\r\nEven if both virtual machines are the same size (D2s_v3), they will not always generate the same monthly cost because Azure \r\nVM costs depend on usage and configuration, such as:\r\n	Running time (24×7 vs stopped/deallocated)\r\n	OS type (Windows costs more than Linux due to licensing)\r\n	Region (prices vary by region)\r\n	Attached resources (disks, public IPs, backups)\r\n	Billing model (pay-as-you-go vs Reserved Instances)\r\nSo two identical VM sizes can still result in different monthly bills', '2026-01-25 17:55:06', 1),
-	(3, 3, 'Correct answer: Azure AI Bot \r\nExplanation \r\nUsed to build chatbots and digital assistants \r\nSupports: \r\n	Text-based conversations\r\n	Speech-to-text and text-to-speech (via Azure Cognitive Services)\r\nCan be integrated with: \r\n	Websites\r\n	Mobile apps\r\n	Microsoft Teams\r\n	Voice channels', '2026-01-25 18:03:31', 1),
-	(4, 4, 'Correct answer: Azure Machine Learning', '2026-01-25 18:13:59', 1),
+	(3, 3, 'Correct answer: Azure AI Bot \r\nExplanation \r\nUsed to build chatbots and digital assistants \r\nSupports: \r\n	Text-based conversations\r\n	Speech-to-text and text-to-speech (via Azure Cognitive Services)\r\nCan be integrated with: \r\n	Websites\r\n	Mobile apps\r\n	Microsoft Teams\r\n	Voice channels\r\n \r\n❌ Why the other options are incorrect \r\n	Machine Learning : Used for building ML models, not chat/voice assistants. \r\n	Azure IoT Hub : Used for IoT device communication, not digital assistants. \r\n	Azure Functions : Used for serverless code execution, not bot/voice interactions. ', '2026-01-25 18:03:31', 1),
+	(4, 4, 'Correct answer: ✅ Azure Machine Learning \r\n\r\nAzure Machine Learning is designed for: \r\n  Training machine learning models \r\n  Using historical data to build predictive models \r\n  Evaluating model accuracy and probability \r\n  Deploying predictive services (real‑time or batch inference) \r\n\r\nThis exactly matches the requirement of making predictions from past training data. \r\n\r\n❌ Why the other options are incorrect: \r\n	Azure IoT Hub: Used for connecting and managing IoT devices, not predictive analytics. \r\n	Azure AI Bot: Used to build chatbots and virtual assistants, not predictive models. \r\n	Azure Functions: Serverless code execution; does not create predictive models.', '2026-01-25 18:13:59', 1),
 	(5, 5, 'Correct answer: Azure Functions', '2026-01-25 18:21:14', 1),
 	(6, 6, 'Correct answer: Azure IoT Hub', '2026-01-25 18:25:07', 1),
-	(7, 7, 'Correct answer: Azure Resource Manager (ARM) Templates', '2026-01-25 18:30:07', 1),
-	(8, 8, 'correct answer:  Two virtual machines and Two availability zones', '2026-01-25 18:34:33', 1),
+	(7, 7, 'Correct answer: ✅ Azure Resource Manager Templates \r\n\r\n✅ Why this fits the requirements: \r\n  Automation: Azure Resource Manager (ARM) templates are specifically designed to automate deployments. \r\n  Same resource type: You can define a template once and reuse it to deploy identical resources. \r\n  Across departments: Templates can be deployed repeatedly across different resource groups, subscriptions, or departments. \r\n\r\n❌ Why the other options don’t fit:\r\n	Virtual Machine Scale Sets \r\n		Used to deploy and manage a group of identical VMs, but only for compute scaling—not general resource deployment. \r\n\r\n	Management Groups \r\n		Help organize subscriptions and apply governance (like policies), not deploy resources. \r\n\r\n	Microsoft Entra ID (formerly Azure AD) \r\n		Handles identity and access management, not resource deployment. ', '2026-01-25 18:30:07', 1),
+	(8, 8, 'Correct answer: ✅ Two virtual machines and Two availability zones\r\n \r\nTo meet a 99.99% SLA in Azure, you must use Availability Zones with multiple virtual machines. Azure only provides this SLA when you deploy at least two VMs across different availability zones.\r\n\r\nWhy:\r\n	A single VM (even in one or multiple zones) does not meet 99.99% SLA.\r\n	Azure’s SLA for Availability Zones requires:\r\n		At least 2 VMs\r\n		Each VM placed in different availability zones\r\n	This setup protects against:\r\n		Data center failures\r\n		Zone-level outages\r\n\r\nKey idea:\r\n	Availability Set → 99.95% SLA\r\n	Availability Zones (2+ VMs across zones) → 99.99% SLA\r\n\r\nSo the minimum valid architecture is:\r\n👉 2 VMs distributed across 2 Availability Zones', '2026-01-25 18:34:33', 1),
 	(9, 9, 'Explanation\r\nThe requirement is:\r\n	Correlate events from multiple resources\r\n	Store them in a central repository for analysis\r\nAzure Log Analytics is part of Azure Monitor and provides:\r\n	Centralized collection of logs and metrics from VMs, storage, networking, and other resources\r\n	Powerful querying and correlation of events\r\n	Basis for dashboards, alerts, and insights', '2026-01-25 18:38:13', 1),
 	(12, 10, 'Implementing a DDoS protection plan protects against distributed denial-of-service attacks, but it does not automatically ensure that the application is accessible over HTTPS. You also need to configure a public endpoint and HTTPS listener on the VM or use Azure Application Gateway.', '2026-01-25 18:42:01', 1),
 	(13, 11, 'Azure Traffic Manager is a DNS-based load balancer that distributes traffic across multiple endpoints. It does not directly make the application accessible over HTTPS on a single VM. You need a public endpoint and HTTPS listener to satisfy the requirement.', '2026-01-25 18:47:53', 1),
-	(14, 12, 'Azure Government is a cloud environment dedicated to US government entities and contractors. Entities outside the US are not eligible.', '2026-01-25 18:48:15', 1),
+	(14, 12, 'Correct answer : ✅ United States government entity, ✅ A United States government contractor \r\n\r\nAzure Government is a separate Azure cloud designed specifically for: \r\n  U.S. federal agencies \r\n  U.S. state and local governments \r\n  U.S. government contractors \r\n  U.S. government‑approved partners \r\n\r\nThis environment meets strict compliance requirements such as: \r\n  FedRAMP High \r\n  DoD Impact Levels \r\n  CJIS \r\n  ITAR \r\n\r\nBecause these regulations apply only to U.S. government operations, Azure Government cannot be used by: \r\n  European government entities \r\n  European government contractors \r\n  Any non‑U.S. organizations ', '2026-01-25 18:48:15', 1),
 	(15, 13, 'Azure MFA can be implemented using the cloud-only solution in Azure Active Directory without deploying a federated solution.', '2026-01-25 18:48:42', 1),
 	(16, 14, 'Azure MFA methods include phone call, text message, and mobile app notification or verification code. Picture identification and passport number are not valid MFA methods.', '2026-01-25 18:48:57', 1),
 	(17, 15, 'The Basic support plan gives access to billing, subscription, and service health information at no additional cost.', '2026-01-25 18:49:05', 1),
@@ -597,7 +597,7 @@ INSERT INTO `explanation` (`explanation_id`, `question_id`, `explanation_text`, 
 	(22, 20, 'Fault tolerance ensures that systems remain available even if a data center or component fails, which meets the business continuity requirement.', '2026-01-25 18:50:02', 1),
 	(23, 21, 'A company can decommission its data center if the infrastructure is fully hosted in the public cloud, eliminating the need for on-premises resources.', '2026-01-25 18:53:10', 1),
 	(24, 22, 'Hosting a website on Azure incurs monthly hosting costs. A VPN or per-connection charges are not required for a public web site.', '2026-01-25 18:53:24', 1),
-	(25, 23, 'Azure PowerShell and CLI tools are cross-platform. Scripts can run on Linux if the Azure CLI or PowerShell Core is installed.', '2026-01-25 18:53:33', 1),
+	(25, 23, 'Correct answer: ✅ No\r\n\r\nRunning the script from a Linux computer with Azure CLI tools installed does not meet the goal. The requirement is to run a PowerShell script, which specifically needs Azure PowerShell modules (Az module) installed. Azure CLI is a separate toolset with its own command syntax, and it cannot execute PowerShell cmdlets.\r\n\r\n✅ Correct configuration:\r\n        A computer running Windows, macOS, or Linux\r\n        With PowerShell installed\r\n        And the Azure PowerShell Az module added\r\n\r\nThat setup ensures the PowerShell script can properly create and manage Azure resources.', '2026-01-25 18:53:33', 1),
 	(26, 24, 'Azure Cloud Shell runs in the browser and supports PowerShell scripts, regardless of the underlying OS.', '2026-01-25 18:53:41', 1),
 	(27, 25, 'PowerShell Core is cross-platform. Scripts can run on macOS as long as PowerShell Core is installed.', '2026-01-25 18:53:50', 1),
 	(28, 26, 'Planned maintenance events are listed in the Help + Support blade in the Azure portal.', '2026-01-25 18:54:01', 1),
@@ -651,7 +651,7 @@ INSERT INTO `explanation` (`explanation_id`, `question_id`, `explanation_text`, 
 	(76, 74, '✅ Azure DevTest Labs\n\nWhy:\nAzure DevTest Labs is designed specifically to quickly provision and delete virtual machines with minimal administrative overhead. It works very well with Azure Resource Manager (ARM) templates, and it includes built-in features like:\nEasy bulk VM creation and deletion\nAutomated shutdown and cleanup\nPolicies to control costs and usage\n\nThis makes it ideal for scenarios where VMs are frequently created and removed, like weekly dev/test cycles.\n\nWhy the others don’t fit:\n❌ Azure Reserved VM Instances – Cost-optimization for long-running VMs, not rapid deployment/removal.\n❌ Azure VM scale sets – Best for scaling identical VMs for apps, not frequent lifecycle management by developers.\n❌ Microsoft Managed Desktop – End-user desktop service, not VM deployment automation.', '2026-02-28 11:02:30', 1),
 	(77, 75, '👉 Correct answer: No ✔️\n\nExplanation:\nThe migration plan requires only Platform as a Service (PaaS) solutions.\n\nAzure virtual machines are Infrastructure as a Service (IaaS) ❌\nAzure SQL databases are PaaS ✅\nAzure Storage accounts are considered PaaS ✅\nBecause the solution includes Azure virtual machines (IaaS), it does not meet the requirement to use only PaaS services.', '2026-02-28 11:02:30', 1),
 	(78, 76, 'The correct answer is:\n✅ Infrastructure as a Service (IaaS)\n\nWhy:\nThe applications require custom software and multiple prerequisite applications and services to be installed. That means you need full control over:\n	The operating system\n	Installed software and dependencies\n	Application configuration\n	This level of control is provided by IaaS (for example, Azure virtual machines).\n\nWhy not the others:\n	❌ SaaS – Ready-to-use applications; you don’t deploy or customize the underlying app stack.\n	❌ PaaS – You manage the app, but the platform controls the OS and limits installing custom prerequisite software.', '2026-02-28 11:02:30', 1),
-	(79, 77, 'The correct statement is:\n✅ Contains one or more data centers that are connected by using a low-latency network.\n\nAnswer: No change is needed.\n\nWhy the other options are incorrect:\n	❌ Is found in each country where Microsoft has a subsidiary office — Azure regions are not tied to office locations.\n	❌ Can be found in every country in Europe and the Americas only — Azure regions exist worldwide, but not in every country.\n	❌ Connected by a high-latency network — Azure regions are specifically designed for low latency.', '2026-02-28 11:02:30', 1),
+	(79, 77, 'Correct answer: ✅ No change is needed.\n\nAn Azure region is defined as:\n        A set of one or more data centers,\n        Located within a specific geographic area,\n        Connected by a low-latency network to ensure performance and reliability.\n\nThe other options are incorrect because:\n❌ Is found in each country where Microsoft has a subsidiary office → Azure regions are strategically placed, not in every country.\n        \n❌ Can be found in every country in Europe and the Americas only → Azure regions exist worldwide, including Asia, Africa, and Australia.\n        \n❌ Contains one or more data centers that are connected by using a high-latency network → Azure regions are specifically designed for low-latency connections.', '2026-02-28 11:02:30', 1),
 	(80, 78, 'The correct answers are:\n	✅ Command Prompt\n	✅ Windows PowerShell\n\nWhy:\nThe Azure CLI can be run from:\n	Command Prompt\n	Windows PowerShell\n	(also Bash / Cloud Shell, but those aren’t options here)\n\nWhy the others are incorrect:\n	❌ Azure Resource Explorer – Used to view and manage Azure resources, not to run the CLI.\n	❌ Windows Defender Firewall – Security tool, unrelated to CLI execution.\n	❌ Network and Sharing Center – Network configuration tool, not for command execution.', '2026-02-28 11:02:30', 1),
 	(81, 79, 'The correct answers are:\n✅ Azure Data Lake\n✅ Azure Synapse Analytics\n\nWhy these two fit best:\nAzure Data Lake is ideal for storing large volumes of data (20 TB) that are accessed infrequently. It’s cost-effective and designed for analytics scenarios.\nAzure Synapse Analytics integrates seamlessly with Power BI and is built for analyzing and visualizing large datasets stored in places like Azure Data Lake.\n\nWhy the others are not ideal:\n❌ Azure Cosmos DB – Optimized for low-latency, high-transaction workloads, not infrequent access analytics.\n❌ Azure SQL Database – Better for structured, transactional workloads; expensive and inefficient at 20 TB for analytics.\n❌ Azure Database for PostgreSQL – Relational database, not designed for large-scale analytics and BI scenarios.', '2026-02-28 11:02:31', 1),
 	(82, 80, 'The correct answer is:\n✅ An Azure data center failure\n\nWhy:\nAzure Availability Zones are designed to protect applications and services from data center–level failures. Each Availability Zone is a physically separate data center within the same Azure region, with independent power, cooling, and networking.\n\nWhy the others are incorrect:\n❌ A physical server failure – This is handled by Azure’s built-in redundancy and high availability within a data center.\n❌ An Azure region failure – Availability Zones do not protect against entire region outages (that’s what region pairs are for).\n❌ A storage failure – Storage redundancy options (like LRS, ZRS, GRS) handle this, not Availability Zones directly.', '2026-02-28 11:02:31', 1),
@@ -1003,7 +1003,7 @@ INSERT INTO `explanation` (`explanation_id`, `question_id`, `explanation_text`, 
 	(428, 426, 'Correct answer: ✅ Yes\n\nAzure DevOps Services includes Azure Repos, which provides Git repositories for developers to store, manage, and version their source code.\n\nKey points\n	Supports Git repositories for distributed version control.\n	Allows collaboration among multiple developers.\n	Integrates with Azure Pipelines for CI/CD workflows.\n\n✔ Final answer: Yes.', '2026-03-14 17:56:18', 1),
 	(429, 427, 'Correct answer: ✅ Yes\n\nAzure DevOps Services can be used to build web applications and deploy them to Azure hosting services such as Azure App Service.\n\nKey AZ‑900 points\n	Azure DevOps provides CI/CD pipelines to automate building, testing, and deploying web apps.\n	While DevOps itself does not host the apps, it integrates seamlessly with Azure services to host and run them.\n	This allows developers to manage the full lifecycle of web applications in Azure.\n\n✔ Final answer: Yes.\n ', '2026-03-14 17:56:18', 1),
 	(430, 428, 'Correct answer: ✅ No change is needed\n\nThe statement is already correct.\n\nExplanation (AZ-900 context)\n	In Microsoft Azure, virtual machines (VMs) within the same virtual network (VNet) can communicate with each other by default.\n	To isolate VM1 from the other VMs, you must deploy it to a separate virtual network.\n\nWhy the other options are incorrect\n	Different operating system → Does not affect network connectivity.\n	Separate resource group → Only affects management and billing, not network isolation.\n	Two network interfaces → Does not prevent communication.\n\n✔ Final answer: No change is needed (the original answer is correct).\n', '2026-03-14 17:56:18', 1),
-	(431, 429, 'Correct answer: ✅ Local network gateways\n\nIn Microsoft Azure, a Local Network Gateway is used to represent your on-premises VPN appliance or network when creating a site-to-site VPN connection.\n\nKey points\n	You specify the public IP address of the VPN appliance (e.g., 131.107.200.1).\n	You define address prefixes for the on-premises network.\n	This resource is used in combination with an Azure Virtual Network Gateway to establish the VPN connection.\n\nWhy the other options are incorrect\n	Virtual networks → Define Azure internal network, not on-premises.\n	Load balancers / Application gateways → Manage traffic to Azure resources.\n	DNS zones → Resolve domain names.\n	Traffic Manager / CDN profiles → Global traffic routing, content delivery.\n	Network security groups → Control access to resources.\n	Virtual network gateways → Azure-side VPN gateway, not the on-premises VPN appliance.\n\n✔ Final answer: Local network gateways.', '2026-03-14 17:56:18', 1),
+	(431, 429, 'Correct answer: ✅ Local network gateways\n\nHere’s why:\n        A local network gateway represents your on-premises VPN appliance in Azure.\n        You configure it with the public IP address of your VPN device (in this case, 131.107.200.1) and the address space of your on-premises network.\n        Azure then uses this definition when setting up a VPN connection between your on-premises network and an Azure virtual network gateway.\n\nWhy not the others?\n        Virtual networks → Define your Azure network, but don’t represent your on-premises VPN appliance.\n        \n        Virtual network gateways → Provide the Azure side of the VPN connection, not the on-premises side.\n        \n        Load balancers, Application gateways, Traffic Manager profiles, CDN profiles → These are for traffic distribution, not VPN connectivity.\n        \n        DNS zones, Network Watcher, Network security groups → These handle name resolution, monitoring, and security, not VPN appliances.\n        \n        ExpressRoute circuits → Used for private dedicated connections, not site-to-site VPNs.\n        \n        Virtual networks (classic) → Legacy, not recommended.\n\n👉 So, to identify your on-premises VPN appliance in Azure, you must create a Local network gateway.', '2026-03-14 17:56:18', 1),
 	(432, 430, 'Correct answer: ✅ the virtual machines can be moved to the new subscription\n\nExplanation\n\nIn Microsoft Azure:\n	Azure resources, including virtual machines, can be moved between subscriptions as long as:\n		Both subscriptions are in the same Azure Active Directory tenant.\n		All associated resources (disks, network interfaces, public IPs, etc.) are also moved or exist in the target subscription.\n	There is no requirement that the VMs must be in the same resource group.\n	There is no OS restriction.\n\nSo, with proper planning, VMs can be moved to a new subscription.\n\n✔ Final answer: the virtual machines can be moved to the new subscription', '2026-03-14 17:56:18', 1),
 	(433, 431, 'Correct answer: ✅ Authentication\n\nAuthentication is the process of verifying a user\'s credentials (such as username and password) to confirm their identity.\n\nWhy the others are incorrect\n	Authorization → Determines what resources a user can access after authentication.\n	Federation → Allows sharing identity information across different organizations or systems.\n	Ticketing → Not related to verifying user credentials.\n\n✔ Final answer: Authentication.', '2026-03-14 17:57:17', 1),
 	(434, 432, 'Correct answer: ✅ the delete lock must be removed before an administrator\n\nIn Microsoft Azure, if a resource group has a delete lock, the resource group cannot be deleted by anyone, even administrators.\n\nThis lock is implemented using Azure Resource Manager to protect resources from accidental deletion.\n\nKey point\n	A Delete Lock (CanNotDelete) prevents deletion of the resource group and its resources.\n	To delete the resource group, the lock must first be removed.\n\n✔ Final answer: the delete lock must be removed before an administrator.\n ', '2026-03-14 17:57:17', 1),
@@ -1072,9 +1072,9 @@ CREATE TABLE IF NOT EXISTS `option_master` (
   `is_active` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`option_id`),
   KEY `idx_option_question` (`question_id`,`is_active`)
-) ENGINE=InnoDB AUTO_INCREMENT=1026 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1408 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.option_master: ~1,297 rows (approximately)
+-- Dumping data for table quiz_db.option_master: ~1,339 rows (approximately)
 INSERT INTO `option_master` (`option_id`, `question_id`, `option_text`, `option_order`, `created_at`, `is_active`) VALUES
 	(1, 1, 'YES', 1, '2026-01-25 17:45:05', 1),
 	(2, 1, 'NO', 2, '2026-01-25 17:45:17', 1),
@@ -2196,8 +2196,8 @@ INSERT INTO `option_master` (`option_id`, `question_id`, `option_text`, `option_
 	(1118, 390, 'No', 2, '2026-03-14 10:09:33', 1),
 	(1119, 391, 'A managed service that provides bidirectional communication between IoT devices and Azure: IoT Hub\n A fully managed software as a service (SaaS) solution to connect, monitor, and manage IoT devices at scale: IoT Central\n A software and hardware solution that provides communication and security features for IoT devices: Azure Sphere.', 1, '2026-03-14 10:17:54', 1),
 	(1120, 391, 'A managed service that provides bidirectional communication between IoT devices and Azure: Azure Sphere\n A fully managed software as a service (SaaS) solution to connect, monitor, and manage IoT devices at scale: IoT Hub\n A software and hardware solution that provides communication and security features for IoT devices: IoT Central.', 2, '2026-03-14 10:17:54', 1),
-	(1121, 391, 'A managed service that provides bidirectional communication between IoT devices and Azure: Azure Sphere\n A fully managed software as a service (SaaS) solution to connect, monitor, and manage IoT devices at scale: IoT Central.\n A software and hardware solution that provides communication and security features for IoT devices: IoT Hub.', 3, '2026-03-14 10:17:54', 1),
-	(1122, 391, 'A managed service that provides bidirectional communication between IoT devices and Azure: IoT Hub\n A fully managed software as a service (SaaS) solution to connect, monitor, and manage IoT devices at scale: Azure Sphere\n A software and hardware solution that provides communication and security features for IoT devices: IoT Central.', 4, '2026-03-14 10:17:54', 1),
+	(1121, 391, 'A managed service that provides bidirectional communication between IoT devices and Azure: Azure Sphere.\n A fully managed software as a service (SaaS) solution to connect, monitor, and manage IoT devices at scale: IoT Central.\n A software and hardware solution that provides communication and security features for IoT devices: IoT Hub.', 3, '2026-03-14 10:17:54', 1),
+	(1122, 391, 'A managed service that provides bidirectional communication between IoT devices and Azure: IoT Hub\n A fully managed software as a service (SaaS) solution to connect, monitor, and manage IoT devices at scale: Azure Sphere \n A software and hardware solution that provides communication and security features for IoT devices: IoT Central.', 4, '2026-03-14 10:17:54', 1),
 	(1123, 392, 'Create a resource', 1, '2026-03-14 10:17:54', 1),
 	(1124, 392, 'All services', 2, '2026-03-14 10:17:54', 1),
 	(1125, 392, 'Favorites', 3, '2026-03-14 10:17:54', 1),
@@ -2496,9 +2496,9 @@ CREATE TABLE IF NOT EXISTS `question` (
   `is_active` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`question_id`),
   KEY `idx_question_topic` (`topic_id`,`is_active`)
-) ENGINE=InnoDB AUTO_INCREMENT=351 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=486 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table quiz_db.question: ~450 rows (approximately)
+-- Dumping data for table quiz_db.question: ~485 rows (approximately)
 INSERT INTO `question` (`question_id`, `topic_id`, `question_text`, `question_type`, `difficulty`, `created_at`, `is_active`) VALUES
 	(1, 1, 'If you plan to host a web application in the Azure platform as a service solution of Azure Web Apps, then the platform will have the ability to scale automatically?', 'SINGLE', 'MEDIUM', '2026-01-25 17:44:39', 1),
 	(2, 1, 'You decide to create 2 Virtual machines. Each virtual machine is of the size D2s v3. Would these machines always generate the same monthly cost?', 'SINGLE', 'MEDIUM', '2026-01-25 17:53:06', 1),
@@ -2993,14 +2993,20 @@ CREATE TABLE IF NOT EXISTS `question_attempt` (
   `attempt_id` bigint NOT NULL,
   `question_id` int NOT NULL,
   `is_correct` tinyint(1) NOT NULL,
-  PRIMARY KEY (`question_attempt_id`),
-  KEY `attempt_id` (`attempt_id`),
-  KEY `question_id` (`question_id`),
+  PRIMARY KEY (`question_attempt_id`) USING BTREE,
+  KEY `attempt_id` (`attempt_id`) USING BTREE,
+  KEY `question_id` (`question_id`) USING BTREE,
   CONSTRAINT `question_attempt_ibfk_1` FOREIGN KEY (`attempt_id`) REFERENCES `quiz_attempt` (`attempt_id`),
   CONSTRAINT `question_attempt_ibfk_2` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table quiz_db.question_attempt: ~0 rows (approximately)
+-- Dumping data for table quiz_db.question_attempt: ~5 rows (approximately)
+INSERT INTO `question_attempt` (`question_attempt_id`, `attempt_id`, `question_id`, `is_correct`) VALUES
+	(1, 1, 1, 0),
+	(2, 1, 406, 0),
+	(3, 1, 159, 1),
+	(4, 1, 42, 1),
+	(5, 1, 55, 1);
 
 -- Dumping structure for table quiz_db.question_attempt_option
 DROP TABLE IF EXISTS `question_attempt_option`;
@@ -3008,14 +3014,18 @@ CREATE TABLE IF NOT EXISTS `question_attempt_option` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `question_attempt_id` bigint NOT NULL,
   `option_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `question_attempt_id` (`question_attempt_id`),
-  KEY `option_id` (`option_id`),
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `question_attempt_id` (`question_attempt_id`) USING BTREE,
+  KEY `option_id` (`option_id`) USING BTREE,
   CONSTRAINT `question_attempt_option_ibfk_1` FOREIGN KEY (`question_attempt_id`) REFERENCES `question_attempt` (`question_attempt_id`),
   CONSTRAINT `question_attempt_option_ibfk_2` FOREIGN KEY (`option_id`) REFERENCES `option_master` (`option_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table quiz_db.question_attempt_option: ~0 rows (approximately)
+-- Dumping data for table quiz_db.question_attempt_option: ~3 rows (approximately)
+INSERT INTO `question_attempt_option` (`id`, `question_attempt_id`, `option_id`) VALUES
+	(1, 3, 521),
+	(2, 4, 127),
+	(3, 5, 158);
 
 -- Dumping structure for table quiz_db.quiz_attempt
 DROP TABLE IF EXISTS `quiz_attempt`;
@@ -3028,12 +3038,14 @@ CREATE TABLE IF NOT EXISTS `quiz_attempt` (
   `score` int NOT NULL,
   `started_at` datetime NOT NULL,
   `submitted_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`attempt_id`),
-  KEY `topic_id` (`topic_id`),
+  PRIMARY KEY (`attempt_id`) USING BTREE,
+  KEY `topic_id` (`topic_id`) USING BTREE,
   CONSTRAINT `quiz_attempt_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`topic_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table quiz_db.quiz_attempt: ~0 rows (approximately)
+-- Dumping data for table quiz_db.quiz_attempt: ~1 rows (approximately)
+INSERT INTO `quiz_attempt` (`attempt_id`, `user_id`, `topic_id`, `total_questions`, `correct_count`, `score`, `started_at`, `submitted_at`) VALUES
+	(1, 2, 1, 5, 3, 3, '2026-03-23 22:41:48', '2026-03-23 22:41:48');
 
 -- Dumping structure for table quiz_db.topic
 DROP TABLE IF EXISTS `topic`;
